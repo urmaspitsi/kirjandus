@@ -1,135 +1,776 @@
 <!DOCTYPE html>
 <html lang="et">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Prints ja kerjus | Õppematerjal</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;500;700;800&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="styles.css" />
-  </head>
-  <body>
-    <header class="hero" id="top">
-      <nav class="topbar">
-        <a class="brand" href="#top">Prints ja kerjus</a>
-        <div class="nav-links">
-          <a href="#ylevaade">Ülevaade</a>
-          <a href="#peatykid">Peatükid</a>
-          <a href="#tegelased">Tegelased</a>
-          <a href="#kysimustik">Küsimustik</a>
-        </div>
-      </nav>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Prints ja kerjus – õppematerjal</title>
+  <style>
+    :root {
+      --bg: #f6f8fc;
+      --card: #ffffff;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --primary: #4f46e5;
+      --primary-2: #6366f1;
+      --accent: #f59e0b;
+      --good: #15803d;
+      --bad: #b91c1c;
+      --border: #e5e7eb;
+      --shadow: 0 10px 25px rgba(15, 23, 42, 0.08);
+      --radius: 18px;
+    }
 
-      <div class="hero-inner">
-        <div class="hero-copy">
-          <p class="eyebrow">Mark Twaini teos 12-15-aastastele õppijatele</p>
-          <h1>Õppematerjal, mis aitab “Printsi ja kerjuse” kiiresti meelde jätta</h1>
-          <p class="lead">
-            Siit leiad kogu teose lühikokkuvõtte, peatükkide põhisündmused,
-            tähtsad tegelased ja valikvastustega küsimustiku, mis jätab valed
-            vastused meelde ja pakub neid hiljem uuesti harjutamiseks.
-          </p>
-          <div class="hero-actions">
-            <a class="button primary" href="#kysimustik">Alusta küsimustikuga</a>
-            <a class="button secondary" href="#peatykid">Vaata peatükke</a>
-          </div>
-        </div>
+    * { box-sizing: border-box; }
 
-        <aside class="hero-note">
-          <p class="note-label">Mida õppides jälgida?</p>
-          <ul>
-            <li>Kuidas vahetavad Tom Canty ja Edward Tudor rollid.</li>
-            <li>Mida räägib teos vaesuse, võimu ja õiguse kohta.</li>
-            <li>Kuidas kogemused muudavad noore printsi otsuseid.</li>
-          </ul>
-        </aside>
-      </div>
-    </header>
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: linear-gradient(180deg, #eef2ff 0%, var(--bg) 30%, #fffdf7 100%);
+      color: var(--text);
+      line-height: 1.6;
+    }
 
-    <main>
-      <section class="section overview" id="ylevaade">
-        <div class="section-heading">
-          <p class="section-kicker">Kogu teos lühidalt</p>
-          <h2>Lühikokkuvõte kuni 10 lausega</h2>
-        </div>
-        <ol class="summary-list">
-          <li>Samal päeval sünnivad Londonis vaene poiss Tom Canty ja Inglismaa troonipärija Edward Tudor.</li>
-          <li>Tom elab vaesuses ja unistab kuninglikust elust, Edward aga tunneb palees suurt üksindust ja rangeid reegleid.</li>
-          <li>Poisid kohtuvad juhuslikult, avastavad oma sarnasuse ning vahetavad naljaviluks riided.</li>
-          <li>Segaduse tõttu peetakse Edwardit kerjuseks ja Tomi printsiks, nii et kumbki jääb teise ellu lõksu.</li>
-          <li>Tom püüab palees õiglaselt käituda, kuid kardab, et tema saladus tuleb välja.</li>
-          <li>Edward rändab tänavatel ja maanteedel, näeb vaesust, vägivalda ning ebaõiglust ja õpib, kui raske on lihtinimese elu.</li>
-          <li>Teda aitab truu Miles Hendon, kes usub poisi väärikusse ka siis, kui teised teda hulluks peavad.</li>
-          <li>Kui kuningas Henry VIII sureb, ähvardab Tom kroonituks saada enne, kui tõeline prints jõuab tagasi.</li>
-          <li>Kroonimisel ilmub Edward välja, tõestab oma isiku ja saab lõpuks kuningaks Edward VI-ks.</li>
-          <li>Pärast kõiki läbielamisi valitseb ta halastavamalt, sest ta mõistab nüüd palju paremini oma rahva kannatusi.</li>
-        </ol>
-      </section>
+    header {
+      padding: 32px 20px 20px;
+      text-align: center;
+      background: radial-gradient(circle at top, #c7d2fe 0%, rgba(199,210,254,0.4) 35%, transparent 70%);
+    }
 
-      <section class="section chapters" id="peatykid">
-        <div class="section-heading">
-          <p class="section-kicker">Peatükkide kaupa</p>
-          <h2>Peatükkide kokkuvõtted, olulisemad sündmused ja tegelased</h2>
-        </div>
-        <div id="chapter-list" class="chapter-list"></div>
-      </section>
+    .hero {
+      max-width: 1000px;
+      margin: 0 auto;
+      background: rgba(255,255,255,0.75);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.7);
+      border-radius: 28px;
+      padding: 28px;
+      box-shadow: var(--shadow);
+    }
 
-      <section class="section characters" id="tegelased">
-        <div class="section-heading">
-          <p class="section-kicker">Tegelased</p>
-          <h2>Olulisemad tegelased kogu teoses</h2>
-        </div>
-        <div id="character-grid" class="character-grid"></div>
-      </section>
+    h1, h2, h3 { line-height: 1.2; }
+    h1 { margin: 0 0 10px; font-size: clamp(2rem, 4vw, 3.2rem); }
+    h2 { margin-top: 0; font-size: clamp(1.4rem, 2.6vw, 2rem); }
+    h3 { margin-top: 0; }
 
-      <section class="section quiz" id="kysimustik">
-        <div class="section-heading">
-          <p class="section-kicker">Harjutamiseks</p>
-          <h2>Valikvastustega küsimustik</h2>
-          <p class="section-text">
-            Igal küsimusel on viis vastusevarianti. Kui eksid, jätab leht selle
-            küsimuse meelde ja pakub hiljem valede vastuste kordamisvooru.
-          </p>
-        </div>
+    .subtitle {
+      margin: 0 auto;
+      max-width: 800px;
+      color: var(--muted);
+      font-size: 1.05rem;
+    }
 
-        <div class="quiz-toolbar">
-          <button class="button primary" id="start-quiz">Alusta põhiküsimustikku</button>
-          <button class="button secondary" id="start-review">Korda valesid küsimusi</button>
-          <button class="button ghost" id="reset-progress">Nulli meelespeetud vead</button>
-        </div>
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: rgba(246,248,252,0.9);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+    }
 
-        <div class="quiz-stats" id="quiz-stats">
-          <div><span class="stat-label">Läbitud</span><strong id="answered-count">0</strong></div>
-          <div><span class="stat-label">Õiged</span><strong id="correct-count">0</strong></div>
-          <div><span class="stat-label">Meeles peetavad vead</span><strong id="missed-count">0</strong></div>
-        </div>
+    .nav-wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 12px 16px;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
 
-        <div class="quiz-shell" id="quiz-shell">
-          <div class="quiz-empty" id="quiz-empty">
-            Vali kas põhiküsimustik või valesti läinud küsimuste kordamisvoor.
-          </div>
-        </div>
+    .nav-btn {
+      border: none;
+      background: white;
+      color: var(--text);
+      padding: 10px 16px;
+      border-radius: 999px;
+      cursor: pointer;
+      font-weight: 600;
+      border: 1px solid var(--border);
+      transition: 0.2s ease;
+    }
 
-        <div class="missed-panel">
-          <h3>Meeles peetud küsimused</h3>
-          <p id="missed-summary">
-            Kui vastad valesti, ilmuvad küsimused siia ning saad neid hiljem uuesti harjutada.
-          </p>
-          <div id="missed-list" class="missed-list"></div>
-        </div>
-      </section>
-    </main>
+    .nav-btn:hover,
+    .nav-btn.active {
+      background: var(--primary);
+      color: white;
+      transform: translateY(-1px);
+      border-color: var(--primary);
+    }
 
-    <footer class="footer">
-      <p>
-        Õppematerjal keskendub teose sisule, tegelastele ja põhisündmustele, et kordamine oleks kiire ja arusaadav.
+    main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 22px 16px 50px;
+    }
+
+    .section {
+      display: none;
+      animation: fade 0.25s ease;
+    }
+
+    .section.active { display: block; }
+
+    @keyframes fade {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 22px;
+      box-shadow: var(--shadow);
+      margin-bottom: 18px;
+    }
+
+    .summary-list {
+      padding-left: 20px;
+      margin: 14px 0 0;
+    }
+
+    .summary-list li { margin-bottom: 10px; }
+
+    .chapter-grid,
+    .characters-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+    }
+
+    .tag-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .tag {
+      display: inline-block;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: #eef2ff;
+      color: #3730a3;
+      font-size: 0.92rem;
+      font-weight: 600;
+    }
+
+    details {
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      background: white;
+      padding: 14px 16px;
+      box-shadow: var(--shadow);
+    }
+
+    details + details { margin-top: 14px; }
+    summary {
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 1.05rem;
+    }
+
+    .muted { color: var(--muted); }
+
+    .character-card {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .character-card::before {
+      content: "";
+      position: absolute;
+      inset: 0 0 auto 0;
+      height: 5px;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+    }
+
+    .quiz-top {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .stat {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 14px;
+      box-shadow: var(--shadow);
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 1.4rem;
+      color: var(--primary);
+    }
+
+    .progress-bar {
+      height: 12px;
+      background: #e5e7eb;
+      border-radius: 999px;
+      overflow: hidden;
+      margin: 12px 0 18px;
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      transition: width 0.3s ease;
+    }
+
+    .answers {
+      display: grid;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .answer-btn {
+      text-align: left;
+      width: 100%;
+      padding: 14px 16px;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      background: white;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: 0.2s ease;
+    }
+
+    .answer-btn:hover:not(:disabled) {
+      border-color: var(--primary);
+      transform: translateY(-1px);
+    }
+
+    .answer-btn.correct {
+      background: #ecfdf5;
+      border-color: #86efac;
+      color: var(--good);
+      font-weight: 700;
+    }
+
+    .answer-btn.wrong {
+      background: #fef2f2;
+      border-color: #fca5a5;
+      color: var(--bad);
+      font-weight: 700;
+    }
+
+    .feedback {
+      margin-top: 16px;
+      padding: 14px 16px;
+      border-radius: 14px;
+      font-weight: 600;
+      display: none;
+    }
+
+    .feedback.good { display: block; background: #ecfdf5; color: var(--good); }
+    .feedback.bad { display: block; background: #fef2f2; color: var(--bad); }
+
+    .controls {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 18px;
+    }
+
+    button.primary,
+    button.secondary {
+      border: none;
+      border-radius: 14px;
+      padding: 12px 16px;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    button.primary { background: var(--primary); color: white; }
+    button.secondary { background: #e5e7eb; color: var(--text); }
+
+    .results-list li { margin-bottom: 10px; }
+
+    .pill {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: #fef3c7;
+      color: #92400e;
+      font-weight: 700;
+      font-size: 0.9rem;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    @media (max-width: 640px) {
+      .hero { padding: 20px; }
+      .card { padding: 18px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="hero">
+      <p class="pill">Õppematerjal 12–15-aastastele</p>
+      <h1>Mark Twaini „Prints ja kerjus”</h1>
+      <p class="subtitle">
+        Sellelt lehelt leiad lühikokkuvõtte, peatükkide ülevaated, tegelaste tutvustused ja testi,
+        mis aitab sul kontrollida, kui hästi teost mäletad.
       </p>
-    </footer>
+    </div>
+  </header>
 
-    <script src="script.js"></script>
-  </body>
+  <nav>
+    <div class="nav-wrap">
+      <button class="nav-btn active" data-target="kokkuvote">Kokkuvõte</button>
+      <button class="nav-btn" data-target="peatykid">Peatükid</button>
+      <button class="nav-btn" data-target="tegelased">Tegelased</button>
+      <button class="nav-btn" data-target="test">Test</button>
+    </div>
+  </nav>
+
+  <main>
+    <section id="kokkuvote" class="section active">
+      <div class="card">
+        <h2>Kogu teose lühikokkuvõte</h2>
+        <ol class="summary-list">
+          <li>16. sajandi Londonis sünnivad samal päeval kaks poissi: vaene Tom Canty ja troonipärija Edward Tudor.</li>
+          <li>Tom elab vaesuses ja unistab uhkest elust, Edward elab palees, kuid tunneb, et tema elu on range ja piiratud.</li>
+          <li>Kui poisid juhuslikult kohtuvad, avastavad nad, et näevad hämmastavalt sarnased välja.</li>
+          <li>Nad vahetavad nalja pärast riided, kuid satuvad kohe segadusse ning kumbki jääb teise ellu kinni.</li>
+          <li>Tom peab palees käituma nagu prints, kuigi ta ei tunne õukonna kombeid ega riigiasju.</li>
+          <li>Edward satub tänavale ja kogeb esimest korda vaesust, vägivalda, ebaõiglust ja seaduste karmust.</li>
+          <li>Tom püüab troonipärijana olla õiglane ja hea südamega ning teeb mõnes asjas targemaid otsuseid kui täiskasvanud tema ümber.</li>
+          <li>Edward õpib oma rännakul mõistma tavainimeste raskusi ja seda, kui oluline on õiglane valitsemine.</li>
+          <li>Lõpuks jõuab Edward kroonimise ajaks tagasi ning tõestab, et tema on tõeline prints.</li>
+          <li>Teos näitab, et inimese väärtus ei sõltu riietest ega seisusest, vaid tema tegudest, südamest ja õiglustundest.</li>
+        </ol>
+      </div>
+
+      <div class="card">
+        <h2>Teemad, mida teos käsitleb</h2>
+        <div class="tag-list">
+          <span class="tag">Õiglus ja ebaõiglus</span>
+          <span class="tag">Vaesus ja rikkus</span>
+          <span class="tag">Võim ja vastutus</span>
+          <span class="tag">Identiteet</span>
+          <span class="tag">Kaastunne</span>
+          <span class="tag">Kasvamine ja õppimine</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="peatykid" class="section">
+      <div class="card">
+        <h2>Peatükkide kokkuvõtted</h2>
+        <p class="muted">Ava peatükk, et näha lühikokkuvõtet, tähtsamaid sündmusi ja olulisi tegelasi.</p>
+      </div>
+
+      <details>
+        <summary>1. peatükk – Tomi sünd ja kodu</summary>
+        <p><strong>Lühikokkuvõte:</strong> Tutvustatakse Tom Cantyt, vaest poissi Offali õuest. Tema pere on karm ja elu raske, kuid Tom armastab lugusid ning unistab paremast maailmast.</p>
+        <p><strong>Olulisemad sündmused:</strong> Näidatakse Tomi kodu, vaesust ja seda, kuidas kujutlusvõime aitab tal raskusi taluda.</p>
+        <p><strong>Tegelased:</strong> Tom Canty, John Canty, vanaema, isa Andrew.</p>
+      </details>
+
+      <details>
+        <summary>2. peatükk – Edwardi sünd ja paleeelu</summary>
+        <p><strong>Lühikokkuvõte:</strong> Tutvustatakse Walesi printsi Edward Tudorit. Ta elab rikkuses, kuid tema elu on väga range ja allub õukonna reeglitele.</p>
+        <p><strong>Olulisemad sündmused:</strong> Näidatakse, et paleeelu on uhke, kuid mitte alati õnnelik.</p>
+        <p><strong>Tegelased:</strong> Edward Tudor, kuninglik perekond, õukondlased.</p>
+      </details>
+
+      <details>
+        <summary>3. peatükk – Tomi unistused</summary>
+        <p><strong>Lühikokkuvõte:</strong> Tom kuulab lugusid ja mängib teiste lastega printsi. Tema huvi õukonnaelu vastu kasvab aina suuremaks.</p>
+        <p><strong>Olulisemad sündmused:</strong> Tom kujutab ette, kuidas prints elab, ning otsustab paleed oma silmaga näha.</p>
+        <p><strong>Tegelased:</strong> Tom Canty, isa Andrew, Tomi sõbrad.</p>
+      </details>
+
+      <details>
+        <summary>4. peatükk – Kohtumine palee väravas</summary>
+        <p><strong>Lühikokkuvõte:</strong> Tom hiilib palee juurde, kus valvur teda tõrjub. Edward märkab seda ja käsib Tomi enda juurde tuua.</p>
+        <p><strong>Olulisemad sündmused:</strong> Tom ja Edward kohtuvad esimest korda; algab teose kõige tähtsam sündmusteahel.</p>
+        <p><strong>Tegelased:</strong> Tom Canty, Edward Tudor, paleevalvur.</p>
+      </details>
+
+      <details>
+        <summary>5. peatükk – Riiete vahetus</summary>
+        <p><strong>Lühikokkuvõte:</strong> Poisid avastavad, et nad on väga sarnased, ning vahetavad nalja pärast riided. Edward läheb Tomi rõivastes korraks välja, kuid satub hätta.</p>
+        <p><strong>Olulisemad sündmused:</strong> Riiete vahetus; Edward tõrjutakse paleest välja.</p>
+        <p><strong>Tegelased:</strong> Tom Canty, Edward Tudor.</p>
+      </details>
+
+      <details>
+        <summary>6. peatükk – Tom palees</summary>
+        <p><strong>Lühikokkuvõte:</strong> Tom jääb paleesse lõksu. Kõik peavad teda printsiks, kuigi ta ei oska õukonnas õigesti käituda.</p>
+        <p><strong>Olulisemad sündmused:</strong> Tom püüab segadust seletada, kuid teda ei usuta.</p>
+        <p><strong>Tegelased:</strong> Tom Canty, õukondlased, printsessi Elizabeth ja Jane Grey.</p>
+      </details>
+
+      <details>
+        <summary>7. peatükk – Edward tänaval</summary>
+        <p><strong>Lühikokkuvõte:</strong> Edward kogeb tänavaelu julmust. Keegi ei usu, et ta on prints, ning teda koheldakse nagu tavalist vaest poissi.</p>
+        <p><strong>Olulisemad sündmused:</strong> Edward saab tunda alandust, nälga ja ohtu.</p>
+        <p><strong>Tegelased:</strong> Edward Tudor, linnarahvas, valvurid.</p>
+      </details>
+
+      <details>
+        <summary>8. peatükk – Tom õpib valitsema</summary>
+        <p><strong>Lühikokkuvõte:</strong> Tom hakkab palees uue olukorraga kohanema. Ta püüab teha otsuseid oma südametunnistuse järgi.</p>
+        <p><strong>Olulisemad sündmused:</strong> Tom näeb, kui keeruline on võim, ning tunneb vastutust teiste ees.</p>
+        <p><strong>Tegelased:</strong> Tom Canty, lord Hertford, teised nõunikud.</p>
+      </details>
+
+      <details>
+        <summary>9. peatükk – Miles Hendon</summary>
+        <p><strong>Lühikokkuvõte:</strong> Edward kohtub aadliku Miles Hendoniga, kellest saab tema ustav kaitsja. Miles ei tea algul, kas Edward räägib tõtt, kuid jääb talle siiski truuks.</p>
+        <p><strong>Olulisemad sündmused:</strong> Algab sõprus, mis aitab Edwardil ellu jääda.</p>
+        <p><strong>Tegelased:</strong> Edward Tudor, Miles Hendon.</p>
+      </details>
+
+      <details>
+        <summary>10. peatükk – Rännaku raskused</summary>
+        <p><strong>Lühikokkuvõte:</strong> Edward ja Miles liiguvad ringi ning satuvad mitmesse ohtlikku olukorda. Edward näeb, kuidas seadusi kasutatakse vahel ebaõiglaselt.</p>
+        <p><strong>Olulisemad sündmused:</strong> Kohtumised vaeste, petturite ja karmide võimuesindajatega.</p>
+        <p><strong>Tegelased:</strong> Edward Tudor, Miles Hendon, erinevad teekonnal kohatud inimesed.</p>
+      </details>
+
+      <details>
+        <summary>11. peatükk – Tom troonipärijana</summary>
+        <p><strong>Lühikokkuvõte:</strong> Tom peab osalema üha tähtsamates õukonnaasjades. Tema lihtne õiglustunne paneb teda mõtlema vaeste ja karistatud inimeste peale.</p>
+        <p><strong>Olulisemad sündmused:</strong> Tom teeb kaastundlikke otsuseid ja võidab mõne inimese poolehoiu.</p>
+        <p><strong>Tegelased:</strong> Tom Canty, kuninglikud nõuandjad, õukondlased.</p>
+      </details>
+
+      <details>
+        <summary>12. peatükk – Kuninga surm</summary>
+        <p><strong>Lühikokkuvõte:</strong> Henry VIII sureb ning Tomi peetakse nüüd uueks kuningaks. Segadus muutub veelgi suuremaks ja ohtlikumaks.</p>
+        <p><strong>Olulisemad sündmused:</strong> Troonivahetus; Tom satub veel suurema surve alla.</p>
+        <p><strong>Tegelased:</strong> Tom Canty, Henry VIII, õukondlased.</p>
+      </details>
+
+      <details>
+        <summary>13. peatükk – Edwardi katsumused</summary>
+        <p><strong>Lühikokkuvõte:</strong> Edward peab pidevalt tõestama, kes ta on. Selle asemel peavad inimesed teda hulluks või valetajaks.</p>
+        <p><strong>Olulisemad sündmused:</strong> Edward kogeb vangistust, ohtu ja ühiskonna julmust.</p>
+        <p><strong>Tegelased:</strong> Edward Tudor, Miles Hendon, kohtunikud, sõdurid.</p>
+      </details>
+
+      <details>
+        <summary>14. peatükk – Hendoni kodu ja reetmine</summary>
+        <p><strong>Lühikokkuvõte:</strong> Miles viib Edwardi oma kodukohta, kuid seal selgub, et Milesi õigused on ära võetud ning tema vend on ta reetnud.</p>
+        <p><strong>Olulisemad sündmused:</strong> Miles satub ohtu; Edward näeb, kuidas ka aadlikud võivad kannatada ebaõigluse all.</p>
+        <p><strong>Tegelased:</strong> Miles Hendon, Hugh Hendon, Edith, Edward Tudor.</p>
+      </details>
+
+      <details>
+        <summary>15. peatükk – Kroonimine ja tõe selgumine</summary>
+        <p><strong>Lühikokkuvõte:</strong> Kroonimise ajal ilmub Edward välja ja nõuab oma kohta tagasi. Ta suudab lõpuks tõestada, et on tõeline prints.</p>
+        <p><strong>Olulisemad sündmused:</strong> Suur lahendus; troon läheb õigesse kätte.</p>
+        <p><strong>Tegelased:</strong> Edward Tudor, Tom Canty, õukondlased.</p>
+      </details>
+
+      <details>
+        <summary>16. peatükk – Lõpp ja muutused</summary>
+        <p><strong>Lühikokkuvõte:</strong> Edward saab kuningaks ja ei unusta seda, mida ta rahva seas õppis. Tomi ja Milesi ustavust tunnustatakse.</p>
+        <p><strong>Olulisemad sündmused:</strong> Edward valitseb õiglasemalt; Tom saab austuse ning Miles saab tasu oma ustavuse eest.</p>
+        <p><strong>Tegelased:</strong> Edward VI, Tom Canty, Miles Hendon.</p>
+      </details>
+    </section>
+
+    <section id="tegelased" class="section">
+      <div class="card">
+        <h2>Olulised tegelased</h2>
+        <p class="muted">Siin on teose tähtsamad tegelased koos lühikese iseloomustusega.</p>
+      </div>
+
+      <div class="characters-grid">
+        <div class="card character-card">
+          <h3>Tom Canty</h3>
+          <p>Vaene, kuid nutikas ja hea südamega poiss, kes unistab paremast elust. Paleesse sattudes püüab ta olla õiglane ja hooliv.</p>
+        </div>
+
+        <div class="card character-card">
+          <h3>Edward Tudor / Edward VI</h3>
+          <p>Walesi prints, kellest saab hiljem kuningas. Tänavale sattudes õpib ta mõistma vaeste inimeste elu ja muutub targemaks valitsejaks.</p>
+        </div>
+
+        <div class="card character-card">
+          <h3>Miles Hendon</h3>
+          <p>Aadlimees, kes kaitseb Edwardit tema raskel teekonnal. Ta on julge, lojaalne ja õiglane.</p>
+        </div>
+
+        <div class="card character-card">
+          <h3>John Canty</h3>
+          <p>Tomi isa. Karm ja vägivaldne mees, kes näitab, kui raske on Tomi kodune elu.</p>
+        </div>
+
+        <div class="card character-card">
+          <h3>Tomi vanaema</h3>
+          <p>Julm ja kuri vanaeit, kes muudab Tomi koduse elu veel raskemaks. Esindab vaesuse ja hoolimatuse karmimat külge.</p>
+        </div>
+
+        <div class="card character-card">
+          <h3>Isa Andrew</h3>
+          <p>Heasüdamlik preester, kes õpetab Tomile lugemist ja räägib talle huvitavaid lugusid. Tema aitab Tomi kujutlusvõimet arendada.</p>
+        </div>
+
+        <div class="card character-card">
+          <h3>Henry VIII</h3>
+          <p>Edwardi isa, Inglismaa kuningas. Ta on võimas valitseja, kelle surm muudab olukorra eriti pingeliseks.</p>
+        </div>
+
+        <div class="card character-card">
+          <h3>Printsess Elizabeth</h3>
+          <p>Tark ja tähelepanelik kuningliku pere liige. Ta märkab palees toimuvat ja aitab luua pilti õukonnaelust.</p>
+        </div>
+
+        <div class="card character-card">
+          <h3>Jane Grey</h3>
+          <p>Tagasihoidlik ja viisakas noor neiu õukonnas. Ta suhtleb Tomiga ja näitab palee kombekat maailma.</p>
+        </div>
+
+        <div class="card character-card">
+          <h3>Hugh Hendon</h3>
+          <p>Miles Hendoni vend, kes on omakasupüüdlik ja ebaaus. Tema kaudu näidatakse reetmist ja ahnust.</p>
+        </div>
+
+        <div class="card character-card">
+          <h3>Edith</h3>
+          <p>Milesiga seotud naine, kelle elu mõjutab Hugh kurjus. Tema tegelaskuju rõhutab ebaõigluse mõju ka aadlike hulgas.</p>
+        </div>
+
+        <div class="card character-card">
+          <h3>Õukondlased ja rahvas</h3>
+          <p>Nad ei ole üksikud peategelased, kuid aitavad näidata, kui erinevad on palee ja tänava maailm ning kuidas välimus mõjutab inimeste hinnanguid.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="test" class="section">
+      <div class="card">
+        <h2>Valikvastustega test</h2>
+        <p class="muted">Igal küsimusel on 5 vastusevarianti. Süsteem jätab meelde küsimused, millele vastasid valesti.</p>
+      </div>
+
+      <div class="quiz-top">
+        <div class="stat"><strong id="score">0</strong>Punktid</div>
+        <div class="stat"><strong id="q-number">1 / 10</strong>Küsimus</div>
+        <div class="stat"><strong id="mistakes">0</strong>Valesti vastatud</div>
+      </div>
+
+      <div class="card">
+        <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
+        <h3 id="question">Laen küsimust...</h3>
+        <div id="answers" class="answers"></div>
+        <div id="feedback" class="feedback"></div>
+        <div class="controls">
+          <button id="next-btn" class="primary" disabled>Järgmine küsimus</button>
+          <button id="restart-btn" class="secondary">Alusta test uuesti</button>
+        </div>
+      </div>
+
+      <div class="card" id="results-card" style="display:none;">
+        <h3>Testi kokkuvõte</h3>
+        <p id="final-result"></p>
+        <div id="retry-topics"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    Õppematerjal põhineb Mark Twaini teosel „Prints ja kerjus”.
+  </footer>
+
+  <script>
+    // Lihtne navigeerimine sektsioonide vahel
+    const navButtons = document.querySelectorAll('.nav-btn');
+    const sections = document.querySelectorAll('.section');
+
+    navButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        navButtons.forEach(btn => btn.classList.remove('active'));
+        sections.forEach(section => section.classList.remove('active'));
+        button.classList.add('active');
+        document.getElementById(button.dataset.target).classList.add('active');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    });
+
+    // Küsimustiku andmed
+    const quizData = [
+      {
+        question: 'Kes on teose kaks poissi, kes omavahel kohad vahetavad?',
+        options: ['Tom Canty ja Edward Tudor', 'Miles Hendon ja Hugh Hendon', 'Edward Tudor ja Henry VIII', 'Tom Canty ja Miles Hendon', 'John Canty ja Edward Tudor'],
+        correct: 0
+      },
+      {
+        question: 'Miks satub Edward tänavale?',
+        options: ['Ta põgeneb sõtta', 'Ta vahetab Tomiga riided ja tõrjutakse paleest välja', 'Ta eksib jahil ära', 'Ta tahab salaja kooli minna', 'Ta saadetakse karistuseks minema'],
+        correct: 1
+      },
+      {
+        question: 'Millisest kohast on pärit Tom Canty?',
+        options: ['Westminsteri paleest', 'Londoni sadamast', 'Offali õuest', 'Hendoni lossist', 'Oxfordi koolist'],
+        correct: 2
+      },
+      {
+        question: 'Kes aitab Edwardit tema rännakul kõige rohkem?',
+        options: ['John Canty', 'Isa Andrew', 'Hugh Hendon', 'Miles Hendon', 'Printsess Elizabeth'],
+        correct: 3
+      },
+      {
+        question: 'Mida õpib Edward tavarahva seas elades?',
+        options: ['Kuidas mõõgaga võidelda', 'Kuidas saada kaupmeheks', 'Et vaeste elu on sageli raske ja ebaõiglane', 'Et palee on igav', 'Et Tom tahab kuningaks jääda'],
+        correct: 2
+      },
+      {
+        question: 'Milline iseloomujoon aitab Tomil palees hakkama saada?',
+        options: ['Uhkus', 'Julmus', 'Kaval valetamine', 'Heatahtlikkus ja õiglustunne', 'Täielik ükskõiksus'],
+        correct: 3
+      },
+      {
+        question: 'Kes on Henry VIII?',
+        options: ['Tomi õpetaja', 'Edwardi isa ja Inglismaa kuningas', 'Milesi vend', 'Palee valvur', 'Kohtunik Londonis'],
+        correct: 1
+      },
+      {
+        question: 'Mis on teose üks peamisi sõnumeid?',
+        options: ['Ainult rikkad on targad', 'Riided muudavad inimese väärtuslikuks', 'Inimese väärtus ei sõltu seisusest ega välimusest', 'Tõeline võim tuleb vägivallast', 'Lapsed ei tohiks unistada'],
+        correct: 2
+      },
+      {
+        question: 'Millal selgub lõplikult, kes on tõeline prints?',
+        options: ['Turul kakluse ajal', 'Koolitunnis', 'Kuninga surivoodil', 'Kroonimise ajal', 'Milesi kodus'],
+        correct: 3
+      },
+      {
+        question: 'Mida tehakse valesti vastatud küsimustega?',
+        options: ['Need kustutatakse kohe', 'Neid ei näidata enam kunagi', 'Need salvestatakse, et kasutaja saaks neid hiljem korrata', 'Neid saadetakse õpetajale', 'Need asendatakse uute küsimustega'],
+        correct: 2
+      }
+    ];
+
+    let currentQuestion = 0;
+    let score = 0;
+    let wrongQuestions = [];
+    let answered = false;
+
+    const scoreEl = document.getElementById('score');
+    const qNumberEl = document.getElementById('q-number');
+    const mistakesEl = document.getElementById('mistakes');
+    const questionEl = document.getElementById('question');
+    const answersEl = document.getElementById('answers');
+    const feedbackEl = document.getElementById('feedback');
+    const nextBtn = document.getElementById('next-btn');
+    const restartBtn = document.getElementById('restart-btn');
+    const progressFill = document.getElementById('progress-fill');
+    const resultsCard = document.getElementById('results-card');
+    const finalResult = document.getElementById('final-result');
+    const retryTopics = document.getElementById('retry-topics');
+
+    function renderQuestion() {
+      const item = quizData[currentQuestion];
+      answered = false;
+      nextBtn.disabled = true;
+      feedbackEl.className = 'feedback';
+      feedbackEl.style.display = 'none';
+      feedbackEl.textContent = '';
+
+      questionEl.textContent = item.question;
+      qNumberEl.textContent = `${currentQuestion + 1} / ${quizData.length}`;
+      scoreEl.textContent = score;
+      mistakesEl.textContent = wrongQuestions.length;
+      progressFill.style.width = `${(currentQuestion / quizData.length) * 100}%`;
+
+      answersEl.innerHTML = '';
+      item.options.forEach((option, index) => {
+        const btn = document.createElement('button');
+        btn.className = 'answer-btn';
+        btn.textContent = option;
+        btn.addEventListener('click', () => selectAnswer(index, btn));
+        answersEl.appendChild(btn);
+      });
+    }
+
+    function selectAnswer(index, selectedBtn) {
+      if (answered) return;
+      answered = true;
+      const item = quizData[currentQuestion];
+      const allButtons = document.querySelectorAll('.answer-btn');
+
+      allButtons.forEach((btn, btnIndex) => {
+        btn.disabled = true;
+        if (btnIndex === item.correct) btn.classList.add('correct');
+      });
+
+      if (index === item.correct) {
+        score++;
+        feedbackEl.textContent = 'Õige vastus. Tubli!';
+        feedbackEl.className = 'feedback good';
+      } else {
+        selectedBtn.classList.add('wrong');
+        feedbackEl.textContent = `Vale vastus. Õige vastus on: ${item.options[item.correct]}.`;
+        feedbackEl.className = 'feedback bad';
+
+        if (!wrongQuestions.some(q => q.question === item.question)) {
+          wrongQuestions.push(item);
+        }
+      }
+
+      scoreEl.textContent = score;
+      mistakesEl.textContent = wrongQuestions.length;
+      nextBtn.disabled = false;
+    }
+
+    function showResults() {
+      questionEl.textContent = 'Test on lõpetatud.';
+      answersEl.innerHTML = '';
+      feedbackEl.style.display = 'none';
+      nextBtn.disabled = true;
+      progressFill.style.width = '100%';
+      qNumberEl.textContent = `${quizData.length} / ${quizData.length}`;
+      resultsCard.style.display = 'block';
+
+      finalResult.textContent = `Said ${score} punkti ${quizData.length}-st.`;
+
+      if (wrongQuestions.length === 0) {
+        retryTopics.innerHTML = '<p><strong>Väga hea tulemus.</strong> Vastasin kõikidele küsimustele õigesti.</p>';
+      } else {
+        const items = wrongQuestions.map(q => `<li><strong>${q.question}</strong><br><span class="muted">Korda seda teemat uuesti.</span></li>`).join('');
+        retryTopics.innerHTML = `
+          <p><strong>Küsimused, mida tasub uuesti üle vaadata:</strong></p>
+          <ol class="results-list">${items}</ol>
+        `;
+      }
+    }
+
+    nextBtn.addEventListener('click', () => {
+      currentQuestion++;
+      if (currentQuestion < quizData.length) {
+        renderQuestion();
+      } else {
+        showResults();
+      }
+    });
+
+    restartBtn.addEventListener('click', () => {
+      currentQuestion = 0;
+      score = 0;
+      wrongQuestions = [];
+      resultsCard.style.display = 'none';
+      renderQuestion();
+    });
+
+    renderQuestion();
+  </script>
+</body>
 </html>

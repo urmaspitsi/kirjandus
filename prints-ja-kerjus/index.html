@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="et">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Prints ja kerjus | Õppematerjal</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;500;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="hero" id="top">
+      <nav class="topbar">
+        <a class="brand" href="#top">Prints ja kerjus</a>
+        <div class="nav-links">
+          <a href="#ylevaade">Ülevaade</a>
+          <a href="#peatykid">Peatükid</a>
+          <a href="#tegelased">Tegelased</a>
+          <a href="#kysimustik">Küsimustik</a>
+        </div>
+      </nav>
+
+      <div class="hero-inner">
+        <div class="hero-copy">
+          <p class="eyebrow">Mark Twaini teos 12-15-aastastele õppijatele</p>
+          <h1>Õppematerjal, mis aitab “Printsi ja kerjuse” kiiresti meelde jätta</h1>
+          <p class="lead">
+            Siit leiad kogu teose lühikokkuvõtte, peatükkide põhisündmused,
+            tähtsad tegelased ja valikvastustega küsimustiku, mis jätab valed
+            vastused meelde ja pakub neid hiljem uuesti harjutamiseks.
+          </p>
+          <div class="hero-actions">
+            <a class="button primary" href="#kysimustik">Alusta küsimustikuga</a>
+            <a class="button secondary" href="#peatykid">Vaata peatükke</a>
+          </div>
+        </div>
+
+        <aside class="hero-note">
+          <p class="note-label">Mida õppides jälgida?</p>
+          <ul>
+            <li>Kuidas vahetavad Tom Canty ja Edward Tudor rollid.</li>
+            <li>Mida räägib teos vaesuse, võimu ja õiguse kohta.</li>
+            <li>Kuidas kogemused muudavad noore printsi otsuseid.</li>
+          </ul>
+        </aside>
+      </div>
+    </header>
+
+    <main>
+      <section class="section overview" id="ylevaade">
+        <div class="section-heading">
+          <p class="section-kicker">Kogu teos lühidalt</p>
+          <h2>Lühikokkuvõte kuni 10 lausega</h2>
+        </div>
+        <ol class="summary-list">
+          <li>Samal päeval sünnivad Londonis vaene poiss Tom Canty ja Inglismaa troonipärija Edward Tudor.</li>
+          <li>Tom elab vaesuses ja unistab kuninglikust elust, Edward aga tunneb palees suurt üksindust ja rangeid reegleid.</li>
+          <li>Poisid kohtuvad juhuslikult, avastavad oma sarnasuse ning vahetavad naljaviluks riided.</li>
+          <li>Segaduse tõttu peetakse Edwardit kerjuseks ja Tomi printsiks, nii et kumbki jääb teise ellu lõksu.</li>
+          <li>Tom püüab palees õiglaselt käituda, kuid kardab, et tema saladus tuleb välja.</li>
+          <li>Edward rändab tänavatel ja maanteedel, näeb vaesust, vägivalda ning ebaõiglust ja õpib, kui raske on lihtinimese elu.</li>
+          <li>Teda aitab truu Miles Hendon, kes usub poisi väärikusse ka siis, kui teised teda hulluks peavad.</li>
+          <li>Kui kuningas Henry VIII sureb, ähvardab Tom kroonituks saada enne, kui tõeline prints jõuab tagasi.</li>
+          <li>Kroonimisel ilmub Edward välja, tõestab oma isiku ja saab lõpuks kuningaks Edward VI-ks.</li>
+          <li>Pärast kõiki läbielamisi valitseb ta halastavamalt, sest ta mõistab nüüd palju paremini oma rahva kannatusi.</li>
+        </ol>
+      </section>
+
+      <section class="section chapters" id="peatykid">
+        <div class="section-heading">
+          <p class="section-kicker">Peatükkide kaupa</p>
+          <h2>Peatükkide kokkuvõtted, olulisemad sündmused ja tegelased</h2>
+        </div>
+        <div id="chapter-list" class="chapter-list"></div>
+      </section>
+
+      <section class="section characters" id="tegelased">
+        <div class="section-heading">
+          <p class="section-kicker">Tegelased</p>
+          <h2>Olulisemad tegelased kogu teoses</h2>
+        </div>
+        <div id="character-grid" class="character-grid"></div>
+      </section>
+
+      <section class="section quiz" id="kysimustik">
+        <div class="section-heading">
+          <p class="section-kicker">Harjutamiseks</p>
+          <h2>Valikvastustega küsimustik</h2>
+          <p class="section-text">
+            Igal küsimusel on viis vastusevarianti. Kui eksid, jätab leht selle
+            küsimuse meelde ja pakub hiljem valede vastuste kordamisvooru.
+          </p>
+        </div>
+
+        <div class="quiz-toolbar">
+          <button class="button primary" id="start-quiz">Alusta põhiküsimustikku</button>
+          <button class="button secondary" id="start-review">Korda valesid küsimusi</button>
+          <button class="button ghost" id="reset-progress">Nulli meelespeetud vead</button>
+        </div>
+
+        <div class="quiz-stats" id="quiz-stats">
+          <div><span class="stat-label">Läbitud</span><strong id="answered-count">0</strong></div>
+          <div><span class="stat-label">Õiged</span><strong id="correct-count">0</strong></div>
+          <div><span class="stat-label">Meeles peetavad vead</span><strong id="missed-count">0</strong></div>
+        </div>
+
+        <div class="quiz-shell" id="quiz-shell">
+          <div class="quiz-empty" id="quiz-empty">
+            Vali kas põhiküsimustik või valesti läinud küsimuste kordamisvoor.
+          </div>
+        </div>
+
+        <div class="missed-panel">
+          <h3>Meeles peetud küsimused</h3>
+          <p id="missed-summary">
+            Kui vastad valesti, ilmuvad küsimused siia ning saad neid hiljem uuesti harjutada.
+          </p>
+          <div id="missed-list" class="missed-list"></div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p>
+        Õppematerjal keskendub teose sisule, tegelastele ja põhisündmustele, et kordamine oleks kiire ja arusaadav.
+      </p>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>

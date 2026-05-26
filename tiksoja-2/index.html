@@ -1,0 +1,355 @@
+<!doctype html>
+<html lang="et">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Õppematerjal: „Tiksoja“ — Maarja Astover</title>
+  <style>
+    :root{
+      --bg:#f6f3ee; --panel:#fffaf2; --ink:#1f2933; --muted:#64748b;
+      --accent:#2563eb; --accent2:#0f766e; --warn:#b45309; --bad:#b91c1c;
+      --good:#15803d; --line:#e5ded2; --shadow:0 18px 45px rgba(36,31,25,.12);
+      --radius:22px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:
+      radial-gradient(circle at top left, #dbeafe 0 260px, transparent 261px),
+      radial-gradient(circle at top right, #ccfbf1 0 240px, transparent 241px),
+      var(--bg); color:var(--ink); line-height:1.55}
+    header{padding:54px 18px 26px}
+    .wrap{max-width:1120px;margin:auto}
+    .hero{background:linear-gradient(135deg,#172554,#0f766e);color:white;border-radius:30px;padding:36px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+    .hero:after{content:"";position:absolute;right:-60px;top:-60px;width:220px;height:220px;border-radius:50%;background:rgba(255,255,255,.12)}
+    .eyebrow{text-transform:uppercase;letter-spacing:.12em;font-size:.78rem;font-weight:800;opacity:.8}
+    h1{font-size:clamp(2.1rem,5vw,4.6rem);line-height:.95;margin:12px 0}
+    h2{font-size:clamp(1.5rem,3vw,2.2rem);margin:0 0 14px}
+    h3{margin:0 0 8px;font-size:1.12rem}
+    p{margin:0 0 10px}
+    .hero p{max-width:750px;font-size:1.08rem}
+    nav{position:sticky;top:0;z-index:5;background:rgba(246,243,238,.88);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+    nav .wrap{display:flex;gap:8px;overflow:auto;padding:10px 18px}
+    nav a{white-space:nowrap;text-decoration:none;color:var(--ink);font-weight:700;border:1px solid var(--line);padding:9px 12px;border-radius:999px;background:white}
+    nav a:hover{border-color:var(--accent);color:var(--accent)}
+    section{padding:28px 18px}
+    .grid{display:grid;gap:18px}
+    .grid.two{grid-template-columns:repeat(2,minmax(0,1fr))}
+    .grid.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+    .card{background:rgba(255,250,242,.92);border:1px solid var(--line);border-radius:var(--radius);padding:22px;box-shadow:0 8px 25px rgba(31,41,51,.06)}
+    .note{border-left:5px solid var(--warn);background:#fff7ed}
+    .tag{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border-radius:999px;background:#e0f2fe;color:#075985;font-size:.86rem;font-weight:800;margin:4px 5px 4px 0}
+    .tag.green{background:#dcfce7;color:#166534}.tag.amber{background:#fef3c7;color:#92400e}.tag.red{background:#fee2e2;color:#991b1b}
+    ul{margin:8px 0 0 18px;padding:0}
+    li{margin:5px 0}
+    .timeline{display:grid;gap:12px}
+    .step{display:grid;grid-template-columns:42px 1fr;gap:12px;align-items:start}
+    .num{width:42px;height:42px;border-radius:14px;background:#dbeafe;color:#1d4ed8;display:grid;place-items:center;font-weight:900}
+    details{border:1px solid var(--line);border-radius:18px;background:white;margin:10px 0;overflow:hidden}
+    summary{cursor:pointer;padding:16px 18px;font-weight:900;list-style:none}
+    summary::-webkit-details-marker{display:none}
+    details .inside{padding:0 18px 18px;color:#334155}
+    .character{display:flex;gap:14px;align-items:flex-start}
+    .avatar{width:48px;height:48px;border-radius:16px;background:linear-gradient(135deg,#bfdbfe,#ccfbf1);display:grid;place-items:center;font-weight:900;color:#0f172a;flex:none}
+    .quiz-card{background:white;border:1px solid var(--line);border-radius:20px;padding:18px;margin:14px 0}
+    .options{display:grid;gap:8px;margin-top:12px}
+    button,.btn{border:0;border-radius:14px;padding:11px 14px;font-weight:800;cursor:pointer;background:#e2e8f0;color:#0f172a}
+    button:hover,.btn:hover{filter:brightness(.98)}
+    .option{text-align:left;border:1px solid #dbe3ec;background:#f8fafc}
+    .option.correct{background:#dcfce7;border-color:#86efac;color:#14532d}
+    .option.wrong{background:#fee2e2;border-color:#fecaca;color:#7f1d1d}
+    .toolbar{display:flex;flex-wrap:wrap;gap:10px;margin:14px 0}
+    .primary{background:var(--accent);color:white}.secondary{background:#0f766e;color:white}.danger{background:#fee2e2;color:#991b1b}
+    .status{font-weight:900;margin-top:10px}
+    .small{font-size:.9rem;color:var(--muted)}
+    textarea,input{width:100%;border:1px solid var(--line);border-radius:14px;padding:12px;font:inherit;background:#fff}
+    label{font-weight:800;display:block;margin:12px 0 5px}
+    footer{padding:28px 18px 48px;color:#475569}
+    footer a{color:#1d4ed8}
+    @media(max-width:800px){.grid.two,.grid.three{grid-template-columns:1fr}.hero{padding:26px}.step{grid-template-columns:34px 1fr}.num{width:34px;height:34px}}
+    @media print{nav,.toolbar,button,.practice{display:none!important}body{background:white}.card,.hero{box-shadow:none}.hero{color:#111;background:white;border:1px solid #ddd}}
+  </style>
+</head>
+<body>
+<header>
+  <div class="wrap hero">
+    <div class="eyebrow">Õppematerjal 12–15-aastasele</div>
+    <h1>„Tiksoja“</h1>
+    <p><strong>Autor:</strong> Maarja Astover. Noortele suunatud krimilugu, kus neli 8. klassi poissi satuvad Tiksoja metsatukas kummalise foto tõttu uurimise keskmesse.</p>
+    <div style="margin-top:16px">
+      <span class="tag">krimi</span><span class="tag green">sõprus</span><span class="tag amber">1985 ja tänapäev</span><span class="tag red">kadumine</span>
+    </div>
+  </div>
+</header>
+
+<nav>
+  <div class="wrap">
+    <a href="#kokkuvote">Lühikokkuvõte</a>
+    <a href="#peatukid">Peatükid</a>
+    <a href="#tegelased">Tegelased</a>
+    <a href="#kusimustik">Küsimustik</a>
+    <a href="#meelespea">Meelespea</a>
+    <a href="#allikad">Allikad</a>
+  </div>
+</nav>
+
+<main>
+<section id="kokkuvote">
+  <div class="wrap grid two">
+    <div class="card">
+      <h2>Kogu teose lühikokkuvõte</h2>
+      <ol>
+        <li>„Tiksoja“ algab tänapäevas, kui neli 8. klassi sõpra — Mattias, Pärtel, Tanel ja Joosep — veedavad aega Tiksoja metsatukas.</li>
+        <li>Nad teevad seal foto ning avastavad hiljem pildilt kummitusliku tüdruku kuju.</li>
+        <li>Algne ehmatus muutub uudishimuks ja poisid otsustavad ise välja uurida, kes tüdruk võiks olla.</li>
+        <li>Nad loovad oma uurimisbüroo, mille nimeks saab Kiired Kanad.</li>
+        <li>Uurimine viib nad looga 1985. aasta Tartusse ning minevik hakkab tänapäevaga põimuma.</li>
+        <li>Mõistatus ei ole ainult põnev juhtum, vaid puudutab ka noorte endi peresid, suhteid ja tundeid.</li>
+        <li>Teoses on olulised sõprus, koostöö, saladused, kodused probleemid ja vastutus.</li>
+        <li>Lugu kasutab krimivormi, et rääkida ka keerulisematest teemadest, näiteks alkoholismist ja peresuhetest.</li>
+      </ol>
+    </div>
+    <div class="card">
+      <h2>Mida lugedes jälgida?</h2>
+      <div class="timeline">
+        <div class="step"><div class="num">1</div><div><strong>Kes märkab midagi ebatavalist?</strong><br>Pane tähele, kuidas poisid fotole reageerivad.</div></div>
+        <div class="step"><div class="num">2</div><div><strong>Kuidas sõprus toimib?</strong><br>Vaata, kes juhib, kes kahtleb ja kes hoiab pundi koos.</div></div>
+        <div class="step"><div class="num">3</div><div><strong>Mida minevik selgitab?</strong><br>1985. aasta liin aitab mõista, miks tänapäeva sündmused olulised on.</div></div>
+        <div class="step"><div class="num">4</div><div><strong>Mida tegelased õpivad?</strong><br>Krimilugu on ka kasvamise ja vastutuse lugu.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="peatukid">
+  <div class="wrap">
+    <div class="card note">
+      <h2>Peatükkide kokkuvõtted</h2>
+      <p><strong>Märkus:</strong> avalikes tutvustustes ei ole teose täielikku peatükijaotust ega iga peatüki sündmusi avaldatud. Seetõttu on allpool õppimiseks mõeldud peatüki-töökaart: ava iga peatükk pärast lugemist ja täida 2–4 lausega. Nii saad päriselt kontrolltööks õppida, mitte pähe õppida ebatäpset ümberjutustust.</p>
+    </div>
+
+    <div class="grid two" style="margin-top:18px">
+      <div class="card">
+        <h3>Loo etapid, mis aitavad peatükke kokku võtta</h3>
+        <details open><summary>1. Algolukord</summary><div class="inside">Poisid on Tiksoja metsatukas, räägivad koolist ja elust ning lugeja saab aimu nende omavahelisest suhtlusest.</div></details>
+        <details><summary>2. Käivitav sündmus</summary><div class="inside">Selfile jääb salapärane tüdruk. See muudab tavalise päeva uurimislooks.</div></details>
+        <details><summary>3. Uurimise algus</summary><div class="inside">Poisid arutavad, kas pilt võib olla seotud aastakümneid tagasi kadunud koolitüdrukuga.</div></details>
+        <details><summary>4. Minevikuliin</summary><div class="inside">Lugu liigub 1985. aasta Tartusse ja näitab, et tänapäeva mõistatusel on vanem taust.</div></details>
+        <details><summary>5. Isiklik seos</summary><div class="inside">Uurimine hakkab puudutama poiste endi peresid ja suhteid; krimimõistatus muutub isiklikumaks.</div></details>
+        <details><summary>6. Lahenduse poole</summary><div class="inside">Tegelased peavad eristama oletusi ja tõendeid ning tegema koostööd, et tõele lähemale jõuda.</div></details>
+      </div>
+
+      <div class="card">
+        <h3>Peatüki töökaart</h3>
+        <p class="small">Sisesta peatüki kokkuvõte. Brauser salvestab märkmed sellesse seadmesse.</p>
+        <div class="toolbar">
+          <button class="primary" onclick="addChapter()">Lisa peatükk</button>
+          <button class="danger" onclick="clearChapters()">Kustuta märkmed</button>
+        </div>
+        <div id="chapterList"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="tegelased">
+  <div class="wrap">
+    <h2>Olulisemad tegelased</h2>
+    <div class="grid three">
+      <div class="card character"><div class="avatar">M</div><div><h3>Mattias</h3><p>Üks neljast 8. klassi poisist. Tema rolli tasub lugedes jälgida selle järgi, kuidas ta sõpradega arutleb ja uurimisse panustab.</p></div></div>
+      <div class="card character"><div class="avatar">P</div><div><h3>Pärtel</h3><p>Poiste pundi liige. Tähtis on märgata, kas ta on pigem tegutseja, kahtleja või tasakaalustaja.</p></div></div>
+      <div class="card character"><div class="avatar">T</div><div><h3>Tanel</h3><p>Üks keskseid uurijaid. Teose tutvustus viitab Taneli detektiivimõtlemisele, seega jälgi tema järeldusi ja eksimusi.</p></div></div>
+      <div class="card character"><div class="avatar">J</div><div><h3>Joosep</h3><p>Neljanda sõbrana osa Kiirete Kanade pundist. Tema kaudu saab vaadata, kuidas grupp otsuseid teeb.</p></div></div>
+      <div class="card character"><div class="avatar">?</div><div><h3>Salapärane tüdruk</h3><p>Fotole ilmunud kahvatu kuju, kelle identiteet käivitab kogu uurimise. Ta seob tänapäeva minevikuga.</p></div></div>
+      <div class="card character"><div class="avatar">KK</div><div><h3>Kiired Kanad</h3><p>Poiste loodud uurimisbüroo. See ei ole üks tegelane, vaid pundi ühine roll: koos otsitakse vastuseid ja õpitakse koostööd.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="kusimustik">
+  <div class="wrap">
+    <div class="card">
+      <h2>Valikvastustega küsimustik</h2>
+      <p>Igal küsimusel on 5 vastusevarianti. Vale vastus lisatakse automaatselt meelespeasse, et saaksid hiljem uuesti harjutada.</p>
+      <div class="toolbar">
+        <button class="primary" onclick="renderQuiz()">Alusta uuesti</button>
+        <button class="secondary" onclick="showMistakes()">Harjuta valesid vastuseid</button>
+        <button class="danger" onclick="clearMistakes()">Tühjenda meelespea</button>
+      </div>
+      <div id="score" class="status"></div>
+      <div id="quiz"></div>
+    </div>
+  </div>
+</section>
+
+<section id="meelespea">
+  <div class="wrap grid two">
+    <div class="card practice">
+      <h2>Meelespea</h2>
+      <p>Siia ilmuvad küsimused, millele vastasid valesti.</p>
+      <div id="mistakes"></div>
+    </div>
+    <div class="card">
+      <h2>Õppimise nipp</h2>
+      <ul>
+        <li>Kirjuta iga peatüki kohta 2 lauset: „Mis juhtus?“ ja „Miks see oli oluline?“</li>
+        <li>Lisa 3 tegelast, kes peatükis tegutsesid.</li>
+        <li>Märgi eraldi, kas peatükk toimub tänapäevas või 1985. aasta liinis.</li>
+        <li>Enne kontrolltööd korda ainult neid küsimusi, mis jäid valesti.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer id="allikad">
+  <div class="wrap card">
+    <h2>Allikad ja täpsus</h2>
+    <p>Lehe faktiosa põhineb avalikel tutvustustel: Eesti Lastekirjanduse Keskus, Tallinna Keskraamatukogu lugemissoovitus ja kirjastuse Mäepealse teose kirjeldus. Peatükkide täpseid sündmusi ei ole avalikes allikates tervikuna avaldatud, seetõttu on peatükiosa mõeldud lugemise ajal täitmiseks.</p>
+    <p class="small">Soovitus õpetajale: pärast raamatu läbi lugemist saab peatükikaardid sisuga täita ning sama HTML-faili kasutada klassis kordamiseks.</p>
+  </div>
+</footer>
+
+<script>
+const chapterKey = "tiksoja_chapters_v1";
+const mistakeKey = "tiksoja_mistakes_v1";
+
+const defaultChapters = Array.from({length: 10}, (_, i) => ({
+  title: `Peatükk ${i+1}`,
+  summary: "",
+  events: "",
+  characters: ""
+}));
+
+function loadChapters(){
+  return JSON.parse(localStorage.getItem(chapterKey) || "null") || defaultChapters;
+}
+function saveChapters(chapters){ localStorage.setItem(chapterKey, JSON.stringify(chapters)); }
+
+function renderChapters(){
+  const chapters = loadChapters();
+  const box = document.getElementById("chapterList");
+  box.innerHTML = "";
+  chapters.forEach((ch, i)=>{
+    const el = document.createElement("details");
+    el.innerHTML = `
+      <summary>${escapeHtml(ch.title || "Peatükk " + (i+1))}</summary>
+      <div class="inside">
+        <label>Pealkiri või number</label>
+        <input value="${escapeAttr(ch.title)}" oninput="updateChapter(${i}, 'title', this.value)">
+        <label>Kokkuvõte</label>
+        <textarea rows="3" placeholder="Kirjuta 2–4 lauset peatüki sisust." oninput="updateChapter(${i}, 'summary', this.value)">${escapeHtml(ch.summary)}</textarea>
+        <label>Olulisemad sündmused</label>
+        <textarea rows="2" placeholder="Näide: avastus, konflikt, vihje, otsus..." oninput="updateChapter(${i}, 'events', this.value)">${escapeHtml(ch.events)}</textarea>
+        <label>Tegelased peatükis</label>
+        <input value="${escapeAttr(ch.characters)}" placeholder="Näide: Tanel, Mattias..." oninput="updateChapter(${i}, 'characters', this.value)">
+      </div>`;
+    box.appendChild(el);
+  });
+}
+function updateChapter(i, field, value){
+  const chapters = loadChapters();
+  chapters[i][field] = value;
+  saveChapters(chapters);
+}
+function addChapter(){
+  const chapters = loadChapters();
+  chapters.push({title:`Peatükk ${chapters.length+1}`, summary:"", events:"", characters:""});
+  saveChapters(chapters); renderChapters();
+}
+function clearChapters(){
+  if(confirm("Kas kustutada kõik peatükimärkmed?")){
+    localStorage.removeItem(chapterKey); renderChapters();
+  }
+}
+
+const questions = [
+  {q:"Kes on „Tiksoja“ autor?", a:0, o:["Maarja Astover","Kristi Piiper","Ilmar Tomusk","Aino Pervik","Andrus Kivirähk"]},
+  {q:"Mis klassis on loo neli peategelast?", a:2, o:["6. klassis","7. klassis","8. klassis","9. klassis","gümnaasiumis"]},
+  {q:"Kus poisid aega veedavad, kui lugu käivitub?", a:1, o:["Tartu raekoja platsil","Tiksoja metsatukas","kooliraamatukogus","bussijaamas","spordisaalis"]},
+  {q:"Mis ilmub poiste tehtud fotole?", a:3, o:["võõras koer","vana kiri","salajane kaart","kummituslik tüdruku nägu/kuju","katkine jalgratas"]},
+  {q:"Mis nime poisid oma uurimisbüroole panevad?", a:4, o:["Tiksoja Tiigrid","Neli Detektiivi","Metsavahid","Tartu Uurijad","Kiired Kanad"]},
+  {q:"Millise aastaga on minevikuliin seotud?", a:0, o:["1985","1991","1972","2005","1968"]},
+  {q:"Milline žanr sobib teose kirjeldamiseks kõige paremini?", a:2, o:["muinasjutt","reisikiri","noorte krimilugu","luulekogu","teadusraamat"]},
+  {q:"Mis on üks teose olulisi teemasid?", a:1, o:["kosmoselend","sõprus ja peresuhted","antiikmütoloogia","rahatarkus","keskaegne sõda"]},
+  {q:"Mida peaks peatüki kokkuvõttes kindlasti märkima?", a:3, o:["ainult võõrsõnad","ainult ilm","mis juhtus, miks see oli oluline ja kes tegutsesid","autori sünniaeg","kõik komad tekstis"]},
+  {q:"Miks ei ole siin valmis iga peatüki täpset ümberjutustust?", a:4, o:["sest raamatus pole peatükke","sest see on luulekogu","sest tegelasi pole nimetatud","sest lugu toimub ainult tulevikus","sest avalikud allikad ei avalda kogu peatükijaotust ja sündmusi"]}
+];
+
+let currentSet = [...questions];
+let answered = 0, correct = 0;
+
+function renderQuiz(set = questions){
+  currentSet = set; answered = 0; correct = 0;
+  document.getElementById("score").textContent = "";
+  const quiz = document.getElementById("quiz");
+  quiz.innerHTML = "";
+  set.forEach((item, idx)=>{
+    const card = document.createElement("div");
+    card.className = "quiz-card";
+    card.innerHTML = `<h3>${idx+1}. ${escapeHtml(item.q)}</h3><div class="options"></div><div class="status"></div>`;
+    const opts = card.querySelector(".options");
+    item.o.forEach((opt, oi)=>{
+      const b = document.createElement("button");
+      b.className = "option";
+      b.textContent = opt;
+      b.onclick = () => answer(item, oi, card);
+      opts.appendChild(b);
+    });
+    quiz.appendChild(card);
+  });
+  renderMistakes();
+}
+function answer(item, chosen, card){
+  if(card.dataset.done) return;
+  card.dataset.done = "1"; answered++;
+  const buttons = [...card.querySelectorAll(".option")];
+  buttons.forEach((b, i)=>{
+    if(i === item.a) b.classList.add("correct");
+    if(i === chosen && i !== item.a) b.classList.add("wrong");
+    b.disabled = true;
+  });
+  const status = card.querySelector(".status");
+  if(chosen === item.a){
+    correct++; status.textContent = "Õige.";
+    status.style.color = "var(--good)";
+  } else {
+    status.textContent = `Vale. Õige vastus: ${item.o[item.a]}`;
+    status.style.color = "var(--bad)";
+    addMistake(item);
+  }
+  document.getElementById("score").textContent = `Tulemus: ${correct}/${answered}`;
+  renderMistakes();
+}
+function getMistakes(){ return JSON.parse(localStorage.getItem(mistakeKey) || "[]"); }
+function addMistake(item){
+  const mistakes = getMistakes();
+  if(!mistakes.some(m => m.q === item.q)){
+    mistakes.push(item);
+    localStorage.setItem(mistakeKey, JSON.stringify(mistakes));
+  }
+}
+function renderMistakes(){
+  const box = document.getElementById("mistakes");
+  const mistakes = getMistakes();
+  if(!mistakes.length){ box.innerHTML = "<p class='small'>Veel pole valesti vastatud küsimusi.</p>"; return; }
+  box.innerHTML = mistakes.map((m,i)=>`<div class="quiz-card"><strong>${i+1}. ${escapeHtml(m.q)}</strong><br><span class="small">Õige vastus: ${escapeHtml(m.o[m.a])}</span></div>`).join("");
+}
+function showMistakes(){
+  const mistakes = getMistakes();
+  if(!mistakes.length){ alert("Meelespeas pole veel küsimusi."); return; }
+  renderQuiz(mistakes);
+  location.hash = "#kusimustik";
+}
+function clearMistakes(){
+  localStorage.removeItem(mistakeKey);
+  renderMistakes();
+}
+function escapeHtml(s=""){return String(s).replace(/[&<>"']/g, c=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#039;"}[c]));}
+function escapeAttr(s=""){return escapeHtml(s).replace(/`/g,"&#096;");}
+
+renderChapters();
+renderQuiz();
+renderMistakes();
+</script>
+</body>
+</html>

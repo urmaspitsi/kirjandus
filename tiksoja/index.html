@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="et">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tiksoja - õppematerjal</title>
+  <link rel="icon" href="data:," />
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <header class="hero" id="algus">
+    <img class="hero-image" src="./hero-forest.png" alt="Sügisene metsarada Tiksoja õppematerjali taustaks" />
+    <div class="hero-shade"></div>
+    <div class="hero-content">
+      <p class="eyebrow">Õppematerjal 12-15-aastastele</p>
+      <h1>Tiksoja</h1>
+      <p class="byline">Maarja Astover</p>
+      <p class="lead">
+        Krimilik noorteromaan, kus neli 8. klassi sõpra leiavad Tiksoja metsas tehtud fotolt
+        kummalise tüdruku kuju ja hakkavad uurima lugu, mis viib nad 1985. aasta Tartusse.
+      </p>
+      <div class="hero-actions" aria-label="Kiirlingid">
+        <a class="button primary" href="#kokkuvote">Alusta kokkuvõttest</a>
+        <a class="button ghost" href="#kusimustik">Mine küsimustikku</a>
+      </div>
+    </div>
+  </header>
+
+  <nav class="section-nav" aria-label="Lehe sisukord">
+    <a href="#kokkuvote">Kokkuvõte</a>
+    <a href="#peatukid">Peatükid</a>
+    <a href="#tegelased">Tegelased</a>
+    <a href="#kusimustik">Küsimustik</a>
+    <a href="#meelespea">Meelespea</a>
+  </nav>
+
+  <main>
+    <section class="section intro-grid" id="kokkuvote">
+      <div>
+        <p class="section-kicker">Kogu teos</p>
+        <h2>Lühikokkuvõte</h2>
+      </div>
+      <div class="summary-panel">
+        <ol class="summary-list">
+          <li>Raamatu tegevus algab tänapäeval, kui neli 8. klassi sõpra Tanel, Mattias, Joosep ja Pärtel lähevad pärast kooli Tiksoja metsa aega veetma.</li>
+          <li>Poisid kutsuvad ennast naljatades jorssideks ja panevad oma uurimisrühmale hiljem vastuolulise nime Kiired Kanad.</li>
+          <li>Metsas tehtud selfilt märkavad nad kummitusliku tüdruku nägu, mida pildistamise hetkel keegi ei näinud.</li>
+          <li>Algul tundub see lihtsalt veider juhus, kuid peagi hakkavad poisid arvama, et pilt võib olla seotud aastakümneid tagasi kadunud koolitüdrukuga.</li>
+          <li>Tanel võtab uurimist eriti tõsiselt ja püüab mõelda nagu päris detektiiv.</li>
+          <li>Mõistatus juhib poisid tänapäeva Tiksojast 1985. aasta Tartu sügisesse, kus avanevad teistsugune eluolu, peresuhted ja varjatud saladused.</li>
+          <li>Uurimise käigus saavad poisid aru, et minevik ei ole lihtsalt vana lugu, vaid võib puudutada väga isiklikult ka nende endi peresid.</li>
+          <li>Raamat räägib sõprusest, julgusest, kodustest probleemidest, tunnetega hakkamasaamisest ja sellest, kuidas keerulistest teemadest ei pea üksi läbi minema.</li>
+          <li>Krimilugu püsib põnev, aga selles on ka huumorit ja noortele omast kõneviisi.</li>
+          <li>Teose põhimõte on, et tõe otsimine nõuab tähelepanelikkust, ausust ja valmisolekut vaadata otsa ka ebamugavatele mälestustele.</li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="section theme-band" aria-label="Teose teemad">
+      <span>krimi</span>
+      <span>sõprus</span>
+      <span>kadumine</span>
+      <span>1985. aasta Tartu</span>
+      <span>pere ja saladused</span>
+      <span>alkoholism</span>
+      <span>huumor</span>
+      <span>tunnetega toimetulek</span>
+    </section>
+
+    <section class="section" id="peatukid">
+      <div class="section-heading">
+        <div>
+          <p class="section-kicker">Lugemisjärgne kordamine</p>
+          <h2>Peatükkide kokkuvõtted</h2>
+        </div>
+        <p class="section-note">
+          Märkus: avalikud allikad ei avalda raamatu ametlikku peatükkide sisukorda.
+          Allolevad kaardid järgivad loo peamist kulgu ja sobivad peatükkide kaupa kordamiseks.
+        </p>
+      </div>
+      <div class="chapter-list" id="chapterList"></div>
+    </section>
+
+    <section class="section" id="tegelased">
+      <div class="section-heading">
+        <div>
+          <p class="section-kicker">Kes on kes?</p>
+          <h2>Olulisemad tegelased</h2>
+        </div>
+        <p class="section-note">Tegelaste kaardid aitavad meeles hoida, mis roll kellel loos on.</p>
+      </div>
+      <div class="character-grid" id="characterGrid"></div>
+    </section>
+
+    <section class="section quiz-layout" id="kusimustik">
+      <div class="quiz-copy">
+        <p class="section-kicker">Kontrolli teadmisi</p>
+        <h2>Valikvastustega küsimustik</h2>
+        <p>
+          Igal küsimusel on viis vastusevarianti. Vale vastusega küsimused salvestatakse samas
+          brauseris meelespeasse, et saaksid neid hiljem uuesti harjutada.
+        </p>
+      </div>
+      <div class="quiz-panel">
+        <div class="quiz-meta">
+          <span id="questionCounter">1 / 12</span>
+          <span id="scoreCounter">0 õiget</span>
+        </div>
+        <div class="progress-track" aria-hidden="true">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+        <h3 id="questionText">Laen küsimust...</h3>
+        <div class="answers" id="answerList"></div>
+        <p class="feedback hidden" id="feedbackText"></p>
+        <div class="quiz-actions">
+          <button class="button primary hidden" id="nextButton" type="button">Järgmine</button>
+          <button class="button secondary" id="restartButton" type="button">Alusta uuesti</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="section memory-section" id="meelespea">
+      <div>
+        <p class="section-kicker">Isiklik kordamisnimekiri</p>
+        <h2>Meelespea</h2>
+        <p class="section-note">
+          Siia ilmuvad küsimused, millele vastasid valesti. Kui vastad hiljem õigesti,
+          eemaldatakse küsimus meelespeast.
+        </p>
+      </div>
+      <div class="memory-panel">
+        <div class="memory-actions">
+          <button class="button primary" id="practiceWrongButton" type="button">Harjuta valesid</button>
+          <button class="button secondary" id="clearWrongButton" type="button">Tühjenda</button>
+        </div>
+        <div class="wrong-list" id="wrongList"></div>
+      </div>
+    </section>
+
+    <section class="section source-note">
+      <h2>Allikad ja täpsus</h2>
+      <p>
+        Leht on koostatud avalike tutvustuste põhjal:
+        <a href="https://xn--mepealse-0za.ee/toode/tiksoja/">Mäepealse OÜ raamatuinfo</a>
+        ja Tallinna Keskraamatukogu lugemissoovitus
+        <a href="https://loemind.keskraamatukogu.ee/2025/09/20/maarja-astover-tiksoja-2/">"Loe mind!"</a>.
+        Kui õpetaja kasutab kindlat peatükijaotust, tasub peatükikaardid raamatu järgi üle kontrollida.
+      </p>
+    </section>
+  </main>
+
+  <footer>
+    <a href="#algus">Tagasi üles</a>
+  </footer>
+
+  <script src="./app.js"></script>
+</body>
+</html>

@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="et">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Berti päevik – õppematerjal</title>
+  <style>
+    :root {
+      --bg: #f5f7fb;
+      --card: #ffffff;
+      --text: #1e293b;
+      --muted: #475569;
+      --line: #dbe3f0;
+      --primary: #4f46e5;
+      --primary-dark: #3730a3;
+      --accent: #f59e0b;
+      --good: #166534;
+      --bad: #b91c1c;
+      --shadow: 0 14px 30px rgba(15, 23, 42, 0.08);
+      --radius: 18px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top, rgba(79,70,229,0.15), transparent 32%),
+        linear-gradient(180deg, #eef2ff 0%, var(--bg) 30%, var(--bg) 100%);
+      line-height: 1.6;
+    }
+
+    .container {
+      width: min(1120px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    .hero {
+      padding: 64px 0 28px;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: rgba(79, 70, 229, 0.12);
+      color: var(--primary-dark);
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      margin: 0 0 14px;
+    }
+
+    h1 {
+      font-size: clamp(2.3rem, 5vw, 4.3rem);
+      line-height: 1.05;
+      margin: 0;
+    }
+
+    .subtitle {
+      font-size: 1.15rem;
+      color: var(--muted);
+      margin: 10px 0 12px;
+    }
+
+    .lead {
+      max-width: 760px;
+      font-size: 1.08rem;
+    }
+
+    .hero-actions,
+    .memory-actions,
+    .quiz-actions,
+    .toc {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .btn {
+      appearance: none;
+      border: 0;
+      border-radius: 12px;
+      padding: 12px 18px;
+      font: inherit;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+      transition: transform 0.15s ease, opacity 0.15s ease, background 0.15s ease;
+    }
+
+    .btn:hover { transform: translateY(-1px); }
+    .btn.primary { background: var(--primary); color: white; }
+    .btn.primary:hover { background: var(--primary-dark); }
+    .btn.secondary { background: #e2e8f0; color: var(--text); }
+    .btn.secondary:hover { background: #cbd5e1; }
+
+    .card {
+      background: var(--card);
+      border: 1px solid rgba(148, 163, 184, 0.2);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .toc {
+      padding: 16px;
+      margin-bottom: 28px;
+    }
+
+    .toc a {
+      text-decoration: none;
+      color: var(--primary-dark);
+      font-weight: 700;
+      padding: 8px 12px;
+      border-radius: 10px;
+    }
+
+    .toc a:hover { background: #eef2ff; }
+
+    .section {
+      margin: 28px 0;
+    }
+
+    .section-heading {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 14px;
+    }
+
+    .section h2 {
+      margin: 0;
+      font-size: clamp(1.5rem, 3vw, 2.2rem);
+    }
+
+    .section-note {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .badge {
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: #fef3c7;
+      color: #92400e;
+      font-weight: 700;
+    }
+
+    .prose { padding: 22px 24px; }
+    .prose ol { margin: 0; padding-left: 22px; }
+    .prose li + li { margin-top: 10px; }
+
+    .chapter-grid,
+    .characters-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+    }
+
+    .chapter,
+    .character,
+    .quiz-card,
+    .memory-card,
+    .footer-card { padding: 20px; }
+
+    .chapter h3,
+    .character h3 { margin-top: 0; }
+
+    .chapter p,
+    .character p { margin-bottom: 0.7rem; }
+
+    .quiz-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 16px;
+      margin-bottom: 18px;
+    }
+
+    .quiz-label {
+      margin: 0 0 6px;
+      color: var(--muted);
+      font-weight: 700;
+    }
+
+    .score-box {
+      min-width: 90px;
+      text-align: center;
+      background: #eef2ff;
+      color: var(--primary-dark);
+      padding: 10px 12px;
+      border-radius: 14px;
+    }
+
+    .score-box span {
+      display: block;
+      font-size: 0.85rem;
+    }
+
+    .score-box strong {
+      font-size: 1.6rem;
+    }
+
+    .answers {
+      display: grid;
+      gap: 12px;
+    }
+
+    .answer-btn {
+      text-align: left;
+      background: #f8fafc;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 14px 16px;
+      font: inherit;
+      cursor: pointer;
+      transition: border-color 0.15s ease, background 0.15s ease, transform 0.15s ease;
+    }
+
+    .answer-btn:hover {
+      border-color: var(--primary);
+      transform: translateY(-1px);
+    }
+
+    .answer-btn.correct {
+      background: #dcfce7;
+      border-color: #86efac;
+    }
+
+    .answer-btn.wrong {
+      background: #fee2e2;
+      border-color: #fca5a5;
+    }
+
+    .answer-btn:disabled {
+      cursor: default;
+      opacity: 1;
+    }
+
+    .feedback {
+      margin: 16px 0 0;
+      padding: 14px 16px;
+      border-radius: 14px;
+      font-weight: 600;
+    }
+
+    .feedback.good {
+      background: #dcfce7;
+      color: var(--good);
+    }
+
+    .feedback.bad {
+      background: #fee2e2;
+      color: var(--bad);
+    }
+
+    .hidden { display: none; }
+
+    .wrong-list {
+      display: grid;
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .wrong-item {
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 14px 16px;
+      background: #fffdf8;
+    }
+
+    .wrong-item h4 {
+      margin: 0 0 8px;
+      font-size: 1rem;
+    }
+
+    .wrong-item p {
+      margin: 4px 0;
+    }
+
+    .footer {
+      padding: 12px 0 40px;
+    }
+
+    @media (max-width: 720px) {
+      .hero { padding-top: 40px; }
+      .quiz-top { flex-direction: column; }
+      .score-box { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <div class="container">
+      <p class="eyebrow">Õppematerjal 12–15-aastastele</p>
+      <h1>Berti päevik</h1>
+      <p class="subtitle">Anders Jacobsson, Sören Olsson</p>
+      <p class="lead">
+        Selge ja mänguline kokkuvõte, peatükkide ülevaade, tegelaste kaardid ning
+        valikvastustega küsimustik, mis aitab meelde jätta just need küsimused,
+        mis esimesel korral valesti läksid.
+      </p>
+      <div class="hero-actions">
+        <a href="#kokkuvote" class="btn primary">Alusta lugemist</a>
+        <a href="#quiz" class="btn secondary">Mine küsimustikku</a>
+      </div>
+    </div>
+  </header>
+
+  <nav class="toc container card">
+    <a href="#kokkuvote">Kogu teose lühikokkuvõte</a>
+    <a href="#peatukid">Peatükid</a>
+    <a href="#tegelased">Olulised tegelased</a>
+    <a href="#quiz">Küsimustik</a>
+    <a href="#meelespea">Mälumäng valede vastustega</a>
+  </nav>
+
+  <main class="container">
+    <section id="kokkuvote" class="section">
+      <div class="section-heading">
+        <h2>Kogu teose lühikokkuvõte</h2>
+        <span class="badge">10 lauset</span>
+      </div>
+      <div class="card prose">
+        <ol>
+          <li>„Berti päevik” on humoorikas päevikuvormis noorteromaan, kus Bert Ljung kirjutab oma elust, mõtetest ja piinlikest juhtumitest.</li>
+          <li>Tegevus toimub kevadsemestril, kui Bert käib 5. klassis ja saab 12-aastaseks.</li>
+          <li>Alguses häbeneb Bert isegi oma nime ning kasutab enda kohta salanime Treb Walker.</li>
+          <li>Berti suurimad mured on armumine, sõpradega toimetamine ja soov paista lahedam, kui ta tegelikult tunneb.</li>
+          <li>Raamatu alguses meeldib talle Rebecka, kuid tema katse muljet avaldada lõpeb piinliku sünnipäevajuhtumiga.</li>
+          <li>Vahepeal keskendub Bert rohkem koolile, jalgpallile, oma sõpradele ja kummalistele seiklustele, mida eriti Åke välja mõtleb.</li>
+          <li>Bertil avastatakse halb nägemine ning prillid teevad ta enesetunde mõneks ajaks veel ebakindlamaks.</li>
+          <li>Kevade lõpus armub Bert uude tüdrukusse nimega Nadja Nilsson.</li>
+          <li>Bert kogub julgust, helistab Nadjale, püüab jätta endast viisakat ja tarka muljet ning loodab, et seekord läheb paremini.</li>
+          <li>Raamatu lõpus saavad Bert ja Nadja pargis kokku ning Bert jätab seljataha oma salanime, olles natuke julgem ja ausam kui loo alguses.</li>
+        </ol>
+      </div>
+    </section>
+
+    <section id="peatukid" class="section">
+      <div class="section-heading">
+        <h2>Peatükkide kokkuvõtted</h2>
+        <p class="section-note">Raamat on päevikuvormis ning siin on peatükid esitatud kuude kaupa, et õppida oleks lihtsam.</p>
+      </div>
+
+      <div class="chapter-grid">
+        <article class="card chapter">
+          <h3>1. peatükk – jaanuar</h3>
+          <p><strong>Kokkuvõte:</strong> Bert alustab päeviku kirjutamist ja tutvustab ennast, oma klassi ning oma sõpru. Ta häbeneb oma nime ja kasutab salanime Treb Walker. Juba alguses on näha, et Bert mõtleb palju tüdrukutele, sellele, mida teised temast arvavad, ja sellele, kuidas olla lahedam poiss.</p>
+          <p><strong>Olulisemad sündmused:</strong> päeviku algus; Treb Walkeri nime kasutamine; Berti ja Åke väljamõeldud maa Hoppalotjingien; esimesed mõtted Rebeckast.</p>
+          <p><strong>Olulised tegelased peatükis:</strong> Bert, Åke, Rebecka, Berti vanemad.</p>
+        </article>
+
+        <article class="card chapter">
+          <h3>2. peatükk – veebruar</h3>
+          <p><strong>Kokkuvõte:</strong> Veebruaris on Berti peas peamiselt armumine Rebeckasse. Samal ajal tuleb kätte Berti sünnipäev, mis peaks olema tore, kuid muutub hoopis piinlikuks. Klimpeni tehtud nõksu tõttu läheb Bert Rebecka ees täiesti alt.</p>
+          <p><strong>Olulisemad sündmused:</strong> Bert saab 12-aastaseks; sünnipäevapidu; Klimpeni vingerpuss kummimaoga; Rebecka lahkub solvunult.</p>
+          <p><strong>Olulised tegelased peatükis:</strong> Bert, Rebecka, Klimpen, Berti klassikaaslased, Berti pere.</p>
+        </article>
+
+        <article class="card chapter">
+          <h3>3. peatükk – märts</h3>
+          <p><strong>Kokkuvõte:</strong> Pärast ebaõnnestumist Rebeckaga ei mõtle Bert mõnda aega enam nii palju armastusele. Suurem roll läheb sõpradele, koolielule ja Åke pöörastele katsetele. See peatükk näitab hästi, et Berti elu on täis naljakaid, aga vahel ka tobedaid olukordi.</p>
+          <p><strong>Olulisemad sündmused:</strong> Åke katsetused; Doris saab tema katsetes kannatada; sõprade omavahelised jutud ja naljad; Berti tähelepanu liigub tüdrukutelt mujale.</p>
+          <p><strong>Olulised tegelased peatükis:</strong> Bert, Åke, Doris, Torleif.</p>
+        </article>
+
+        <article class="card chapter">
+          <h3>4. peatükk – aprill</h3>
+          <p><strong>Kokkuvõte:</strong> Kevade keskel on Bertil tegemist kooli ja enesehinnanguga. Selgub, et tal on halb nägemine, ning ta peab hakkama kandma prille. See teeb ta ebakindlaks, sest Klimpen ja teised võivad teda narrida, kuid samas peab Bert õppima iseennast rohkem aktsepteerima.</p>
+          <p><strong>Olulisemad sündmused:</strong> Berti nägemisprobleemi avastamine; prillide saamine; narrimine; jalgpallimäng 5A ja 5B vahel.</p>
+          <p><strong>Olulised tegelased peatükis:</strong> Bert, Klimpen, Åke, klassikaaslased.</p>
+        </article>
+
+        <article class="card chapter">
+          <h3>5. peatükk – mai</h3>
+          <p><strong>Kokkuvõte:</strong> Mais muutub Berti maailm jälle, sest koolipeol armub ta Nadja Nilssonisse. Ta püüab välja uurida, kes Nadja on, kus ta elab ja kuidas temaga rääkida. Bert kogub julgust, helistab Nadjale ning loodab, et seekord ei juhtu midagi nii piinlikku kui Rebeckaga.</p>
+          <p><strong>Olulisemad sündmused:</strong> koolidisko; armumine Nadjasse; Torleifi info Nadja kohta; telefonikõne Nadjale; Bert püüab jätta endast hea mulje.</p>
+          <p><strong>Olulised tegelased peatükis:</strong> Bert, Nadja, Torleif, Åke.</p>
+        </article>
+
+        <article class="card chapter">
+          <h3>6. peatükk – juuni</h3>
+          <p><strong>Kokkuvõte:</strong> Kooliaasta hakkab lõppema ning Bert tahab Nadjaga päriselt kokku saada. Hoppalotjingieni väljamõeldud maailm laguneb, päevik saab Åke katse tõttu isegi veidi kannatada, kuid kõige tähtsam on siiski Berti kohtumine Nadjaga. Lõpus julgeb Bert olla tema ise ning loobub Treb Walkeri mängust.</p>
+          <p><strong>Olulisemad sündmused:</strong> Hoppalotjingieni „sõja” lõpp; Åke põletab eksperimendiga osa päevikust; Bert ja Nadja kohtuvad pargis vana tamme all; nad kraabivad puusse oma initsiaalid.</p>
+          <p><strong>Olulised tegelased peatükis:</strong> Bert, Nadja, Åke.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="tegelased" class="section">
+      <div class="section-heading">
+        <h2>Olulised tegelased</h2>
+        <p class="section-note">Need on tegelased, keda on teose mõistmiseks kõige rohkem vaja teada.</p>
+      </div>
+      <div class="characters-grid">
+        <article class="card character"><h3>Bert Ljung</h3><p>Peategelane. Tundlik, naljakas ja vahel kohmetu poiss, kes kirjutab päevikut, armub kergesti ja tahab väga meeldida nii sõpradele kui tüdrukutele.</p></article>
+        <article class="card character"><h3>Åke</h3><p>Berti parim sõber. Nutikas, aga ohtlikult katsetamishimuline poiss, kelle ideed tekitavad sageli segadust ja naljakaid probleeme.</p></article>
+        <article class="card character"><h3>Torleif</h3><p>Berti sõber, kes on rahulikum ja kultuursem kui teised. Temalt saab Bert mitu tähtsat vihjet, eriti siis, kui jutuks tuleb Nadja.</p></article>
+        <article class="card character"><h3>Klimpen</h3><p>Klassi jõuline ja hirmutav poiss, kes kipub teisi narrima ja kiusama. Tema vingerpuss sünnipäevapeol rikub Berti võimalused Rebecka ees.</p></article>
+        <article class="card character"><h3>Rebecka</h3><p>Tüdruk 5B klassist, kes meeldib Bertile loo alguses. Tema kaudu näeb lugeja, kui piinlikuks võib esimene armumine vahel muutuda.</p></article>
+        <article class="card character"><h3>Nadja Nilsson</h3><p>Tüdruk, kellesse Bert kevade lõpus armub. Nadja on Berti jaoks väga tähtis, sest tema pärast püüab Bert muutuda julgemaks ja ausamaks.</p></article>
+        <article class="card character"><h3>Doris</h3><p>Åke väike õde, kes satub vahel tema katsete ohvriks. Ta ei ole peategelane, kuid aitab näidata Åke veidrat ja hulljulget loomust.</p></article>
+        <article class="card character"><h3>Fredrik Ljung</h3><p>Berti isa. Ta on humoorikas ja kohati kummaline täiskasvanu, kelle kõrval sünnib palju naljakaid perehetki.</p></article>
+        <article class="card character"><h3>Madelene Ljung</h3><p>Berti ema. Hoiab pereelu koos ning tasakaalustab isa ja poja veidi pööraseid tegemisi.</p></article>
+      </div>
+    </section>
+
+    <section id="quiz" class="section">
+      <div class="section-heading">
+        <h2>Valikvastustega küsimustik</h2>
+        <p class="section-note">Igal küsimusel on 5 vastusevarianti. Vale vastusega küsimused lisatakse automaatselt meelespeasse.</p>
+      </div>
+      <div class="card quiz-card">
+        <div class="quiz-top">
+          <div>
+            <p class="quiz-label">Küsimus <span id="currentQuestion">1</span> / <span id="totalQuestions">10</span></p>
+            <h3 id="questionText">Laen küsimuse...</h3>
+          </div>
+          <div class="score-box">
+            <span>Tulemus</span>
+            <strong id="score">0</strong>
+          </div>
+        </div>
+        <div id="answerButtons" class="answers"></div>
+        <div id="feedback" class="feedback hidden"></div>
+        <div class="quiz-actions">
+          <button id="nextBtn" class="btn primary hidden">Järgmine küsimus</button>
+          <button id="restartBtn" class="btn secondary hidden">Alusta uuesti</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="meelespea" class="section">
+      <div class="section-heading">
+        <h2>Mälumäng valede vastustega</h2>
+        <p class="section-note">Siia kogunevad küsimused, millele vastasid valesti. Andmed salvestuvad samas brauseris.</p>
+      </div>
+      <div class="card memory-card">
+        <div class="memory-actions">
+          <button id="practiceWrongBtn" class="btn primary">Harjuta valesid küsimusi</button>
+          <button id="clearWrongBtn" class="btn secondary">Tühjenda meelespea</button>
+        </div>
+        <div id="wrongAnswersList" class="wrong-list"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container card footer-card">
+      <p><strong>Märkus:</strong> Õppematerjal on koostatud noore lugeja jaoks lihtsas keeles. Peatükid on esitatud kuude kaupa, sest teos on päevikuvormis ning tegevus kulgeb jaanuarist juunini.</p>
+    </div>
+  </footer>
+
+  <script>
+    const questions = [
+      {
+        question: 'Mis vormis on „Berti päevik” kirjutatud?',
+        answers: ['Muinasjutuna', 'Päevikuna', 'Näidendina', 'Ajaleheartiklina', 'Kirjana'],
+        correct: 1,
+        explanation: 'Õige vastus on „Päevikuna”, sest Bert jutustab oma elu päeviku sissekannete kaudu.'
+      },
+      {
+        question: 'Kui vanaks Bert selles teoses saab?',
+        answers: ['10', '11', '12', '13', '14'],
+        correct: 2,
+        explanation: 'Õige vastus on 12. Tegevus toimub aastal, mil Bert saab 12-aastaseks.'
+      },
+      {
+        question: 'Millist salanime kasutab Bert alguses enda kohta?',
+        answers: ['Ben Walker', 'Treb Walker', 'Bertson', 'Kobåj-Kurt', 'Nils Rider'],
+        correct: 1,
+        explanation: 'Õige vastus on Treb Walker. „Treb” on „Bert” tagurpidi.'
+      },
+      {
+        question: 'Kes on Berti parim sõber?',
+        answers: ['Klimpen', 'Torleif', 'Åke', 'Lill-Erik', 'Ragge'],
+        correct: 2,
+        explanation: 'Õige vastus on Åke. Ta on Berti kõige lähem sõber ja suur katsetaja.'
+      },
+      {
+        question: 'Kellesse Bert on loo alguses armunud?',
+        answers: ['Nadjasse', 'Emiliasse', 'Rebeckasse', 'Dorisesse', 'Madelenesse'],
+        correct: 2,
+        explanation: 'Õige vastus on Rebeckasse. Nadja tuleb Berti ellu hiljem.'
+      },
+      {
+        question: 'Mis rikub Berti sünnipäeval tema võimaluse Rebeckale meeldida?',
+        answers: ['Ta unustab tema nime', 'Ta ajab limonaadi ümber', 'Klimpeni vingerpuss kummimaoga', 'Ta läheb peolt ära', 'Ta jääb haigeks'],
+        correct: 2,
+        explanation: 'Õige vastus on Klimpeni vingerpuss kummimaoga.'
+      },
+      {
+        question: 'Milline mure avastatakse Bertil kevade jooksul?',
+        answers: ['Tal on katkine jalgratas', 'Tal on halb nägemine', 'Ta ei oska lugeda', 'Tal on hirm koerte ees', 'Ta kaotab päeviku'],
+        correct: 1,
+        explanation: 'Õige vastus on halb nägemine. Bert peab hakkama kandma prille.'
+      },
+      {
+        question: 'Kellesse Bert kevade lõpus armub?',
+        answers: ['Rebeckasse', 'Nadjasse', 'Emiliasse', 'Dorisesse', 'Sonja Eki'],
+        correct: 1,
+        explanation: 'Õige vastus on Nadjasse ehk Nadja Nilssonisse.'
+      },
+      {
+        question: 'Mis juhtub osaga Berti päevikust?',
+        answers: ['Koer sööb selle ära', 'Bert viskab selle minema', 'Åke põletab katse käigus osa lehti ära', 'Õpetaja võtab selle ära', 'Rebecka rebib selle katki'],
+        correct: 2,
+        explanation: 'Õige vastus on see, et Åke põletab katse käigus osa lehti ära.'
+      },
+      {
+        question: 'Kus saavad Bert ja Nadja raamatu lõpus kokku?',
+        answers: ['Kinos', 'Raamatukogus', 'Jalgpalliplatsil', 'Pargis vana tamme all', 'Bussipeatuses'],
+        correct: 3,
+        explanation: 'Õige vastus on pargis vana tamme all.'
+      }
+    ];
+
+    const wrongKey = 'bertiPaevikWrongAnswers';
+    let currentIndex = 0;
+    let score = 0;
+    let activeQuestions = [...questions];
+
+    const currentQuestionEl = document.getElementById('currentQuestion');
+    const totalQuestionsEl = document.getElementById('totalQuestions');
+    const questionTextEl = document.getElementById('questionText');
+    const answerButtonsEl = document.getElementById('answerButtons');
+    const feedbackEl = document.getElementById('feedback');
+    const scoreEl = document.getElementById('score');
+    const nextBtn = document.getElementById('nextBtn');
+    const restartBtn = document.getElementById('restartBtn');
+    const wrongAnswersListEl = document.getElementById('wrongAnswersList');
+    const practiceWrongBtn = document.getElementById('practiceWrongBtn');
+    const clearWrongBtn = document.getElementById('clearWrongBtn');
+
+    function getWrongAnswers() {
+      try {
+        return JSON.parse(localStorage.getItem(wrongKey)) || [];
+      } catch {
+        return [];
+      }
+    }
+
+    function saveWrongAnswers(items) {
+      localStorage.setItem(wrongKey, JSON.stringify(items));
+      renderWrongAnswers();
+    }
+
+    function addWrongAnswer(questionObj, selectedIndex) {
+      const existing = getWrongAnswers();
+      const alreadyThere = existing.find(item => item.question === questionObj.question);
+
+      const entry = {
+        question: questionObj.question,
+        yourAnswer: questionObj.answers[selectedIndex],
+        correctAnswer: questionObj.answers[questionObj.correct],
+        explanation: questionObj.explanation
+      };
+
+      if (alreadyThere) {
+        const updated = existing.map(item =>
+          item.question === questionObj.question ? entry : item
+        );
+        saveWrongAnswers(updated);
+      } else {
+        existing.push(entry);
+        saveWrongAnswers(existing);
+      }
+    }
+
+    function removeWrongAnswer(questionText) {
+      const updated = getWrongAnswers().filter(item => item.question !== questionText);
+      saveWrongAnswers(updated);
+    }
+
+    function renderWrongAnswers() {
+      const wrongAnswers = getWrongAnswers();
+
+      if (!wrongAnswers.length) {
+        wrongAnswersListEl.innerHTML = '<p>Praegu ei ole ühtegi meelespeasse salvestatud valet vastust.</p>';
+        practiceWrongBtn.disabled = true;
+        return;
+      }
+
+      practiceWrongBtn.disabled = false;
+      wrongAnswersListEl.innerHTML = wrongAnswers
+        .map(item => `
+          <article class="wrong-item">
+            <h4>${item.question}</h4>
+            <p><strong>Sinu viimane vastus:</strong> ${item.yourAnswer}</p>
+            <p><strong>Õige vastus:</strong> ${item.correctAnswer}</p>
+            <p><strong>Selgitus:</strong> ${item.explanation}</p>
+          </article>
+        `)
+        .join('');
+    }
+
+    function startQuiz(questionSet = questions) {
+      activeQuestions = [...questionSet];
+      currentIndex = 0;
+      score = 0;
+      scoreEl.textContent = score;
+      totalQuestionsEl.textContent = activeQuestions.length;
+      restartBtn.classList.add('hidden');
+      nextBtn.classList.add('hidden');
+      feedbackEl.className = 'feedback hidden';
+      showQuestion();
+    }
+
+    function showQuestion() {
+      const q = activeQuestions[currentIndex];
+      currentQuestionEl.textContent = currentIndex + 1;
+      questionTextEl.textContent = q.question;
+      answerButtonsEl.innerHTML = '';
+      feedbackEl.className = 'feedback hidden';
+      nextBtn.classList.add('hidden');
+
+      q.answers.forEach((answer, index) => {
+        const button = document.createElement('button');
+        button.className = 'answer-btn';
+        button.textContent = `${String.fromCharCode(65 + index)}. ${answer}`;
+        button.addEventListener('click', () => selectAnswer(index));
+        answerButtonsEl.appendChild(button);
+      });
+    }
+
+    function selectAnswer(selectedIndex) {
+      const q = activeQuestions[currentIndex];
+      const buttons = [...answerButtonsEl.children];
+      const isCorrect = selectedIndex === q.correct;
+
+      buttons.forEach((button, index) => {
+        button.disabled = true;
+        if (index === q.correct) button.classList.add('correct');
+        if (index === selectedIndex && !isCorrect) button.classList.add('wrong');
+      });
+
+      if (isCorrect) {
+        score += 1;
+        scoreEl.textContent = score;
+        feedbackEl.textContent = `Õige. ${q.explanation}`;
+        feedbackEl.className = 'feedback good';
+        removeWrongAnswer(q.question);
+      } else {
+        feedbackEl.textContent = `Vale. ${q.explanation}`;
+        feedbackEl.className = 'feedback bad';
+        addWrongAnswer(q, selectedIndex);
+      }
+
+      nextBtn.classList.remove('hidden');
+      renderWrongAnswers();
+    }
+
+    function nextQuestion() {
+      currentIndex += 1;
+      if (currentIndex < activeQuestions.length) {
+        showQuestion();
+      } else {
+        finishQuiz();
+      }
+    }
+
+    function finishQuiz() {
+      answerButtonsEl.innerHTML = '';
+      questionTextEl.textContent = `Küsimustik on läbi. Sinu tulemus: ${score} / ${activeQuestions.length}.`;
+      feedbackEl.textContent = score === activeQuestions.length
+        ? 'Väga hea. Said kõik küsimused õigesti.'
+        : 'Vaata allpool meelespead ja harjuta küsimusi, mis läksid valesti.';
+      feedbackEl.className = `feedback ${score === activeQuestions.length ? 'good' : 'bad'}`;
+      nextBtn.classList.add('hidden');
+      restartBtn.classList.remove('hidden');
+    }
+
+    nextBtn.addEventListener('click', nextQuestion);
+    restartBtn.addEventListener('click', () => startQuiz(questions));
+
+    practiceWrongBtn.addEventListener('click', () => {
+      const wrongQuestions = getWrongAnswers()
+        .map(item => questions.find(q => q.question === item.question))
+        .filter(Boolean);
+
+      if (!wrongQuestions.length) {
+        alert('Meelespeas ei ole praegu ühtegi valet küsimust.');
+        return;
+      }
+
+      startQuiz(wrongQuestions);
+      window.location.hash = 'quiz';
+    });
+
+    clearWrongBtn.addEventListener('click', () => {
+      localStorage.removeItem(wrongKey);
+      renderWrongAnswers();
+    });
+
+    renderWrongAnswers();
+    startQuiz();
+  </script>
+</body>
+</html>

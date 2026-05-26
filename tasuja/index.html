@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="et">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tasuja – õppematerjal</title>
+  <style>
+    :root {
+      --bg: #f6f8fc;
+      --card: #ffffff;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --primary: #4f46e5;
+      --primary-2: #6366f1;
+      --accent: #f59e0b;
+      --line: #e5e7eb;
+      --soft: #eef2ff;
+      --soft-2: #fff7ed;
+      --shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
+      --radius: 18px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Inter, Arial, sans-serif;
+      background: linear-gradient(180deg, #eef2ff 0%, #f8fafc 100%);
+      color: var(--text);
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 24px 16px 40px;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, var(--primary), var(--primary-2));
+      color: white;
+      padding: 28px 24px;
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+      margin-bottom: 18px;
+    }
+
+    .hero h1 {
+      margin: 0 0 8px;
+      font-size: clamp(2rem, 4vw, 2.8rem);
+    }
+
+    .hero p {
+      margin: 0;
+      max-width: 760px;
+      line-height: 1.6;
+      color: rgba(255,255,255,0.92);
+    }
+
+    .tabs {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+      margin: 18px 0 22px;
+    }
+
+    .tab-btn {
+      border: none;
+      background: white;
+      color: var(--text);
+      padding: 14px 12px;
+      border-radius: 14px;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: var(--shadow);
+      transition: transform 0.15s ease, background 0.2s ease, color 0.2s ease;
+    }
+
+    .tab-btn:hover { transform: translateY(-1px); }
+
+    .tab-btn.active {
+      background: var(--primary);
+      color: white;
+    }
+
+    .panel { display: none; }
+    .panel.active { display: block; }
+
+    .card {
+      background: var(--card);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 20px;
+      margin-bottom: 16px;
+    }
+
+    h2 {
+      margin-top: 0;
+      color: var(--primary);
+      font-size: 1.6rem;
+    }
+
+    h3 {
+      margin-top: 0;
+      font-size: 1.15rem;
+    }
+
+    p, li {
+      line-height: 1.65;
+      font-size: 1rem;
+    }
+
+    .summary-grid,
+    .characters-grid,
+    .themes-grid {
+      display: grid;
+      gap: 14px;
+    }
+
+    .summary-grid { grid-template-columns: 1.4fr 1fr; }
+    .characters-grid { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+    .themes-grid { grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); }
+
+    .mini-card {
+      background: #f8fafc;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 16px;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: var(--soft);
+      border: 1px solid #c7d2fe;
+      font-weight: 700;
+      color: #3730a3;
+    }
+
+    .chapter-item {
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: #fcfcff;
+      overflow: hidden;
+      margin-bottom: 12px;
+    }
+
+    .chapter-toggle {
+      width: 100%;
+      border: none;
+      background: transparent;
+      padding: 16px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      cursor: pointer;
+      text-align: left;
+      font: inherit;
+    }
+
+    .chapter-toggle:hover {
+      background: #f8faff;
+    }
+
+    .chapter-title-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .chapter-label {
+      font-weight: 800;
+      color: var(--text);
+    }
+
+    .chapter-sub {
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .arrow {
+      width: 18px;
+      height: 18px;
+      border-right: 3px solid var(--primary);
+      border-bottom: 3px solid var(--primary);
+      transform: rotate(45deg);
+      transition: transform 0.2s ease;
+      flex: 0 0 auto;
+      margin-right: 4px;
+    }
+
+    .chapter-item.open .arrow {
+      transform: rotate(225deg);
+      margin-top: 8px;
+    }
+
+    .chapter-content {
+      display: none;
+      padding: 0 18px 18px;
+      border-top: 1px solid var(--line);
+      background: white;
+    }
+
+    .chapter-item.open .chapter-content { display: block; }
+
+    .list-title {
+      font-weight: 800;
+      margin: 14px 0 6px;
+      color: #111827;
+    }
+
+    .character-card {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 16px;
+    }
+
+    .character-card h3 { color: var(--primary); }
+
+    .quiz-start {
+      display: inline-block;
+      border: none;
+      background: linear-gradient(135deg, var(--accent), #fb923c);
+      color: white;
+      padding: 12px 18px;
+      border-radius: 12px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .quiz-box {
+      margin-top: 18px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 18px;
+      background: #fcfcff;
+    }
+
+    .progress {
+      margin-bottom: 12px;
+      color: var(--muted);
+      font-weight: 700;
+    }
+
+    .question {
+      font-size: 1.1rem;
+      font-weight: 800;
+      margin-bottom: 14px;
+    }
+
+    .option {
+      display: block;
+      width: 100%;
+      text-align: left;
+      margin: 8px 0;
+      padding: 12px 14px;
+      border-radius: 12px;
+      border: 1px solid #c7d2fe;
+      background: var(--soft);
+      cursor: pointer;
+      font: inherit;
+      transition: transform 0.12s ease, background 0.2s ease, border-color 0.2s ease;
+    }
+
+    .option:hover {
+      transform: translateY(-1px);
+      border-color: var(--primary);
+    }
+
+    .feedback {
+      margin-top: 12px;
+      font-weight: 700;
+    }
+
+    .feedback.good { color: #166534; }
+    .feedback.bad { color: #b91c1c; }
+
+    .secondary-btn {
+      border: none;
+      background: var(--primary);
+      color: white;
+      padding: 10px 14px;
+      border-radius: 12px;
+      cursor: pointer;
+      font-weight: 700;
+      margin-top: 14px;
+      margin-right: 8px;
+    }
+
+    .wrong-list li { margin-bottom: 6px; }
+
+    @media (max-width: 820px) {
+      .tabs { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .summary-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 560px) {
+      .tabs { grid-template-columns: 1fr; }
+      .container { padding: 16px 12px 28px; }
+      .hero { padding: 22px 18px; }
+      .card { padding: 16px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <section class="hero">
+      <h1>Eduard Bornhöhe „Tasuja”</h1>
+      <p>Õppematerjal noorele lugejale: ülevaade teosest, peatükkidest, tegelastest ja kordamisküsimustest. Leht on ehitatud nii, et korraga on nähtav ainult üks aktiivne osa.</p>
+    </section>
+
+    <nav class="tabs" aria-label="Sisu plokid">
+      <button class="tab-btn active" data-target="kokkuvote">Kokkuvõte</button>
+      <button class="tab-btn" data-target="peatykid">Peatükid</button>
+      <button class="tab-btn" data-target="tegelased">Tegelased</button>
+      <button class="tab-btn" data-target="viktoriin">Viktoriin</button>
+    </nav>
+
+    <section id="kokkuvote" class="panel active">
+      <div class="card">
+        <h2>Kokkuvõte</h2>
+        <div class="summary-grid">
+          <div class="mini-card">
+            <h3>Teosest</h3>
+            <p>„Tasuja” on ajalooline jutustus, mis viib lugeja Jüriöö ülestõusu aega. Teose keskmes on eesti talupoegade soov vabaneda rõhumisest ja taastada õiglus. Lugu ühendab ajaloolised sündmused, põnevuse, vapruse ja traagika.</p>
+          </div>
+          <div class="mini-card">
+            <h3>Lühikokkuvõte</h3>
+            <p>Jaanus kasvab üles teadmisega, et tema rahvale on tehtud palju ülekohut. Temast kujuneb Tasuja, kes soovib kätte maksta rõhujatele ja taastada õigluse. Jüriöö ülestõusu ajal tõusevad eestlased saksa mõisnike vastu. Alguses tundub, et vabadus võib olla võimalik. Võitlejad tegutsevad julgelt, kuid nende ettevõtmist saadavad ka kahtlused ja ohud. Loos põimuvad isiklikud suhted, ustavus ja rahva saatus. Mitmed tegelased peavad tegema raskeid valikuid. Ülestõus muutub järjest ohtlikumaks ja vastased osutuvad tugevaks. Lõpuks surutakse vastuhakk maha. Teos rõhutab, et vabaduse igatsus ja julgus võivad jääda püsima ka kaotuse järel.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Teemad, mida teos käsitleb</h2>
+        <div class="themes-grid">
+          <div class="tag">vabadusvõitlus</div>
+          <div class="tag">õiglus ja kättemaks</div>
+          <div class="tag">rahvuslik eneseteadvus</div>
+          <div class="tag">julgus</div>
+          <div class="tag">reetmine ja ustavus</div>
+          <div class="tag">võim ja rõhumine</div>
+          <div class="tag">lootus</div>
+          <div class="tag">ohverdus</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="peatykid" class="panel">
+      <div class="card">
+        <h2>Peatükid</h2>
+        <p>Iga peatüki juures saad kokkuvõtte avada noolekese abil. Korraga võib lahti teha mitu peatükki.</p>
+        <div id="chapters"></div>
+      </div>
+    </section>
+
+    <section id="tegelased" class="panel">
+      <div class="card">
+        <h2>Olulisemad tegelased</h2>
+        <div class="characters-grid" id="characters"></div>
+      </div>
+    </section>
+
+    <section id="viktoriin" class="panel">
+      <div class="card">
+        <h2>Viktoriin</h2>
+        <p>Vali vastus. Vale vastusega küsimused jäetakse meelde ja neid saab lõpus uuesti harjutada.</p>
+        <button class="quiz-start" id="startQuizBtn">Alusta testi</button>
+        <div id="quizArea"></div>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    const chapters = [
+      {
+        title: '1. peatükk',
+        summary: 'Lugeja viiakse ajaloolisse aega, kus eestlaste elu on raske ja allasurutud. Tutvustatakse pingeid saksa mõisnike ja maarahva vahel.',
+        events: ['Ajastu ja olustiku tutvustus', 'Rõhutud rahva olukorra näitamine'],
+        characters: ['Jaanus', 'saksa mõisnikud']
+      },
+      {
+        title: '2. peatükk',
+        summary: 'Jaanuse taust ja iseloom hakkavad avanema. Selgub, et temas on tavalisest rohkem julgust ja rahulolematust ebaõigluse suhtes.',
+        events: ['Jaanuse iseloomu kujunemine', 'Pingete kasvamine'],
+        characters: ['Jaanus']
+      },
+      {
+        title: '3. peatükk',
+        summary: 'Jaanus puutub lähemalt kokku ülekohtuga, mis süvendab temas soovi tegutseda. Võitluse mõte muutub tema jaoks isiklikuks.',
+        events: ['Ebaõigluse kogemine', 'Kättemaksusoovi tugevnemine'],
+        characters: ['Jaanus', 'mõisavalitsejad']
+      },
+      {
+        title: '4. peatükk',
+        summary: 'Lugu liigub suurema vastuhaku ettevalmistamise suunas. Rahva seas levivad lootus ja ärevus.',
+        events: ['Vastuhaku mõtte levik', 'Rahva meeleolu pingestumine'],
+        characters: ['Jaanus', 'talupojad']
+      },
+      {
+        title: '5. peatükk',
+        summary: 'Jaanusest kujuneb järjest selgemalt Tasuja kuju. Tema nimi ja teod hakkavad kandma sümboolset tähendust.',
+        events: ['Tasuja kuvandi tekkimine', 'Julguse ja juhirolli kasv'],
+        characters: ['Jaanus ehk Tasuja']
+      },
+      {
+        title: '6. peatükk',
+        summary: 'Ülestõusule eelnev pinge kasvab. Tegelased peavad otsustama, kas riskida või jääda kõrvale.',
+        events: ['Otsuste tegemine', 'Hirmu ja lootuse vastasseis'],
+        characters: ['Jaanus', 'rahva juhid']
+      },
+      {
+        title: '7. peatükk',
+        summary: 'Vastuhakk algab. Sündmused muutuvad kiireks ja ohtlikuks.',
+        events: ['Ülestõusu algus', 'Esimesed kokkupõrked'],
+        characters: ['Tasuja', 'ülestõusjad', 'mõisnikud']
+      },
+      {
+        title: '8. peatükk',
+        summary: 'Alguses saadavad vastuhakku mõningad õnnestumised. Rahva seas tekib tunne, et muutus on võimalik.',
+        events: ['Esimesed edusammud', 'Lootuse kasv'],
+        characters: ['Tasuja', 'ülestõusjad']
+      },
+      {
+        title: '9. peatükk',
+        summary: 'Sõjaline ja moraalne pinge suureneb. Kõik ei ole enam kindlad, et ettevõtmine lõpeb hästi.',
+        events: ['Kahtluste tekkimine', 'Vastaste surve suurenemine'],
+        characters: ['Tasuja', 'rahvas']
+      },
+      {
+        title: '10. peatükk',
+        summary: 'Loo isiklik mõõde muutub nähtavamaks. Suhted ja lojaalsus mõjutavad otsuseid.',
+        events: ['Isiklike suhete tähtsus', 'Ustavuse proovilepanek'],
+        characters: ['Tasuja', 'Emand']
+      },
+      {
+        title: '11. peatükk',
+        summary: 'Vastased koguvad jõudu ja olukord pöördub eestlaste jaoks raskemaks. Vabadus ei näi enam nii lähedal.',
+        events: ['Vastaste vasturünnak', 'Olukorra halvenemine'],
+        characters: ['saksa sõjajõud', 'ülestõusjad']
+      },
+      {
+        title: '12. peatükk',
+        summary: 'Tekivad kaotused ja pettumused. Tegelaste vaprus pannakse tõsiselt proovile.',
+        events: ['Kaotused', 'Lootuse nõrgenemine'],
+        characters: ['Tasuja', 'ülestõusjad']
+      },
+      {
+        title: '13. peatükk',
+        summary: 'Pinged jõuavad haripunkti. Lahingu- ja otsusemomendid määravad edasise saatuse.',
+        events: ['Haripunkti lähenemine', 'Saatust määravad valikud'],
+        characters: ['Tasuja', 'rahva juhid']
+      },
+      {
+        title: '14. peatükk',
+        summary: 'Ülestõusu kokkuvarisemine muutub tõenäoliseks. Vastased saavutavad ülekaalu.',
+        events: ['Taganemine või murdumine', 'Vastaste ülekaal'],
+        characters: ['ülestõusjad', 'mõisnikud']
+      },
+      {
+        title: '15. peatükk',
+        summary: 'Teose traagiline mõõde tuleb selgelt esile. Võitlus ei anna soovitud tulemust, kuid selle mõte ei kao.',
+        events: ['Lõpliku kaotuse lähenemine', 'Võitluse tähenduse säilimine'],
+        characters: ['Tasuja']
+      },
+      {
+        title: '16. peatükk',
+        summary: 'Lõpus jääb kõlama mõte, et rahva vabaduseigatsust ei saa täielikult hävitada. Tasuja kuju jääb sümboliseerima vastupanu ja õiglust.',
+        events: ['Teose lõpetus', 'Sümboolse tähenduse kinnistumine'],
+        characters: ['Tasuja', 'eesti rahvas']
+      }
+    ];
+
+    const characters = [
+      {
+        name: 'Jaanus ehk Tasuja',
+        desc: 'Peategelane, kellest kujuneb õiglust otsiv ja vapralt tegutsev vastuhakujuht. Tema kaudu rõhutatakse julgust, viha ülekohtu vastu ja soovi oma rahvast kaitsta.'
+      },
+      {
+        name: 'Emand',
+        desc: 'Oluline kõrvaltegelane, kelle kaudu lisandub loosse isiklikke suhteid, tundeid ja sisemisi pingeid. Ta aitab näidata, et ajalooliste sündmuste kõrval mõjutavad tegelasi ka inimlikud valikud.'
+      },
+      {
+        name: 'Saksa mõisnikud',
+        desc: 'Rõhuva võimu esindajad, kelle tegevus sümboliseerib ebaõiglust ja alandamist. Nende kaudu muutub vastuhakk loo keskseks konfliktiks.'
+      },
+      {
+        name: 'Talupojad ja ülestõusjad',
+        desc: 'Rahva ühine jõud, kelle lootus paremast tulevikust käivitab suure vastuhaku. Nad näitavad, kui oluline on ühtehoidmine ja julgus.'
+      },
+      {
+        name: 'Rahva juhid ja toetajad',
+        desc: 'Kõrvaltegelased, kes aitavad ülestõusu korraldada ja suunata. Nende roll rõhutab, et suurte muutuste taga on koostöö, mitte ainult üks kangelane.'
+      }
+    ];
+
+    const allQuestions = [
+      {
+        q: 'Kes on teose peategelane?',
+        options: ['Jaanus ehk Tasuja', 'Mölder', 'Kuningas', 'Õpetaja', 'Kaupmees'],
+        a: 0
+      },
+      {
+        q: 'Millise ajaloolise sündmusega on teos seotud?',
+        options: ['Mahtra sõjaga', 'Jüriöö ülestõusuga', 'Vabadussõjaga', 'Liivi sõjaga', 'Põhjasõjaga'],
+        a: 1
+      },
+      {
+        q: 'Mis on teoses üks peamisi teemasid?',
+        options: ['Kosmoselend', 'Vabadusvõitlus', 'Naljamäng', 'Spordivõistlus', 'Leiutamine'],
+        a: 1
+      },
+      {
+        q: 'Mille vastu astuvad ülestõusjad välja?',
+        options: ['Mere vastu', 'Haiguse vastu', 'Rõhumise vastu', 'Talve vastu', 'Metsatulekahju vastu'],
+        a: 2
+      },
+      {
+        q: 'Milline omadus iseloomustab Tasujat kõige paremini?',
+        options: ['Laiskus', 'Argus', 'Julgus', 'Ükskõiksus', 'Hajameelsus'],
+        a: 2
+      },
+      {
+        q: 'Kuidas lõpeb ülestõus teoses?',
+        options: ['Täieliku võiduga', 'Pidustustega', 'Maha surumisega', 'Pulmadega', 'Rahulepinguga'],
+        a: 2
+      },
+      {
+        q: 'Mida sümboliseerib Tasuja kuju?',
+        options: ['Vastupanu ja õiglust', 'Mugavust', 'Rikkust', 'Vaikust', 'Juhuslikkust'],
+        a: 0
+      },
+      {
+        q: 'Milline tunne kasvab rahva seas vastuhaku alguses?',
+        options: ['Lootus', 'Igavus', 'Segadus ilma põhjuseta', 'Rõõm koolivaheajast', 'Ükskõiksus'],
+        a: 0
+      },
+      {
+        q: 'Miks on teos noorele lugejale oluline?',
+        options: ['Õpetab ainult toidutegemist', 'Näitab ajalugu ja väärtusi', 'Räägib ainult ilmast', 'On matemaatikaõpik', 'On reisijuht'],
+        a: 1
+      },
+      {
+        q: 'Milline teema käib teosest läbi koos vabaduseigatsusega?',
+        options: ['Kättemaks ja õiglus', 'Autoremont', 'Moeajalugu', 'Mänguasjad', 'Aiandus'],
+        a: 0
+      },
+      {
+        q: 'Kes esindavad loos rõhuvat võimu?',
+        options: ['Saksa mõisnikud', 'Kalurid', 'Naaberküla lapsed', 'Rändurid', 'Käsitöölised'],
+        a: 0
+      },
+      {
+        q: 'Mida saab teha pärast testi lõppu?',
+        options: ['Ainult lehe sulgeda', 'Harjutada valesti läinud küsimusi uuesti', 'Muuta teose pealkirja', 'Saata vastuseid õpetajale automaatselt', 'Avada videomängu'],
+        a: 1
+      }
+    ];
+
+    const chaptersContainer = document.getElementById('chapters');
+    const charactersContainer = document.getElementById('characters');
+
+    chapters.forEach((chapter, index) => {
+      const item = document.createElement('div');
+      item.className = 'chapter-item';
+      item.innerHTML = `
+        <button class="chapter-toggle" aria-expanded="false" aria-controls="chapter-${index}">
+          <span class="chapter-title-wrap">
+            <span class="chapter-label">${chapter.title}</span>
+            <span class="chapter-sub">Klõpsa, et näha kokkuvõtet, sündmusi ja tegelasi</span>
+          </span>
+          <span class="arrow" aria-hidden="true"></span>
+        </button>
+        <div class="chapter-content" id="chapter-${index}">
+          <p>${chapter.summary}</p>
+          <div class="list-title">Olulisemad sündmused</div>
+          <ul>${chapter.events.map(event => `<li>${event}</li>`).join('')}</ul>
+          <div class="list-title">Tegelased peatükis</div>
+          <ul>${chapter.characters.map(character => `<li>${character}</li>`).join('')}</ul>
+        </div>
+      `;
+
+      const toggle = item.querySelector('.chapter-toggle');
+      toggle.addEventListener('click', () => {
+        const isOpen = item.classList.toggle('open');
+        toggle.setAttribute('aria-expanded', String(isOpen));
+      });
+
+      chaptersContainer.appendChild(item);
+    });
+
+    characters.forEach(character => {
+      const card = document.createElement('article');
+      card.className = 'character-card';
+      card.innerHTML = `<h3>${character.name}</h3><p>${character.desc}</p>`;
+      charactersContainer.appendChild(card);
+    });
+
+    document.querySelectorAll('.tab-btn').forEach(button => {
+      button.addEventListener('click', () => {
+        document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+        document.querySelectorAll('.panel').forEach(panel => panel.classList.remove('active'));
+        button.classList.add('active');
+        document.getElementById(button.dataset.target).classList.add('active');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    });
+
+    const QUIZ_STORAGE_KEY = 'tasuja_wrong_questions';
+    const quizArea = document.getElementById('quizArea');
+    const startQuizBtn = document.getElementById('startQuizBtn');
+
+    let quizQuestions = [];
+    let currentQuestionIndex = 0;
+    let score = 0;
+    let wrongQuestions = [];
+
+    function loadWrongQuestions() {
+      try {
+        return JSON.parse(localStorage.getItem(QUIZ_STORAGE_KEY)) || [];
+      } catch {
+        return [];
+      }
+    }
+
+    function saveWrongQuestions(indices) {
+      localStorage.setItem(QUIZ_STORAGE_KEY, JSON.stringify(indices));
+    }
+
+    function startQuiz(mode = 'all') {
+      const savedWrong = loadWrongQuestions();
+      if (mode === 'wrong' && savedWrong.length > 0) {
+        quizQuestions = savedWrong.map(index => ({ ...allQuestions[index], originalIndex: index }));
+      } else {
+        quizQuestions = allQuestions.map((question, index) => ({ ...question, originalIndex: index }));
+      }
+
+      currentQuestionIndex = 0;
+      score = 0;
+      wrongQuestions = [];
+      renderQuestion();
+    }
+
+    function renderQuestion() {
+      if (currentQuestionIndex >= quizQuestions.length) {
+        renderResult();
+        return;
+      }
+
+      const question = quizQuestions[currentQuestionIndex];
+      quizArea.innerHTML = `
+        <div class="quiz-box">
+          <div class="progress">Küsimus ${currentQuestionIndex + 1} / ${quizQuestions.length}</div>
+          <div class="question">${question.q}</div>
+          <div id="optionsWrap">
+            ${question.options.map((option, index) => `<button class="option" data-index="${index}">${option}</button>`).join('')}
+          </div>
+          <div id="feedback" class="feedback"></div>
+        </div>
+      `;
+
+      quizArea.querySelectorAll('.option').forEach(button => {
+        button.addEventListener('click', () => handleAnswer(Number(button.dataset.index)));
+      });
+    }
+
+    function handleAnswer(selectedIndex) {
+      const question = quizQuestions[currentQuestionIndex];
+      const feedback = document.getElementById('feedback');
+      const optionButtons = [...quizArea.querySelectorAll('.option')];
+      optionButtons.forEach(button => button.disabled = true);
+
+      if (selectedIndex === question.a) {
+        score++;
+        feedback.textContent = 'Õige vastus.';
+        feedback.className = 'feedback good';
+      } else {
+        wrongQuestions.push(question.originalIndex);
+        feedback.textContent = `Vale vastus. Õige vastus oli: ${question.options[question.a]}.`;
+        feedback.className = 'feedback bad';
+      }
+
+      optionButtons.forEach((button, index) => {
+        if (index === question.a) button.style.background = '#dcfce7';
+        if (index === selectedIndex && selectedIndex !== question.a) button.style.background = '#fee2e2';
+      });
+
+      setTimeout(() => {
+        currentQuestionIndex++;
+        renderQuestion();
+      }, 1200);
+    }
+
+    function renderResult() {
+      const uniqueWrong = [...new Set(wrongQuestions)];
+      saveWrongQuestions(uniqueWrong);
+
+      quizArea.innerHTML = `
+        <div class="quiz-box">
+          <div class="question">Test on lõpetatud.</div>
+          <p><strong>Tulemus:</strong> ${score} / ${quizQuestions.length}</p>
+          ${uniqueWrong.length ? `
+            <div>
+              <div class="list-title">Küsimused, mis läksid valesti</div>
+              <ul class="wrong-list">
+                ${uniqueWrong.map(index => `<li>${allQuestions[index].q}</li>`).join('')}
+              </ul>
+            </div>
+          ` : '<p>Kõik vastused olid õiged.</p>'}
+          <button class="secondary-btn" id="retryAll">Tee kogu test uuesti</button>
+          ${uniqueWrong.length ? '<button class="secondary-btn" id="retryWrong">Proovi uuesti valesid küsimusi</button>' : ''}
+        </div>
+      `;
+
+      document.getElementById('retryAll').addEventListener('click', () => startQuiz('all'));
+      const retryWrong = document.getElementById('retryWrong');
+      if (retryWrong) retryWrong.addEventListener('click', () => startQuiz('wrong'));
+    }
+
+    startQuizBtn.addEventListener('click', () => startQuiz('all'));
+  </script>
+</body>
+</html>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Math Tutor</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="app-shell">
+    <section class="hero">
+      <div class="hero-topbar">
+        <div>
+          <p class="eyebrow" id="hero-eyebrow">Math Tutor</p>
+          <h1 id="hero-title">Build confidence with short daily practice.</h1>
+        </div>
+
+        <div class="language-picker" aria-label="Language picker">
+          <span class="language-label" id="language-picker-label">Language</span>
+          <div class="language-options" id="language-options" role="group" aria-labelledby="language-picker-label"></div>
+        </div>
+      </div>
+
+      <p class="intro" id="hero-intro">
+        Start with multiplication, decimals, and fractions. Pick a skill, solve one question at a time,
+        and track how many you get right in a row.
+      </p>
+    </section>
+
+    <section class="workspace">
+      <aside class="topic-panel">
+        <h2 id="practice-modes-title">Practice Modes</h2>
+        <div class="topic-list" id="topic-list" role="tablist" aria-label="Math topics"></div>
+        <div class="tips-card">
+          <h3 id="learning-tip-title">Learning Tip</h3>
+          <p id="topic-tip"></p>
+        </div>
+        <div class="lesson-card" id="lesson-card" hidden>
+          <h3 id="lesson-title">Step By Step</h3>
+          <p id="lesson-example"></p>
+          <ol id="lesson-steps"></ol>
+        </div>
+      </aside>
+
+      <section class="practice-panel">
+        <div class="status-bar">
+          <div>
+            <p class="label" id="current-skill-label">Current Skill</p>
+            <p class="value" id="current-topic"></p>
+          </div>
+          <div>
+            <p class="label" id="correct-label">Correct</p>
+            <p class="value" id="correct-count">0</p>
+          </div>
+          <div>
+            <p class="label" id="streak-label">Streak</p>
+            <p class="value" id="streak-count">0</p>
+          </div>
+        </div>
+
+        <div class="problem-card">
+          <p class="label" id="question-label">Question</p>
+          <div class="question-text" id="question-text"></div>
+          <p class="hint" id="question-hint"></p>
+
+          <form id="answer-form" class="answer-form">
+            <label class="sr-only" for="answer-input" id="answer-input-label">Your answer</label>
+            <input id="answer-input" name="answer" type="text" autocomplete="off" placeholder="Type your answer">
+            <button type="submit" id="check-answer-button">Check Answer</button>
+          </form>
+
+          <div class="feedback" id="feedback" aria-live="polite"></div>
+
+          <div class="solution-card" id="solution-card" hidden>
+            <div class="solution-header">
+              <p class="label" id="solution-title">Step By Step Solution</p>
+              <button type="button" class="secondary" id="toggle-solution-button">Show Solution</button>
+            </div>
+            <ol id="solution-steps"></ol>
+          </div>
+
+          <div class="actions">
+            <button type="button" class="secondary" id="skip-button">New Question</button>
+          </div>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

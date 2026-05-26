@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="et">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Prints ja kerjus | Interaktiivne õppematerjal</title>
+  <style>
+    :root {
+      --bg: #f7f2e8;
+      --paper: rgba(255, 251, 245, 0.92);
+      --ink: #2d2a26;
+      --muted: #6f665d;
+      --accent: #d46a4d;
+      --accent-deep: #9b452f;
+      --gold: #e3bb64;
+      --mint: #c9e7da;
+      --sky: #d9e7f5;
+      --line: rgba(63, 46, 30, 0.12);
+      --shadow: 0 18px 50px rgba(78, 55, 30, 0.12);
+      --radius-lg: 28px;
+      --radius-md: 18px;
+      --radius-sm: 12px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at top left, rgba(227, 187, 100, 0.25), transparent 30%),
+        radial-gradient(circle at top right, rgba(201, 231, 218, 0.45), transparent 34%),
+        linear-gradient(180deg, #f6efe4 0%, #f3eee7 48%, #efe5d8 100%);
+      min-height: 100vh;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image: linear-gradient(rgba(255, 255, 255, 0.14) 1px, transparent 1px);
+      background-size: 100% 34px;
+      opacity: 0.35;
+    }
+
+    .shell {
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 24px 0 56px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero {
+      min-height: calc(100svh - 24px);
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 24px;
+      align-items: stretch;
+    }
+
+    .hero-panel {
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      position: relative;
+    }
+
+    .hero-copy {
+      background: linear-gradient(145deg, rgba(255, 250, 244, 0.96), rgba(247, 237, 223, 0.94)), var(--paper);
+      border: 1px solid var(--line);
+      padding: 32px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.85rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent-deep);
+      font-weight: 700;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 34px;
+      height: 2px;
+      border-radius: 999px;
+      background: var(--accent);
+    }
+
+    h1 {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(2.6rem, 6vw, 5.3rem);
+      line-height: 0.95;
+      margin: 18px 0;
+      max-width: 8ch;
+    }
+
+    .lead {
+      max-width: 54ch;
+      font-size: 1.08rem;
+      line-height: 1.7;
+      color: var(--muted);
+      margin: 0 0 28px;
+    }
+
+    .hero-actions, .nav-grid, .pill-row, .quiz-actions, .chapter-controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .cta, .tab-button {
+      border: 0;
+      cursor: pointer;
+      border-radius: 999px;
+      padding: 13px 18px;
+      font: inherit;
+      font-weight: 700;
+      transition: transform 0.2s ease, background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .cta {
+      background: var(--accent);
+      color: #fff8f4;
+      box-shadow: 0 10px 24px rgba(212, 106, 77, 0.28);
+    }
+
+    .cta.secondary, .tab-button, .chip {
+      background: rgba(255, 255, 255, 0.62);
+      color: var(--ink);
+      border: 1px solid rgba(70, 46, 23, 0.1);
+      box-shadow: none;
+    }
+
+    .cta:hover, .tab-button:hover, .tab-button.active { transform: translateY(-2px); }
+    .cta.secondary:hover, .tab-button.active { background: var(--ink); color: #fff; }
+
+    .hero-visual {
+      background:
+        linear-gradient(180deg, rgba(34, 29, 25, 0.18), rgba(34, 29, 25, 0.48)),
+        linear-gradient(135deg, #d69f71 0%, #c86c57 36%, #8a4d4c 100%);
+      padding: 26px;
+      display: grid;
+      align-items: end;
+    }
+
+    .visual-frame {
+      height: 100%;
+      border-radius: 24px;
+      padding: 28px;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      background:
+        radial-gradient(circle at 20% 10%, rgba(255, 243, 219, 0.55), transparent 24%),
+        linear-gradient(160deg, rgba(255, 249, 239, 0.16), rgba(255, 255, 255, 0.04));
+      border: 1px solid rgba(255, 245, 233, 0.22);
+      color: #fff9f0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .visual-frame::after {
+      content: "";
+      position: absolute;
+      inset: auto -10% -18% auto;
+      width: 280px;
+      height: 280px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255, 219, 131, 0.32), transparent 68%);
+    }
+
+    .visual-crowns {
+      display: flex;
+      justify-content: space-between;
+      align-items: start;
+      gap: 16px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .crown-card {
+      width: min(46%, 220px);
+      background: rgba(255, 249, 240, 0.12);
+      backdrop-filter: blur(6px);
+      border: 1px solid rgba(255, 248, 236, 0.24);
+      border-radius: 24px;
+      padding: 18px;
+      transform: translateY(18px);
+      opacity: 0;
+      animation: floatIn 0.8s ease forwards;
+    }
+
+    .crown-card:last-child { animation-delay: 0.16s; align-self: end; }
+    .crown { font-size: 2rem; display: block; margin-bottom: 10px; }
+    .crown-card strong { display: block; font-size: 1.1rem; margin-bottom: 4px; }
+
+    .hero-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-stat, .summary-box, .quiz-shell, .chapter-item, .result-box {
+      background: rgba(255, 255, 255, 0.68);
+      border: 1px solid rgba(70, 46, 23, 0.09);
+      border-radius: 22px;
+    }
+
+    .hero-stat { padding: 14px; background: rgba(255, 249, 240, 0.12); border-color: rgba(255, 248, 236, 0.2); }
+    .hero-stat span { display: block; font-size: 1.5rem; font-weight: 800; margin-bottom: 4px; }
+    .hero-stat small { color: rgba(255, 249, 240, 0.8); }
+
+    .main-panel {
+      margin-top: 26px;
+      background: rgba(255, 251, 245, 0.8);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .sticky-nav {
+      position: sticky;
+      top: 0;
+      z-index: 3;
+      backdrop-filter: blur(12px);
+      background: rgba(250, 245, 237, 0.88);
+      border-bottom: 1px solid var(--line);
+      padding: 16px;
+    }
+
+    .section { display: none; padding: 28px; animation: fadeIn 0.35s ease; }
+    .section.active { display: block; }
+
+    .section-head {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: end;
+      margin-bottom: 22px;
+    }
+
+    .section h2 {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(1.8rem, 3vw, 2.8rem);
+      margin: 0 0 8px;
+    }
+
+    .section-copy {
+      margin: 0;
+      max-width: 58ch;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    .summary-box, .quiz-shell { padding: 22px; }
+    .summary-list { margin: 0; padding-left: 20px; line-height: 1.8; }
+    .summary-list li + li { margin-top: 6px; }
+
+    .chip {
+      border-radius: 999px;
+      padding: 10px 14px;
+      cursor: pointer;
+      font: inherit;
+      font-weight: 700;
+    }
+
+    .chapter-list, .answer-list { display: grid; gap: 12px; }
+    .chapter-item { overflow: hidden; }
+
+    .chapter-toggle {
+      width: 100%;
+      text-align: left;
+      background: transparent;
+      border: 0;
+      padding: 18px 20px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      font: inherit;
+      color: var(--ink);
+    }
+
+    .chapter-toggle strong { font-size: 1.04rem; display: block; margin-bottom: 4px; }
+    .chapter-toggle span { color: var(--muted); font-size: 0.93rem; }
+
+    .chapter-toggle .marker {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: var(--sky);
+      color: var(--accent-deep);
+      flex-shrink: 0;
+      transition: transform 0.2s ease;
+      font-weight: 800;
+    }
+
+    .chapter-item.open .marker { transform: rotate(45deg); }
+    .chapter-content { display: none; padding: 0 20px 20px; border-top: 1px solid rgba(70, 46, 23, 0.08); }
+    .chapter-item.open .chapter-content { display: block; }
+
+    .detail-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 18px;
+      margin-top: 18px;
+    }
+
+    .mini-panel {
+      background: rgba(246, 238, 229, 0.8);
+      border-radius: 18px;
+      padding: 16px;
+    }
+
+    .mini-panel h3 { margin: 0 0 10px; font-size: 1rem; }
+    .mini-panel ul, .review-list { margin: 0; padding-left: 18px; line-height: 1.7; }
+
+    .character-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 14px;
+    }
+
+    .character-card {
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.86), rgba(245, 238, 228, 0.92));
+      border: 1px solid rgba(70, 46, 23, 0.08);
+      border-radius: 22px;
+      padding: 18px;
+      min-height: 180px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .character-card:hover { transform: translateY(-4px); box-shadow: 0 16px 30px rgba(78, 55, 30, 0.09); }
+    .badge { align-self: flex-start; padding: 6px 10px; border-radius: 999px; background: var(--mint); font-size: 0.8rem; font-weight: 700; color: #2e5944; }
+    .character-card h3 { margin: 0; font-size: 1.1rem; }
+    .character-card p { margin: 0; color: var(--muted); line-height: 1.65; }
+
+    .quiz-top {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 14px;
+      align-items: center;
+      margin-bottom: 18px;
+    }
+
+    .progress-wrap { flex: 1 1 260px; }
+    .progress-label { display: flex; justify-content: space-between; margin-bottom: 8px; color: var(--muted); font-size: 0.92rem; }
+    .progress-track { height: 12px; border-radius: 999px; background: rgba(70, 46, 23, 0.08); overflow: hidden; }
+    .progress-bar { height: 100%; width: 0; border-radius: inherit; background: linear-gradient(90deg, var(--accent), var(--gold)); transition: width 0.3s ease; }
+    .score-pill { padding: 12px 16px; border-radius: 999px; background: var(--ink); color: #fff; font-weight: 700; }
+
+    .question-card {
+      background: rgba(255, 255, 255, 0.72);
+      border-radius: 22px;
+      padding: 18px;
+      border: 1px solid rgba(70, 46, 23, 0.08);
+    }
+
+    .question-card h3 { margin: 0 0 8px; font-size: 1.2rem; }
+    .question-card p { margin: 0 0 18px; color: var(--muted); }
+
+    .answer {
+      border: 1px solid rgba(70, 46, 23, 0.1);
+      background: rgba(255, 255, 255, 0.92);
+      border-radius: 16px;
+      padding: 12px 14px;
+      cursor: pointer;
+      text-align: left;
+      font: inherit;
+      transition: transform 0.18s ease, border-color 0.18s ease, background 0.18s ease;
+    }
+
+    .answer:hover:not(:disabled) { transform: translateX(3px); border-color: rgba(212, 106, 77, 0.55); }
+    .answer:disabled { cursor: default; opacity: 0.95; }
+    .answer.correct { background: rgba(201, 231, 218, 0.85); border-color: rgba(46, 89, 68, 0.35); }
+    .answer.wrong { background: rgba(240, 189, 178, 0.75); border-color: rgba(155, 69, 47, 0.35); }
+
+    .feedback {
+      min-height: 64px;
+      margin-top: 16px;
+      padding: 14px 16px;
+      border-radius: 16px;
+      background: rgba(246, 238, 229, 0.82);
+      color: var(--ink);
+      line-height: 1.6;
+    }
+
+    .result-box { margin-top: 20px; padding: 20px; display: none; }
+    .result-box.show { display: block; }
+    .result-box h3 { margin-top: 0; }
+    .pill-row { margin-top: 16px; }
+    .tiny-pill { border-radius: 999px; background: rgba(217, 231, 245, 0.75); padding: 8px 12px; font-size: 0.88rem; color: #305377; font-weight: 700; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes floatIn {
+      from { opacity: 0; transform: translateY(26px) scale(0.96); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    @media (max-width: 940px) {
+      .hero { grid-template-columns: 1fr; min-height: auto; }
+      .detail-grid { grid-template-columns: 1fr; }
+      .hero-visual { min-height: 480px; }
+    }
+
+    @media (max-width: 680px) {
+      .shell { width: min(100% - 18px, 100%); padding-top: 10px; }
+      .hero-copy, .hero-visual, .section, .quiz-shell { padding: 18px; }
+      .hero-stats { grid-template-columns: 1fr; }
+      .visual-crowns { flex-direction: column; }
+      .crown-card { width: 100%; }
+      .sticky-nav { padding: 12px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <header class="hero">
+      <section class="hero-panel hero-copy">
+        <div>
+          <div class="eyebrow">Õpi kiiremini ja lihtsamalt</div>
+          <h1>Prints ja kerjus</h1>
+          <p class="lead">
+            See leht aitab sul mõista Mark Twaini teost lihtsas keeles. Siin on lühikokkuvõte, peatükkide ülevaated, tegelased ja mänguline test.
+          </p>
+          <div class="hero-actions">
+            <button class="cta" data-jump="summary">Alusta kokkuvõttest</button>
+            <button class="cta secondary" data-jump="quiz">Proovi testi</button>
+          </div>
+        </div>
+        <div>
+          <div class="pill-row">
+            <span class="tiny-pill">Lihtne keel</span>
+            <span class="tiny-pill">Peatükid eraldi</span>
+            <span class="tiny-pill">Kohe kasutatav mobiilis</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="hero-panel hero-visual" aria-hidden="true">
+        <div class="visual-frame">
+          <div class="visual-crowns">
+            <div class="crown-card">
+              <span class="crown">👑</span>
+              <strong>Edward</strong>
+              <span>Prints, kes õpib tundma vaeste elu.</span>
+            </div>
+            <div class="crown-card">
+              <span class="crown">🧥</span>
+              <strong>Tom</strong>
+              <span>Vaene poiss, kes satub ootamatult paleesse.</span>
+            </div>
+          </div>
+          <div></div>
+          <div class="hero-stats">
+            <div class="hero-stat">
+              <span>33</span>
+              <small>peatükki</small>
+            </div>
+            <div class="hero-stat">
+              <span>12</span>
+              <small>küsimust testis</small>
+            </div>
+            <div class="hero-stat">
+              <span>1</span>
+              <small>suur identiteedivahetus</small>
+            </div>
+          </div>
+        </div>
+      </section>
+    </header>
+
+    <main class="main-panel">
+      <nav class="sticky-nav">
+        <div class="nav-grid">
+          <button class="tab-button active" data-section="summary">Kokkuvõte</button>
+          <button class="tab-button" data-section="chapters">Peatükid</button>
+          <button class="tab-button" data-section="characters">Tegelased</button>
+          <button class="tab-button" data-section="quiz">Test</button>
+        </div>
+      </nav>
+
+      <section class="section active" id="summary">
+        <div class="section-head">
+          <div>
+            <h2>Üldine lühikokkuvõte</h2>
+            <p class="section-copy">Kogu teose peamine mõte on see, et inimese elu sõltub palju sellest, kuhu ta sünnib, aga headus ja õiglustunne võivad tekkida mõlemas maailmas.</p>
+          </div>
+        </div>
+        <div class="summary-box">
+          <ol class="summary-list" id="summaryList"></ol>
+        </div>
+      </section>
+
+      <section class="section" id="chapters">
+        <div class="section-head">
+          <div>
+            <h2>Peatükkide kaupa ülevaade</h2>
+            <p class="section-copy">Ava peatükk ja vaata kiiresti üle, mis seal juhtub, kes on tähtsad tegelased ja millised sündmused tasub meelde jätta.</p>
+          </div>
+        </div>
+        <div class="chapter-controls">
+          <button class="chip" id="openAllChapters">Ava kõik</button>
+          <button class="chip" id="closeAllChapters">Sulge kõik</button>
+        </div>
+        <div class="chapter-list" id="chapterList"></div>
+      </section>
+
+      <section class="section" id="characters">
+        <div class="section-head">
+          <div>
+            <h2>Olulised tegelased</h2>
+            <p class="section-copy">Need tegelased liiguvad loo sündmusi edasi. Kaartidel on lühike ja selge meeldetuletus iga tegelase kohta.</p>
+          </div>
+        </div>
+        <div class="character-grid" id="characterGrid"></div>
+      </section>
+
+      <section class="section" id="quiz">
+        <div class="section-head">
+          <div>
+            <h2>Küsimustik</h2>
+            <p class="section-copy">Vali üks vastus. Kohe pärast valikut näed, kas vastasid õigesti, ja lõpus saad nimekirja teemadest, mida tasub uuesti õppida.</p>
+          </div>
+        </div>
+        <div class="quiz-shell">
+          <div class="quiz-top">
+            <div class="progress-wrap">
+              <div class="progress-label">
+                <span id="progressText">Küsimus 1 / 12</span>
+                <span id="scoreText">Punktid: 0</span>
+              </div>
+              <div class="progress-track">
+                <div class="progress-bar" id="progressBar"></div>
+              </div>
+            </div>
+            <div class="score-pill" id="streakText">Valmis õppima</div>
+          </div>
+
+          <div class="question-card" id="questionCard">
+            <h3 id="questionTitle"></h3>
+            <p id="questionHint">Igal küsimusel on ainult üks õige vastus.</p>
+            <div class="answer-list" id="answerList"></div>
+            <div class="feedback" id="feedbackBox">Vali vastus, et näha tagasisidet.</div>
+            <div class="quiz-actions">
+              <button class="cta" id="nextQuestion" disabled>Järgmine küsimus</button>
+              <button class="cta secondary" id="restartQuiz">Alusta testi uuesti</button>
+            </div>
+          </div>
+
+          <div class="result-box" id="resultBox">
+            <h3 id="resultTitle"></h3>
+            <p id="resultCopy"></p>
+            <strong>Uuesti õppimist vajavad küsimused:</strong>
+            <ul class="review-list" id="reviewList"></ul>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+  <script>
+    // Andmed on eraldi massiivides, et sisu ja loogikat oleks lihtne muuta.
+    const summarySentences = [
+      "Londoni linnas sünnivad samal päeval kaks poissi: vaene Tom Canty ja kuninglik Edward Tudor.",
+      "Tom elab väga raskes vaesuses, kuid unistab kogu aeg kuninglikust elust.",
+      "Kui Tom lõpuks päris printsi näeb, avastavad poisid, et nad on peaaegu täpselt ühte nägu.",
+      "Nad vahetavad nalja pärast riided, kuid satuvad kogemata päriselt teineteise ellu.",
+      "Tom jääb paleesse ja kõik arvavad, et ta on prints, kuigi ta ei tea õukonna kombeid.",
+      "Edward satub tänavale, kus keegi ei usu, et ta on kuninglik poeg, ja ta näeb, kui karm on vaeste inimeste elu.",
+      "Teel kohtub Edward Miles Hendoniga, kes hakkab teda kaitsma ja aitab tal ellu jääda.",
+      "Tom püüab palees olla õiglane ning õpib, kui raske on võimu kanda.",
+      "Lõpuks jõuab Edward kroonimispäeval tagasi, tõestab oma õige isiku ja saab kuningaks.",
+      "Lugu õpetab, et õiglus, kaastunne ja teiste elu mõistmine on väga tähtsad."
+    ];
+
+    const chapters = [
+      { number: 1, title: "Printsi ja kerjuse sünd", summary: "Samal päeval sünnivad Londonis vaene Tom Canty ja kuninglik Edward Tudor.", events: ["Tomi sünd ei too rõõmu tema perele.", "Edwardi sündu tähistab kogu riik.", "Kohe algab vastandus vaesuse ja rikkuse vahel."], characters: ["Tom Canty", "Edward Tudor", "Canty perekond", "Tudoride õukond"] },
+      { number: 2, title: "Tomi varane elu", summary: "Tom kasvab vaeses Offal Courti kvartalis, aga armastab lugusid lossidest ja printsidest.", events: ["Tomi isa ja vanaema on vägivaldsed.", "Isa Andrew õpetab Tomi lugema ja mõtlema.", "Tom hakkab unistama paremast elust."], characters: ["Tom Canty", "John Canty", "Tomi ema", "Nan ja Bet", "Isa Andrew"] },
+      { number: 3, title: "Tomi kohtumine printsiga", summary: "Tom jõuab palee juurde ja kohtub lõpuks päris printsi Edwardiga.", events: ["Valvur kohtleb Tomi halvasti.", "Edward kutsub Tomi enda tuppa.", "Poisid avastavad, et nad näevad väga sarnased välja."], characters: ["Tom Canty", "Edward Tudor", "paleevalvur"] },
+      { number: 4, title: "Printsi mured algavad", summary: "Poisid vahetavad riided ja Edward jääb kogemata paleest välja.", events: ["Edward läheb Tomi riietes välja.", "Valvurid ei tunne teda ära.", "Rahvas narrib ja tõukab teda."], characters: ["Edward Tudor", "Tom Canty", "valvurid", "rahvahulk"] },
+      { number: 5, title: "Tom aadlikuna", summary: "Tom jääb paleesse ning kõik usuvad, et ta on prints, kuigi ta ise püüab tõtt rääkida.", events: ["Tom imestab palee luksuse üle.", "Lady Jane Grey märkab, et midagi on valesti.", "Kuningas Henry VIII arvab, et poeg on segaduses."], characters: ["Tom Canty", "Lady Jane Grey", "Henry VIII"] },
+      { number: 6, title: "Tom saab õpetusi", summary: "Tomi õpetatakse kiiresti, kuidas õukonnas käituda ja mida öelda.", events: ["Õukond püüab varjata juttu printsi imelikust käitumisest.", "Tom peab meelde jätma kombeid ja tiitleid.", "Ta mõistab, et palees elamine pole nii lihtne, kui ta arvas."], characters: ["Tom Canty", "Hertfordi lord", "õukondlased"] },
+      { number: 7, title: "Tomi esimene kuninglik õhtusöök", summary: "Tom kogeb palee pidulikku söömaaega ja eksib paljudes kommetes.", events: ["Tom ei tunne keerulisi lauakombeid.", "Teenrid aitavad teda pidevalt.", "Söömaaeg näitab, kui range on õukonna elu."], characters: ["Tom Canty", "teenrid", "õukondlased"] },
+      { number: 8, title: "Suure pitseri küsimus", summary: "Õukond otsib tähtsat riigipitserit, aga Tom ei tea sellest midagi.", events: ["Kõik tahavad teada, kus on suur pitser.", "Tom ei oska vastata ja paistab veel kahtlasem.", "Palees kasvab pinge."], characters: ["Tom Canty", "õukond", "Henry VIII"] },
+      { number: 9, title: "Jõepidustus", summary: "Tom peab osalema uhkel jõepidustusel ja mängima oma rolli edasi.", events: ["Rahvale näidatakse kuninglikku hiilgust.", "Tom tunneb end võõrana.", "Ta saab aru, et tema elu on ohtlikult suure vale peal."], characters: ["Tom Canty", "õukondlased", "Londoni rahvas"] },
+      { number: 10, title: "Prints lõksus", summary: "Edward satub üha sügavamale tänavaellu ja peab taluma nälga ning vägivalda.", events: ["Edward läheb Tomi kodukanti.", "John Canty kohtleb teda halvasti.", "Prints näeb, kui julm võib vaeste elu olla."], characters: ["Edward Tudor", "John Canty", "Canty perekond"] },
+      { number: 11, title: "Guildhallis", summary: "Tom viiakse tähtsale kohtumisele, kus ta hakkab esimest korda õiglust tõsiselt mõtlema.", events: ["Tom näeb, kuidas inimesi karistatakse.", "Ta tunneb vaeste vastu kaastunnet.", "Tema otsused näitavad, et ta pole kuri ega rumal."], characters: ["Tom Canty", "kohtunikud", "õukond"] },
+      { number: 12, title: "Prints ja tema päästja", summary: "Edward kohtub Miles Hendoniga, kes otsustab poissi kaitsta.", events: ["Miles päästab Edwardi halvast olukorrast.", "Edward ütleb, et on prints.", "Miles ei usu teda päriselt, kuid jääb tema kõrvale."], characters: ["Edward Tudor", "Miles Hendon"] },
+      { number: 13, title: "Printsi kadumine", summary: "Palees ei teata, kus päris prints on, ning segadus muutub üha tõsisemaks.", events: ["Edwardi puudumine hoitakse saladuses.", "Tom peab jätkama võõras rollis.", "Kogu õukond kardab skandaali."], characters: ["Tom Canty", "õukond", "Hertfordi lord"] },
+      { number: 14, title: "Kuningas on surnud, elagu kuningas", summary: "Henry VIII sureb ja Tomi peetakse nüüd ametlikult nooreks kuningaks.", events: ["Henry VIII sureb.", "Tom saab ootamatult väga suure võimu.", "Tema hirm ja vastutus kasvavad korraga."], characters: ["Tom Canty", "Henry VIII", "õukond"] },
+      { number: 15, title: "Tom kuningana", summary: "Tom peab nüüd kuningana otsuseid tegema ja püüab olla õiglane.", events: ["Tom kuulab kohtuasju.", "Ta mõistab, et seadused võivad olla ebaõiglased.", "Ta aitab mõnda inimest, keda on halvasti koheldud."], characters: ["Tom Canty", "õukondlased", "süüdistatavad inimesed"] },
+      { number: 16, title: "Riiklik pidusöök", summary: "Tom osaleb suurel pidulikul söömaajal ja peab jälle kuningat mängima.", events: ["Söömaaeg on väga ametlik.", "Iga väiksemgi liigutus on tähtis.", "Tom õpib, et kuninga elu tähendab pidevat etendust."], characters: ["Tom Canty", "aadlikud", "teenrid"] },
+      { number: 17, title: "Foo-Foo Esimene", summary: "Lugu pöördub tagasi Edwardi juurde, kes satub kerjuste ja varaste hulka.", events: ["Edward petetakse ja viiakse halba seltskonda.", "Seal on pilkenimed ja julm elu.", "Prints peab ellujäämiseks kiiresti kohanema."], characters: ["Edward Tudor", "John Canty", "kerjused ja hulkurid"] },
+      { number: 18, title: "Prints kerjustega", summary: "Edward rändab hulkuritega ja näeb veel rohkem ebaõiglust.", events: ["Hulkurid petavad ja varastavad.", "Edward saab aru, kui kergesti vaeseid süüdistatakse.", "Tema soov hiljem õiglane kuningas olla tugevneb."], characters: ["Edward Tudor", "John Canty", "hulkurid"] },
+      { number: 19, title: "Prints talupoegade seas", summary: "Edward näeb ka lihtsate talupoegade elu, mis on raske, kuid vahel soojem kui tänavaelu.", events: ["Prints kohtub tavaliste tööinimestega.", "Ta märkab nende muresid ja hirme.", "Tema arusaam riigist muutub palju laiemaks."], characters: ["Edward Tudor", "talupojad"] },
+      { number: 20, title: "Prints ja erak", summary: "Edward satub ohtliku eraku juurde, kes osutub väga kummaliseks ja ähvardavaks.", events: ["Erak peidab Edwardi.", "Mees räägib segaseid ja tumedaid jutte.", "Prints satub jälle suurde ohtu."], characters: ["Edward Tudor", "erak"] },
+      { number: 21, title: "Hendon tuleb appi", summary: "Miles Hendon jõuab õigel ajal ja päästab Edwardi uuest hädast.", events: ["Miles otsib Edwardit visalt taga.", "Ta päästab poisi ohtlikust kohast.", "Nende omavaheline usaldus kasvab."], characters: ["Edward Tudor", "Miles Hendon", "erak"] },
+      { number: 22, title: "Reetmise ohver", summary: "Miles ja Edward satuvad reetmise tõttu uutesse raskustesse.", events: ["Keegi kasutab nende olukorda ära.", "Nende teekond muutub veel raskemaks.", "Edward peab jälle tõestama, kes ta on, kuid keegi ei usu."], characters: ["Edward Tudor", "Miles Hendon", "reetur"] },
+      { number: 23, title: "Prints vangina", summary: "Edward pannakse vangi ning talle saab eriti selgeks, kui karm on seadus vaese inimese vastu.", events: ["Edward kaotab vabaduse.", "Ta näeb vangide kannatusi.", "Tema kaastunne tavainimeste vastu muutub väga tugevaks."], characters: ["Edward Tudor", "vangid", "valvurid"] },
+      { number: 24, title: "Põgenemine", summary: "Edward ja Miles pääsevad raskest olukorrast välja ja liiguvad edasi Londoni poole.", events: ["Nad leiavad võimaluse põgeneda.", "Miles jääb truuks isegi väga ohtlikus olukorras.", "Lootus paleesse tagasi jõuda kasvab."], characters: ["Edward Tudor", "Miles Hendon"] },
+      { number: 25, title: "Hendon Hall", summary: "Miles viib Edwardi oma koju, lootuses seal turvaliselt puhata ja abi saada.", events: ["Nad jõuavad Hendoni mõisa.", "Miles loodab oma õigused tagasi saada.", "Kodu ei osutu nii turvaliseks, kui ta arvas."], characters: ["Edward Tudor", "Miles Hendon", "Hugh Hendon", "Edith"] },
+      { number: 26, title: "Ärasalgamine", summary: "Milesi vend Hugh eitab Milesi isikut ja võtab tema koha endale.", events: ["Hugh käitub alatult.", "Milesit ei tunnistata kodu omanikuks.", "Edward näeb taas, kuidas võim ja vale võivad koos töötada."], characters: ["Miles Hendon", "Edward Tudor", "Hugh Hendon", "Edith"] },
+      { number: 27, title: "Vanglas", summary: "Miles ja Edward satuvad taas vanglasse ning peavad kannatama alandust.", events: ["Neid koheldakse kui tavalisi kurjategijaid.", "Edward ei saa oma nime abil midagi muuta.", "Loo pinge kasvab enne lõppvaatust."], characters: ["Edward Tudor", "Miles Hendon", "vangivalvurid"] },
+      { number: 28, title: "Ohverdus", summary: "Miles võtab enda peale valu ja karistuse, et Edwardit kaitsta.", events: ["Miles karistatakse.", "Edward näeb tõelist ustavust.", "Nende sõprus muutub väga tugevaks."], characters: ["Edward Tudor", "Miles Hendon"] },
+      { number: 29, title: "Tagasi Londonisse", summary: "Edward liigub Londoni poole, sest kroonimine on lähedal ja aeg saab otsa.", events: ["Teekond muutub kiireks ja pingeliseks.", "Edward teab, et peab õigel ajal kohale jõudma.", "Lugu valmistub suureks lahenduseks."], characters: ["Edward Tudor", "Miles Hendon"] },
+      { number: 30, title: "Tomi areng", summary: "Tom on palees palju õppinud ja muutub üha küpsemaks ning õiglasemaks.", events: ["Tom teeb mõistlikke otsuseid.", "Ta tunneb muret päris printsi pärast.", "Ta ei taha võimu enda jaoks hoida."], characters: ["Tom Canty", "õukond", "Lady Jane Grey"] },
+      { number: 31, title: "Äratundmise rongkäik", summary: "Kroonimispäeva eelne pidulik rongkäik viib loo lõpliku kokkupõrke poole.", events: ["Londoni tänavad on pidulikud.", "Tom liigub kuninglikus hiilguses.", "Edward püüab üha meeleheitlikumalt tõtt välja öelda."], characters: ["Tom Canty", "Edward Tudor", "Londoni rahvas"] },
+      { number: 32, title: "Kroonimispäev", summary: "Edward jõuab lõpuks õigel hetkel kohale ja vaidlus tõelise kuninga üle lahendatakse.", events: ["Mõlemad poisid seisavad kõigi ees.", "Edward tõestab, et tema on õige prints.", "Tom annab ausalt tõe välja."], characters: ["Edward Tudor", "Tom Canty", "Miles Hendon", "õukond"] },
+      { number: 33, title: "Edward kuningana", summary: "Edward saab ametlikult kuningaks ja kasutab oma kogemusi õiglasemate otsuste tegemisel.", events: ["Edward ei unusta vaeste kannatusi.", "Ta tänab Tomi ja Milesit.", "Tema valitsemine muutub inimlikumaks kui varem."], characters: ["Edward Tudor", "Tom Canty", "Miles Hendon"] }
+    ];
+
+    const characters = [
+      { name: "Tom Canty", role: "Vaene poiss", description: "Tom on tark ja kujutlusvõimeline poiss, kes elab suures vaesuses. Kui ta satub paleesse, püüab ta jääda ausaks ja teha õiglasemaid otsuseid kui paljud täiskasvanud tema ümber." },
+      { name: "Edward Tudor", role: "Prints", description: "Edward on Walesi prints, kellest saab hiljem kuningas. Tänavaelus õpib ta, kui raske on tavainimeste elu, ja see muudab teda palju kaastundlikumaks." },
+      { name: "Miles Hendon", role: "Kaitsja", description: "Miles on aus ja julge aadlimees, kes aitab Edwardit. Ta ei mõista alguses poisi tõelist päritolu, kuid jääb talle siiski truuks." },
+      { name: "John Canty", role: "Tomi isa", description: "John Canty on karm ja vägivaldne mees. Ta esindab Tomi kodu ohtlikku ja ebaturvalist poolt." },
+      { name: "Tomi ema", role: "Hooliv vanem", description: "Tomi ema armastab oma lapsi ja püüab neid kaitsta, kuigi tal on väga vähe jõudu ja võimalusi. Ta on üks loo pehmemaid tegelasi." },
+      { name: "Nan ja Bet", role: "Tomi õed", description: "Nan ja Bet on Tomi kaksikud õed. Nad jagavad temaga sama rasket elu ning aitavad näidata, kui keeruline on Canty pere igapäev." },
+      { name: "Isa Andrew", role: "Õpetaja", description: "Isa Andrew õpetab Tomi lugema ja mõtlema. Tema kaudu saab Tom teadmisi, mis aitavad tal hiljem palees paremini toime tulla." },
+      { name: "Henry VIII", role: "Vana kuningas", description: "Henry VIII on Edwardi isa. Tema surm muudab kogu loo palju tõsisemaks, sest siis peetakse Tomi kogemata kuningaks." },
+      { name: "Lady Jane Grey", role: "Õukonnatüdruk", description: "Jane märkab Tomi juures kummalist käitumist, kuid püüab siiski jääda viisakaks. Tema tegelaskuju aitab näidata palee pingelist õhkkonda." },
+      { name: "Hertfordi lord", role: "Mõjukas nõuandja", description: "Ta kuulub nende hulka, kes püüavad palees korda hoida ja skandaali vältida. Tema jaoks on tähtis, et kuningriik näiks stabiilne." },
+      { name: "Hugh Hendon", role: "Peamine reetur", description: "Hugh on Milesi vend, kes valetab ja kasutab olukorda enda kasuks. Tema kaudu näitab autor, et ka aadlike seas võib olla palju ebaõiglust." },
+      { name: "Edith", role: "Hendoni maja naine", description: "Edith on seotud Milesi minevikuga ning tema elu on Hugh mõju all keeruliseks muutunud. Ta lisab Hendoni koduliinile emotsionaalset pinget." }
+    ];
+
+    const quizQuestions = [
+      { question: "Miks on Tom Canty elu alguses raske?", options: ["Ta ei oska lugeda", "Ta elab vaesuses ja saab kodus peksa", "Ta peab palees töötama", "Ta on haige", "Ta kardab vett"], correct: 1 },
+      { question: "Kuidas Tom ja Edward üldse kohtuvad?", options: ["Koolis", "Turul", "Palee värava juures", "Jõelaeval", "Vanglas"], correct: 2 },
+      { question: "Miks ei tunta Edwardit pärast riiete vahetust ära?", options: ["Ta peidab näo", "Ta kaotab hääle", "Ta põgeneb välismaale", "Tal on seljas kerjuse riided", "Ta valetab oma nime kohta"], correct: 3 },
+      { question: "Mida peab Tom palees kiiresti õppima?", options: ["Kuidas mõõgaga võidelda", "Õukonna kombeid ja kuninglikku käitumist", "Kuidas hobust ravida", "Kuidas müüa kaupa", "Kuidas vanglast põgeneda"], correct: 1 },
+      { question: "Kes hakkab Edwardit kaitsma tema rasketel rännakutel?", options: ["John Canty", "Hugh Hendon", "Miles Hendon", "Henry VIII", "Isa Andrew"], correct: 2 },
+      { question: "Mida Edward tänavaelus kõige selgemalt mõistab?", options: ["Et tal meeldib vaene elu rohkem", "Et seadused ja elu on vaeste vastu tihti julmad", "Et ta ei taha enam koju minna", "Et Tom valetas kõiges", "Et raha pole üldse tähtis"], correct: 1 },
+      { question: "Mida näitab Tomi käitumine kuningana?", options: ["Ta muutub uhkeks ja kurjaks", "Ta tahab kõiki karistada", "Ta püüab olla õiglane ja kaastundlik", "Ta põgeneb paleest", "Ta loobub rääkimisest"], correct: 2 },
+      { question: "Kes püüab Miles Hendoni kodus tema koha endale võtta?", options: ["Edward", "Hugh Hendon", "Tom", "Hertfordi lord", "Isa Andrew"], correct: 1 },
+      { question: "Millal saab loo segadus lõplikult lahendatud?", options: ["Tomi sünnipäeval", "Kui John Canty vabandab", "Kroonimispäeval", "Esimesel õhtusöögil", "Jõepidustusel"], correct: 2 },
+      { question: "Mis aitab Edwardil lõpuks oma isikut tõestada?", options: ["Ta kirjutab kirja", "Tom tunnistab kohe ilma tõendita", "Miles räägib kõigile saladuse", "Ta teab olulist kuninglikku saladust ja suudab end tõestada", "Rahvas tunneb ta näo järgi ära"], correct: 3 },
+      { question: "Mis on teose üks peamine õpetus?", options: ["Rikkad on alati paremad inimesed", "Vaeseid ei saa usaldada", "Teise inimese elu mõistmine muudab sind õiglasemaks", "Kuningaks saamine lahendab kõik mured", "Sõprus pole tähtis"], correct: 2 },
+      { question: "Miks on see lugu noore kuninga jaoks tähtis kogemus?", options: ["Ta õpib paremini laulma", "Ta saab teada, kuidas vaesed päriselt elavad", "Ta leiab peidetud aarde", "Ta õpib kiiremini ladina keelt", "Ta kolib maale elama"], correct: 1 }
+    ];
+
+    const summaryList = document.getElementById("summaryList");
+    const chapterList = document.getElementById("chapterList");
+    const characterGrid = document.getElementById("characterGrid");
+    const tabButtons = document.querySelectorAll(".tab-button");
+    const sections = document.querySelectorAll(".section");
+    const jumpButtons = document.querySelectorAll("[data-jump]");
+
+    const questionTitle = document.getElementById("questionTitle");
+    const answerList = document.getElementById("answerList");
+    const feedbackBox = document.getElementById("feedbackBox");
+    const nextQuestionButton = document.getElementById("nextQuestion");
+    const restartQuizButton = document.getElementById("restartQuiz");
+    const progressText = document.getElementById("progressText");
+    const scoreText = document.getElementById("scoreText");
+    const progressBar = document.getElementById("progressBar");
+    const resultBox = document.getElementById("resultBox");
+    const resultTitle = document.getElementById("resultTitle");
+    const resultCopy = document.getElementById("resultCopy");
+    const reviewList = document.getElementById("reviewList");
+    const streakText = document.getElementById("streakText");
+
+    let currentQuestion = 0;
+    let score = 0;
+    let answered = false;
+    let wrongQuestions = [];
+
+    function renderSummary() {
+      summaryList.innerHTML = summarySentences.map((sentence) => `<li>${sentence}</li>`).join("");
+    }
+
+    function renderChapters() {
+      chapterList.innerHTML = chapters.map((chapter) => `
+        <article class="chapter-item">
+          <button class="chapter-toggle" type="button">
+            <div>
+              <strong>${chapter.number}. ${chapter.title}</strong>
+              <span>${chapter.summary}</span>
+            </div>
+            <div class="marker">+</div>
+          </button>
+          <div class="chapter-content">
+            <div class="detail-grid">
+              <div class="mini-panel">
+                <h3>Peamised sündmused</h3>
+                <ul>${chapter.events.map((event) => `<li>${event}</li>`).join("")}</ul>
+              </div>
+              <div class="mini-panel">
+                <h3>Olulised tegelased</h3>
+                <ul>${chapter.characters.map((character) => `<li>${character}</li>`).join("")}</ul>
+              </div>
+            </div>
+          </div>
+        </article>
+      `).join("");
+
+      chapterList.querySelectorAll(".chapter-item").forEach((item) => {
+        item.querySelector(".chapter-toggle").addEventListener("click", () => {
+          item.classList.toggle("open");
+        });
+      });
+    }
+
+    function renderCharacters() {
+      characterGrid.innerHTML = characters.map((character) => `
+        <article class="character-card">
+          <span class="badge">${character.role}</span>
+          <h3>${character.name}</h3>
+          <p>${character.description}</p>
+        </article>
+      `).join("");
+    }
+
+    function showSection(sectionId) {
+      sections.forEach((section) => {
+        section.classList.toggle("active", section.id === sectionId);
+      });
+
+      tabButtons.forEach((button) => {
+        button.classList.toggle("active", button.dataset.section === sectionId);
+      });
+
+      document.getElementById(sectionId).scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    function updateQuizMeta() {
+      const total = quizQuestions.length;
+      const current = Math.min(currentQuestion + 1, total);
+      progressText.textContent = currentQuestion < total ? `Küsimus ${current} / ${total}` : "Test valmis";
+      scoreText.textContent = `Punktid: ${score}`;
+      progressBar.style.width = `${(currentQuestion / total) * 100}%`;
+      streakText.textContent = currentQuestion < total ? "Vasta rahulikult" : "Tubli töö";
+    }
+
+    function renderQuestion() {
+      const current = quizQuestions[currentQuestion];
+      answered = false;
+      nextQuestionButton.disabled = true;
+      resultBox.classList.remove("show");
+
+      if (!current) {
+        showResults();
+        return;
+      }
+
+      updateQuizMeta();
+      questionTitle.textContent = current.question;
+      feedbackBox.textContent = "Vali vastus, et näha tagasisidet.";
+
+      answerList.innerHTML = current.options.map((option, index) => `
+        <button class="answer" type="button" data-index="${index}">
+          ${String.fromCharCode(65 + index)}. ${option}
+        </button>
+      `).join("");
+
+      answerList.querySelectorAll(".answer").forEach((button) => {
+        button.addEventListener("click", () => handleAnswer(Number(button.dataset.index)));
+      });
+    }
+
+    function handleAnswer(selectedIndex) {
+      if (answered) return;
+
+      answered = true;
+      const current = quizQuestions[currentQuestion];
+      const buttons = answerList.querySelectorAll(".answer");
+
+      buttons.forEach((button, index) => {
+        button.disabled = true;
+        if (index === current.correct) button.classList.add("correct");
+        if (index === selectedIndex && index !== current.correct) button.classList.add("wrong");
+      });
+
+      if (selectedIndex === current.correct) {
+        score += 1;
+        feedbackBox.innerHTML = `<strong>Õige!</strong> Õige vastus on: ${current.options[current.correct]}.`;
+      } else {
+        wrongQuestions.push(current.question);
+        feedbackBox.innerHTML = `<strong>Vale.</strong> Õige vastus on: ${current.options[current.correct]}.`;
+      }
+
+      scoreText.textContent = `Punktid: ${score}`;
+      nextQuestionButton.disabled = false;
+    }
+
+    function showResults() {
+      updateQuizMeta();
+      questionTitle.textContent = "Test on läbi.";
+      answerList.innerHTML = "";
+      feedbackBox.textContent = "Vaata tulemust ja korda vajadusel valesid kohti.";
+      nextQuestionButton.disabled = true;
+
+      const total = quizQuestions.length;
+      const percentage = Math.round((score / total) * 100);
+      resultTitle.textContent = `Sinu tulemus: ${score} / ${total} (${percentage}%)`;
+      resultCopy.textContent = wrongQuestions.length === 0
+        ? "Väga hea. Vastusid kõigile küsimustele õigesti."
+        : "Need küsimused tasub veel korra üle vaadata, et lugu kindlamalt meeles püsiks.";
+
+      reviewList.innerHTML = wrongQuestions.length
+        ? wrongQuestions.map((question) => `<li>${question}</li>`).join("")
+        : "<li>Kõik vastused olid õiged.</li>";
+
+      resultBox.classList.add("show");
+      progressBar.style.width = "100%";
+    }
+
+    function restartQuiz() {
+      currentQuestion = 0;
+      score = 0;
+      answered = false;
+      wrongQuestions = [];
+      renderQuestion();
+      updateQuizMeta();
+    }
+
+    document.getElementById("openAllChapters").addEventListener("click", () => {
+      chapterList.querySelectorAll(".chapter-item").forEach((item) => item.classList.add("open"));
+    });
+
+    document.getElementById("closeAllChapters").addEventListener("click", () => {
+      chapterList.querySelectorAll(".chapter-item").forEach((item) => item.classList.remove("open"));
+    });
+
+    tabButtons.forEach((button) => {
+      button.addEventListener("click", () => showSection(button.dataset.section));
+    });
+
+    jumpButtons.forEach((button) => {
+      button.addEventListener("click", () => showSection(button.dataset.jump));
+    });
+
+    nextQuestionButton.addEventListener("click", () => {
+      currentQuestion += 1;
+      renderQuestion();
+    });
+
+    restartQuizButton.addEventListener("click", restartQuiz);
+
+    renderSummary();
+    renderChapters();
+    renderCharacters();
+    restartQuiz();
+  </script>
+</body>
+</html>

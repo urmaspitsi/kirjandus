@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="et">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Õppematerjal Ivar Soopani noorteromaani „Head pahad poisid“ kohta: kokkuvõte, sündmuspõhine peatükijaotus, tegelased ja valikvastustega test." />
+  <title>Head pahad poisid – õppematerjal</title>
+  <style>
+:root {
+  --bg: #f6f4ef;
+  --surface: #ffffff;
+  --surface-2: #ece9e2;
+  --text: #20242b;
+  --muted: #66707c;
+  --line: #d9d5cd;
+  --accent: #e85d36;
+  --accent-2: #214a61;
+  --accent-soft: #ffe4d9;
+  --good: #19724a;
+  --good-soft: #e4f5ec;
+  --bad: #a33a31;
+  --bad-soft: #fde9e6;
+  --shadow: 0 14px 40px rgba(29, 38, 46, 0.08);
+  --radius: 22px;
+}
+
+:root[data-theme="dark"] {
+  --bg: #11161b;
+  --surface: #1b2229;
+  --surface-2: #252e36;
+  --text: #f4f5f6;
+  --muted: #b2bdc8;
+  --line: #35404a;
+  --accent: #ff7c55;
+  --accent-2: #8fc4dc;
+  --accent-soft: #4b2c24;
+  --good: #68d7a0;
+  --good-soft: #193c2d;
+  --bad: #ff9a8f;
+  --bad-soft: #4a2524;
+  --shadow: 0 16px 50px rgba(0, 0, 0, 0.24);
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+}
+button, input { font: inherit; }
+a { color: inherit; }
+
+.skip-link {
+  position: fixed;
+  left: 1rem;
+  top: -4rem;
+  z-index: 100;
+  background: var(--text);
+  color: var(--bg);
+  padding: .7rem 1rem;
+  border-radius: 10px;
+}
+.skip-link:focus { top: 1rem; }
+
+.shell { width: min(1120px, calc(100% - 32px)); margin: 0 auto; }
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: color-mix(in srgb, var(--bg) 88%, transparent);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid color-mix(in srgb, var(--line) 78%, transparent);
+}
+.header-inner { min-height: 72px; display: flex; align-items: center; gap: 24px; }
+.brand { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; margin-right: auto; }
+.brand-mark {
+  display: grid; place-items: center; width: 42px; height: 42px; border-radius: 12px;
+  background: var(--text); color: var(--bg); font-size: .77rem; font-weight: 900; letter-spacing: .08em;
+}
+.brand strong, .brand small { display: block; line-height: 1.15; }
+.brand small { color: var(--muted); font-size: .76rem; margin-top: 4px; }
+.main-nav { display: flex; gap: 18px; }
+.main-nav a { text-decoration: none; color: var(--muted); font-weight: 700; font-size: .9rem; }
+.main-nav a:hover { color: var(--text); }
+.icon-button {
+  border: 1px solid var(--line); background: var(--surface); color: var(--text); width: 42px; height: 42px;
+  border-radius: 12px; cursor: pointer; font-weight: 800;
+}
+
+.hero { padding: 76px 0 58px; overflow: hidden; }
+.hero-grid { display: grid; grid-template-columns: 1.2fr .8fr; gap: 58px; align-items: center; }
+.eyebrow { margin: 0 0 10px; text-transform: uppercase; letter-spacing: .13em; font-size: .78rem; font-weight: 900; color: var(--accent); }
+h1 { font-size: clamp(3rem, 7vw, 6.3rem); line-height: .92; letter-spacing: -.065em; margin: 0; max-width: 780px; }
+.hero-lead { font-size: clamp(1.05rem, 2vw, 1.35rem); color: var(--muted); max-width: 650px; margin: 24px 0 0; }
+.hero-actions { display: flex; gap: 12px; margin-top: 30px; flex-wrap: wrap; }
+.button {
+  appearance: none; border: 0; border-radius: 13px; padding: 12px 17px; font-weight: 850; text-decoration: none;
+  display: inline-flex; align-items: center; justify-content: center; cursor: pointer; transition: transform .16s ease, opacity .16s ease;
+}
+.button:hover { transform: translateY(-1px); }
+.button:disabled { opacity: .45; cursor: not-allowed; transform: none; }
+.button.primary { background: var(--accent); color: white; }
+.button.secondary { background: var(--surface); color: var(--text); border: 1px solid var(--line); }
+.facts { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 32px; }
+.facts span, .pill { background: var(--surface-2); border: 1px solid var(--line); border-radius: 999px; padding: 7px 11px; font-size: .8rem; color: var(--muted); }
+.facts b { color: var(--text); }
+.hero-card {
+  position: relative; background: var(--accent-2); color: #fff; border-radius: 28px; padding: 34px; min-height: 360px;
+  box-shadow: var(--shadow); display: flex; flex-direction: column; justify-content: flex-end;
+}
+.hero-card::before {
+  content: "17"; position: absolute; right: 22px; top: -32px; font-size: 9rem; line-height: 1; font-weight: 950;
+  color: rgba(255,255,255,.08); letter-spacing: -.08em;
+}
+.card-kicker { text-transform: uppercase; letter-spacing: .12em; font-size: .75rem; font-weight: 900; opacity: .7; }
+.big-quote { font-size: 2rem; line-height: 1.08; font-weight: 900; letter-spacing: -.035em; margin: 12px 0 18px; }
+.hero-card p:last-child { margin: 0; opacity: .85; }
+
+.section { padding: 78px 0; scroll-margin-top: 75px; }
+.section-tint { background: var(--surface-2); }
+.section-heading { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; margin-bottom: 28px; }
+.section-heading h2 { margin: 0; font-size: clamp(2rem, 4vw, 3.3rem); letter-spacing: -.045em; line-height: 1; }
+.section-note { color: var(--muted); max-width: 720px; margin: 12px 0 0; }
+.summary-card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); padding: clamp(22px, 4vw, 38px); }
+.summary-list { display: grid; gap: 14px; margin: 0; padding: 0; list-style: none; counter-reset: summary; }
+.summary-list li { counter-increment: summary; display: grid; grid-template-columns: 36px 1fr; gap: 14px; align-items: start; }
+.summary-list li::before {
+  content: counter(summary); width: 34px; height: 34px; display: grid; place-items: center; border-radius: 10px;
+  background: var(--accent-soft); color: var(--accent); font-weight: 900; font-size: .84rem;
+}
+.theme-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 14px; }
+.theme-grid article { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 16px; }
+.theme-grid strong, .theme-grid span { display: block; }
+.theme-grid span { color: var(--muted); font-size: .9rem; margin-top: 5px; }
+
+.split-heading { align-items: flex-end; }
+.search-box { min-width: 260px; }
+.search-box span { display: block; font-size: .75rem; text-transform: uppercase; letter-spacing: .1em; color: var(--muted); font-weight: 900; margin: 0 0 6px 4px; }
+.search-box input {
+  width: 100%; background: var(--surface); color: var(--text); border: 1px solid var(--line); border-radius: 13px; padding: 11px 13px; outline: none;
+}
+.search-box input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 18%, transparent); }
+.chapter-grid { display: grid; gap: 12px; }
+.chapter-card { background: var(--surface); border: 1px solid var(--line); border-radius: 18px; overflow: hidden; }
+.chapter-card summary { list-style: none; cursor: pointer; padding: 19px 20px; display: grid; grid-template-columns: 56px 1fr auto; gap: 15px; align-items: center; }
+.chapter-card summary::-webkit-details-marker { display: none; }
+.chapter-num { width: 52px; height: 52px; border-radius: 14px; background: var(--accent-soft); color: var(--accent); display: grid; place-items: center; font-weight: 950; }
+.chapter-card h3 { margin: 0; font-size: 1.05rem; }
+.chapter-card summary p { margin: 3px 0 0; color: var(--muted); font-size: .9rem; }
+.chevron { font-size: 1.3rem; color: var(--muted); transition: transform .15s ease; }
+.chapter-card[open] .chevron { transform: rotate(90deg); }
+.chapter-body { border-top: 1px solid var(--line); padding: 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 26px; }
+.chapter-body h4 { margin: 0 0 8px; font-size: .82rem; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); }
+.chapter-body p { margin: 0; }
+.event-list { margin: 0; padding-left: 20px; }
+.event-list li + li { margin-top: 5px; }
+.tag-row { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
+.tag { border-radius: 999px; border: 1px solid var(--line); padding: 4px 8px; font-size: .76rem; color: var(--muted); }
+.no-results { text-align: center; color: var(--muted); padding: 35px; }
+
+.character-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+.character-card { background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 20px; min-height: 220px; display: flex; flex-direction: column; }
+.character-top { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.character-initials { width: 44px; height: 44px; display: grid; place-items: center; border-radius: 12px; background: var(--accent-2); color: #fff; font-weight: 900; }
+.character-role { color: var(--muted); font-size: .75rem; text-transform: uppercase; letter-spacing: .08em; font-weight: 900; }
+.character-card h3 { margin: 18px 0 6px; }
+.character-card p { color: var(--muted); margin: 0; }
+.character-tags { margin-top: auto; padding-top: 16px; display: flex; gap: 6px; flex-wrap: wrap; }
+.character-tags span { font-size: .75rem; border-radius: 999px; background: var(--surface-2); border: 1px solid var(--line); padding: 4px 8px; }
+
+.quiz-section { background: var(--accent-2); color: #fff; }
+.quiz-section .eyebrow { color: #ffb39b; }
+.quiz-section .section-note { color: rgba(255,255,255,.72); }
+.quiz-heading { align-items: flex-start; }
+.quiz-stats { display: flex; gap: 10px; }
+.quiz-stats div { background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.18); border-radius: 14px; min-width: 90px; padding: 10px 14px; text-align: center; }
+.quiz-stats strong, .quiz-stats span { display: block; }
+.quiz-stats strong { font-size: 1.4rem; }
+.quiz-stats span { font-size: .72rem; text-transform: uppercase; letter-spacing: .08em; opacity: .7; }
+.quiz-toolbar { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 16px; }
+.quiz-section .button.primary { background: var(--accent); }
+.quiz-section .button.secondary { background: rgba(255,255,255,.08); border-color: rgba(255,255,255,.2); color: #fff; }
+.text-button { border: 0; background: transparent; color: inherit; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; padding: 8px; }
+.quiz-toolbar .text-button { margin-left: auto; opacity: .75; }
+.quiz-card { background: var(--surface); color: var(--text); border-radius: 22px; padding: clamp(20px, 4vw, 34px); box-shadow: 0 18px 60px rgba(0,0,0,.22); }
+.quiz-progress-row { display: flex; justify-content: space-between; gap: 10px; color: var(--muted); font-size: .82rem; font-weight: 800; }
+.progress-track { height: 7px; background: var(--surface-2); border-radius: 999px; overflow: hidden; margin: 11px 0 28px; }
+.progress-track span { display: block; height: 100%; width: 0; background: var(--accent); transition: width .2s ease; }
+.quiz-card h3 { font-size: clamp(1.35rem, 3vw, 2rem); line-height: 1.2; margin: 0 0 22px; }
+.answer-list { display: grid; gap: 9px; }
+.answer-button { width: 100%; text-align: left; border: 1px solid var(--line); border-radius: 13px; padding: 12px 14px; background: var(--surface); color: var(--text); cursor: pointer; font-weight: 700; }
+.answer-button:hover:not(:disabled) { border-color: var(--accent); }
+.answer-button:disabled { cursor: default; }
+.answer-button.correct { border-color: var(--good); background: var(--good-soft); color: var(--good); }
+.answer-button.wrong { border-color: var(--bad); background: var(--bad-soft); color: var(--bad); }
+.feedback { min-height: 48px; margin-top: 14px; color: var(--muted); }
+.feedback strong { color: var(--text); }
+.quiz-card-actions { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-top: 8px; }
+.empty-state { border: 1px dashed rgba(255,255,255,.35); background: rgba(255,255,255,.06); padding: 24px; border-radius: 16px; }
+.empty-state strong, .empty-state span { display: block; }
+.empty-state span { opacity: .72; margin-top: 4px; }
+
+.source-card { background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 22px; }
+.source-card p { margin-top: 0; }
+.source-card li + li { margin-top: 6px; }
+.source-card a { color: var(--accent-2); font-weight: 750; text-underline-offset: 3px; }
+.site-footer { border-top: 1px solid var(--line); padding: 28px 0; color: var(--muted); }
+.footer-inner { display: flex; justify-content: space-between; gap: 20px; }
+.footer-inner a { font-weight: 800; color: var(--text); }
+
+@media (max-width: 850px) {
+  .main-nav { display: none; }
+  .hero { padding-top: 44px; }
+  .hero-grid { grid-template-columns: 1fr; gap: 26px; }
+  .hero-card { min-height: 280px; }
+  .theme-grid { grid-template-columns: 1fr 1fr; }
+  .split-heading { align-items: stretch; flex-direction: column; }
+  .search-box { min-width: 0; width: 100%; }
+  .character-grid { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 600px) {
+  .section { padding: 58px 0; }
+  .section-heading, .quiz-heading { align-items: stretch; flex-direction: column; }
+  .section-heading .pill { align-self: flex-start; }
+  .theme-grid, .character-grid { grid-template-columns: 1fr; }
+  .chapter-card summary { grid-template-columns: 46px 1fr auto; padding: 15px; gap: 11px; }
+  .chapter-num { width: 44px; height: 44px; }
+  .chapter-body { grid-template-columns: 1fr; padding: 16px; }
+  .quiz-stats { width: 100%; }
+  .quiz-stats div { flex: 1; }
+  .quiz-toolbar .text-button { width: 100%; margin-left: 0; text-align: left; padding-left: 0; }
+  .footer-inner { flex-direction: column; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { scroll-behavior: auto !important; transition: none !important; }
+}
+
+  </style>
+  <script>
+const chapters = [
+  {
+    title: "Vale otsus ja avarii",
+    summary: "Rain istub 17-aastasena juhiloata autorooli. Sõit lõpeb raske avariiga ning juhtunu paneb aluse kogu loole: Rain peab oma otsuse tagajärgedega silmitsi seisma.",
+    events: ["Rain juhib autot ilma juhtimisõiguseta.", "Toimub avarii ja kaaslane saab raskelt vigastada.", "Rain satub õiguskaitse tähelepanu alla ja noortevanglasse."],
+    people: ["Rain", "Ants"]
+  },
+  {
+    title: "Esimesed päevad noortevanglas",
+    summary: "Vangla on Rainile täiesti uus ja vaenulik maailm. Ta saab kiiresti aru, et seal kehtivad poiste omavahelised kirjutamata reeglid ning nõrkust märgatakse kohe.",
+    events: ["Rain tutvub vangla korra ja teiste poistega.", "Tekib esimene füüsiline konflikt.", "Rain hakkab mõistma vangla hierarhiat."],
+    people: ["Rain", "Näpp", "Rokk"]
+  },
+  {
+    title: "Jan ja Silver plaanivad onni",
+    summary: "Paralleelselt Raini looga veedavad Jan ja Silver aega kodukandis. Nad otsustavad ehitada endale metsaonni ning otsivad sobivat kohta ja ehitusmaterjali.",
+    events: ["Silver teeb onni plaani.", "Poisid otsivad ehituskohta.", "Nad hakkavad koguma ja hankima laudu."],
+    people: ["Jan", "Silver"]
+  },
+  {
+    title: "Võlg ja vale vastane",
+    summary: "Rain satub vanglas võla ja surve alla. Ta peab kellegi eest arveid klaarima, kuid ründab vale inimest – rivaalitseva seltskonna mõjukat juhti Karmi.",
+    events: ["Rainile tekib vanglas võlg.", "Talle antakse ülesanne kedagi läbi peksta.", "Rain ründab eksituse tõttu Karmi."],
+    people: ["Rain", "Näpp", "Karm"]
+  },
+  {
+    title: "Kättemaks ja karmid reeglid",
+    summary: "Karmi ründamine ei jää tagajärjeta. Rain saab valusalt tunda, kuidas vanglas toimib kättemaks ning miks ühe hetke jõudemonstratsioon võib tuua uue vägivallaringi.",
+    events: ["Karmi seltskond maksab Rainile kätte.", "Rain pekstakse pesuruumis läbi.", "Rain õpib, et jõuga saavutatud edu on lühiajaline."],
+    people: ["Rain", "Karm"]
+  },
+  {
+    title: "Onn kerkib ja sõbrad mõtlevad Rainile",
+    summary: "Jan ja Silver jätkavad onni ehitamist ning nende projekt muutub järjest päris koduseks pelgupaigaks. Rain ei ole siiski sõprade mõtetest kadunud ja teda käiakse ka vaatamas.",
+    events: ["Onni esimene osa saab valmis.", "Poisid sisustavad oma peidupaika.", "Jan ja Silver külastavad Raini."],
+    people: ["Jan", "Silver", "Rain"]
+  },
+  {
+    title: "Ivanovi külaskäik ja kahtlus",
+    summary: "Raini juurde tuleb teda tundev miilits Ivanov. Teiste kinnipeetavate jaoks tekitab see kohe umbusku, sest nad kardavad, et Rain räägib võimudele vanglas toimuvast.",
+    events: ["Ivanov kohtub Rainiga.", "Rain saab täiskasvanult nõu.", "Kongikaaslased hakkavad Raini võimalikuks „koputajaks“ pidama."],
+    people: ["Rain", "Ivanov", "Rokk", "Näpp"]
+  },
+  {
+    title: "Koduigatsus ja ema Linda",
+    summary: "Vabaduse puudumine muutub Rainile järjest raskemaks. Ema Linda külastus toob vanglasse killu kodust elu ja näitab, et Rain ei ole oma probleemidest hoolimata pere jaoks kadunud.",
+    events: ["Rain tunneb kodust ja emast puudust.", "Linda tuleb Raini vaatama.", "Ema lubab teda uuesti külastada."],
+    people: ["Rain", "Linda"]
+  },
+  {
+    title: "Roki teine külg",
+    summary: "Tarvi ehk Rokk on vanglas mõjukas ja karmi mainega, kuid Rain näeb temas ka haavatavat poolt. Eriti tähtis on Rokile tema vanaema, kes on üks väheseid talle tõeliselt lähedasi inimesi.",
+    events: ["Roki taust avaneb rohkem.", "Rain ja Rokk muutuvad lähedasemaks.", "Rokk saab halva uudise vanaema tervise kohta."],
+    people: ["Rokk", "Rain"]
+  },
+  {
+    title: "Katse aidata Rokki",
+    summary: "Rain tahab sõpra aidata ja kasutab Ivanovi tuge, et Rokk saaks raskelt haige vanaema juurde. Heast kavatsusest sünnib aga olukord, mida Rain enam kontrollida ei suuda.",
+    events: ["Rain pöördub Ivanovi poole.", "Rokile korraldatakse võimalus vanaema külastada.", "Rokk saab korraks vanglast välja."],
+    people: ["Rain", "Rokk", "Ivanov"]
+  },
+  {
+    title: "Rokk põgeneb",
+    summary: "Pärast vanaema külastust ei lähe Rokk kokkulepitud korras tagasi. Tema otsus muudab loo pingeliseks tagaajamiseks ja viib kaks seni eraldi liikunud tegevusliini kokku.",
+    events: ["Rokk kasutab väljas käimist põgenemiseks.", "Teda hakatakse otsima.", "Põgenik liigub Jani ja Silveri kodukandi poole."],
+    people: ["Rokk", "Rain", "Ivanov"]
+  },
+  {
+    title: "Põgenik poiste onnis",
+    summary: "Jan ja Silver avastavad, et nende ehitatud onnis on võõras. Nad ei hakka olukorda üksi lahendama, vaid otsivad abi lähedal elavalt korrakaitsjalt.",
+    events: ["Poisid leiavad onnist võõra inimese.", "Nad kutsuvad abi.", "Selgub, et võõras on vanglast põgenenud Rokk."],
+    people: ["Jan", "Silver", "Rokk"]
+  },
+  {
+    title: "Tagaajamine ja tabamine",
+    summary: "Rokk püüab metsast põgeneda, kuid Jan ja Silver satuvad otsustaval hetkel sündmuste keskele. Nende sekkumine aitab põgeniku kinni võtta.",
+    events: ["Korrakaitsja jälitab Rokki.", "Jan ja Silver aitavad põgenemisteed takistada.", "Rokk saadakse kätte ja viiakse tagasi."],
+    people: ["Rokk", "Jan", "Silver"]
+  },
+  {
+    title: "Tagajärjed ja teose mõte",
+    summary: "Pärast põgenemisdraamat jõuavad tegelased oma tegude tagajärgedeni. Raini lugu liigub vabastamise suunas ning lugejale jääb küsimus, kas inimese saab ühe halva otsuse järgi päriselt „pahaks“ nimetada.",
+    events: ["Roki põgenemisel on karmid tagajärjed.", "Raini vanglaaeg jõuab lõpule.", "Teos jätab keskmesse vastutuse, sõpruse ja moraalsete valikute teema."],
+    people: ["Rain", "Rokk", "Jan", "Silver"]
+  }
+];
+
+const characters = [
+  { name: "Rain", role: "peategelane", text: "17-aastane poiss, kelle juhiloata autosõit lõpeb avarii ja noortevanglaga. Ta on impulsiivne ja oskab enda eest füüsiliselt seista, kuid õpib loo jooksul vastutust, lojaalsust ja teiste inimeste keerukust paremini mõistma.", tags: ["impulsiivne", "julge", "areneb"] },
+  { name: "Tarvi „Rokk“", role: "teine keskne tegelane", text: "Vanglas mõjukas ja karmi mainega poiss. Raini sõbrunedes avaneb tema pehmem külg, eriti tugev side vanaemaga. Tema põgenemine seob vangla- ning Jani ja Silveri loo üheks tervikuks.", tags: ["mõjukas", "haavatav", "vastuoluline"] },
+  { name: "Jan", role: "Raini tuttav / sõber", text: "Silverist vanem poiss, kes tegutseb kodukandis väljaspool vanglat. Ta ehitab koos Silveriga onni ning satub lõpuks otseselt Roki põgenemisloosse.", tags: ["praktiline", "sõbralik", "tegutseja"] },
+  { name: "Silver", role: "Jani sõber", text: "Jani kaaslane onni ehitamisel. Ta on noorem ja seiklushimuline ning aitab koos Janiga põgenenud Roki tabamisele kaasa.", tags: ["uudishimulik", "loov", "julge"] },
+  { name: "Näpp", role: "vanglakaaslane", text: "Raini vanglaelu üks olulisi mõjutajaid. Ta aitab Rainil vangla võimusuhteid tundma õppida, kuid seob ta ka konfliktidesse ja vägivallaga seotud kohustustesse.", tags: ["mõjutaja", "kaval", "riskialdis"] },
+  { name: "Karm", role: "rivaalitsev ninamees", text: "Teise vanglaseltskonna mõjukas juht. Rain ründab teda eksituse tõttu ning sellest saab üks olulisemaid vanglakonflikte ja kättemaksu käivitajaid.", tags: ["mõjukas", "ohtlik", "rivaal"] },
+  { name: "Aleksei Ivanov", role: "miilits / täiskasvanud toetaja", text: "Raini tundev korrakaitsja, kes annab talle nõu ja aitab lahendada Roki vanaema külastamise küsimust. Tema külaskäik tekitab vangide seas kahtluse, et Rain võib olla informaator.", tags: ["toetav", "rahulik", "autoriteet"] },
+  { name: "Linda", role: "Raini ema", text: "Raini ema, kelle suhe pojaga on pingeline, kuid hooliv. Tema vanglakülastus näitab, et Rainil on väljaspool vanglat endiselt side kodu ja perega.", tags: ["ema", "hooliv", "murelik"] },
+  { name: "Ants", role: "Raini klassivend / sõber", text: "Raini kaaslane, kes saab avarii tõttu raskelt vigastada ja viibib haiglas. Tema saatus näitab väga otseselt, et Raini hetkeline halb otsus mõjutab ka teisi inimesi.", tags: ["sõber", "kannatanu", "tagajärg"] }
+];
+
+const quiz = [
+  { id: "q1", q: "Kui vana on loo keskne tegelane Rain?", options: ["13", "14", "15", "16", "17"], answer: 4, explain: "Rain on 17-aastane." },
+  { id: "q2", q: "Mis viib Raini noortevanglasse?", options: ["Koolist puudumine", "Juhiloata autosõit ja avarii", "Poevargus", "Rongis kaklemine", "Onni põletamine"], answer: 1, explain: "Rain istub juhiloata autorooli ja põhjustab raske avarii." },
+  { id: "q3", q: "Millises ajastus teose sündmused toimuvad?", options: ["Keskaegses Eestis", "Tänapäeva Eestis", "Nõukogude okupatsiooni aegses Eestis", "Rootsi ajal", "Tulevikus"], answer: 2, explain: "Teose tegevus toimub Nõukogude okupatsiooni aegses Eestis." },
+  { id: "q4", q: "Millised kaks poissi moodustavad teise suure tegevusliini?", options: ["Jan ja Silver", "Näpp ja Karm", "Rain ja Ants", "Ivanov ja Jan", "Rokk ja Karm"], answer: 0, explain: "Paralleelselt Raini vanglalooga jälgitakse Jani ja Silveri tegemisi." },
+  { id: "q5", q: "Mida Jan ja Silver ehitavad?", options: ["Paati", "Garaaži", "Puu-/metsaonni", "Rattarada", "Silda"], answer: 2, explain: "Nad ehitavad endale metsaonni." },
+  { id: "q6", q: "Kes on Karm?", options: ["Raini õpetaja", "Raini vend", "Rivaalitseva vanglaseltskonna mõjukas juht", "Jani isa", "Vedurijuht"], answer: 2, explain: "Karm on vanglas mõjukas rivaal, keda Rain eksituse tõttu ründab." },
+  { id: "q7", q: "Mis on Tarvi hüüdnimi vanglas?", options: ["Karm", "Kapten", "Rokk", "Näpp", "Kivipea"], answer: 2, explain: "Tarvit kutsutakse Rokiks." },
+  { id: "q8", q: "Milline uudis lööb Roki rivist välja?", options: ["Ta peab kooli tagasi minema", "Tema vanaema on raskelt haige / suremas", "Ta kaotab kitarri", "Jan lahkub linnast", "Tema kong vahetatakse"], answer: 1, explain: "Rokile on vanaema väga tähtis ning tema raske haigus mõjub talle tugevalt." },
+  { id: "q9", q: "Kelle abi kasutab Rain, et Rokki vanaema juurde aidata?", options: ["Silveri", "Antsu", "Karmi", "Ivanovi", "Näpu"], answer: 3, explain: "Rain pöördub teda tundva miilits Ivanovi poole." },
+  { id: "q10", q: "Mida teeb Rokk pärast vanaema külastust?", options: ["Läheb vabatahtlikult tagasi", "Põgeneb", "Sõidab välismaale", "Liitub Jani kambaga", "Läheb kooli"], answer: 1, explain: "Rokk kasutab väljapääsemist põgenemiseks." },
+  { id: "q11", q: "Kus Rokk põgenemise ajal peidupaiga leiab?", options: ["Raini kodus", "Rongijaamas", "Jani ja Silveri onnis", "Kooli keldris", "Haiglas"], answer: 2, explain: "Ta peidab end Jani ja Silveri ehitatud onnis." },
+  { id: "q12", q: "Mida Jan ja Silver teevad, kui leiavad onnist võõra?", options: ["Annavad talle süüa ja lahkuvad", "Peidavad teda politsei eest", "Kutsuvad täiskasvanud korrakaitsja appi", "Sõidavad rongiga ära", "Lammutavad onni"], answer: 2, explain: "Poisid otsivad abi lähedal elavalt korrakaitsjalt." },
+  { id: "q13", q: "Miks hakatakse Raini vanglas „koputajaks“ kahtlustama?", options: ["Ta kirjutab ajalehte", "Teda külastab miilits Ivanov", "Ta saab kirja emalt", "Ta võidab poksimatši", "Ta keeldub koristamast"], answer: 1, explain: "Ivanovi külaskäik paneb teised arvama, et Rain võib võimudele infot anda." },
+  { id: "q14", q: "Kes on Linda?", options: ["Roki õde", "Raini ema", "Silveri õpetaja", "Jani naaber", "Karmi ema"], answer: 1, explain: "Linda on Raini ema." },
+  { id: "q15", q: "Milline roll on Näpul Raini vanglaloos?", options: ["Ta on vangla arst", "Ta on Raini klassijuhataja", "Ta on vanglakaaslane, kes seob Raini vangla võimusuhete ja konfliktidega", "Ta on Silveri vend", "Ta on vedurijuht"], answer: 2, explain: "Näpp on vanglakaaslane ja oluline lüli Raini sattumisel vanglasisestesse konfliktidesse." },
+  { id: "q16", q: "Mis juhtub pärast seda, kui Rain ründab eksituse tõttu Karmi?", options: ["Rain saab autasu", "Karm vabastatakse", "Rainile makstakse vägivallaga kätte", "Jan satub vangi", "Ivanov lahkub töölt"], answer: 2, explain: "Karmi ründamise järel pekstakse Rain kättemaksuks läbi." },
+  { id: "q17", q: "Millisest varasemast Soopani raamatust on Jan ja Silver lugejale tuttavad?", options: ["Õhulossivanaisa", "Kõik poisid ei saa suureks", "Seljakotiaabits", "Tappev uudishimu", "Rännakud murtud maal"], answer: 1, explain: "Jan ja Silver tegutsevad ka raamatus „Kõik poisid ei saa suureks“." },
+  { id: "q18", q: "Milline teema sobib teose keskseks mõtteks kõige paremini?", options: ["Ainult sportlik võistlus", "Hea ja paha piir ning valikute tagajärjed", "Kosmosereisid", "Vanaaja sõjad", "Muusikabändi loomine"], answer: 1, explain: "Teos uurib, kuidas hea ja paha piir võib olla hägune ning kuidas valikutel on tagajärjed." },
+  { id: "q19", q: "Kes saavad põgenemisdraamas otsustaval hetkel Roki tabamisele kaasa aidata?", options: ["Jan ja Silver", "Linda ja Ants", "Näpp ja Karm", "Rain ja Linda", "Ants ja Karm"], answer: 0, explain: "Jan ja Silver satuvad sündmuste keskele ning aitavad Roki põgenemisteed takistada." },
+  { id: "q20", q: "Milline kirjeldus sobib teose žanrile kõige paremini?", options: ["Noortepõnevik / noorteromaan", "Muinasjutt", "Luulekogu", "Teadusõpik", "Näidend"], answer: 0, explain: "Autor ise on nimetanud raamatut noortepõnevikuks; bibliograafiliselt käsitletakse seda noorteromaanina." }
+];
+
+const chapterGrid = document.querySelector('#chapterGrid');
+const characterGrid = document.querySelector('#characterGrid');
+const chapterSearch = document.querySelector('#chapterSearch');
+const themeToggle = document.querySelector('#themeToggle');
+
+function renderChapters(filter = '') {
+  const needle = filter.trim().toLocaleLowerCase('et');
+  const filtered = chapters.filter(ch => {
+    const hay = `${ch.title} ${ch.summary} ${ch.events.join(' ')} ${ch.people.join(' ')}`.toLocaleLowerCase('et');
+    return hay.includes(needle);
+  });
+
+  chapterGrid.innerHTML = filtered.length ? filtered.map((ch, idx) => {
+    const originalIndex = chapters.indexOf(ch) + 1;
+    return `
+      <details class="chapter-card">
+        <summary>
+          <span class="chapter-num">${String(originalIndex).padStart(2, '0')}</span>
+          <span>
+            <h3>${ch.title}</h3>
+            <p>${ch.people.join(' · ')}</p>
+          </span>
+          <span class="chevron" aria-hidden="true">›</span>
+        </summary>
+        <div class="chapter-body">
+          <div>
+            <h4>Kokkuvõte</h4>
+            <p>${ch.summary}</p>
+            <div class="tag-row">${ch.people.map(p => `<span class="tag">${p}</span>`).join('')}</div>
+          </div>
+          <div>
+            <h4>Olulisemad sündmused</h4>
+            <ul class="event-list">${ch.events.map(e => `<li>${e}</li>`).join('')}</ul>
+          </div>
+        </div>
+      </details>`;
+  }).join('') : `<div class="no-results">Selle otsinguga peatükke ei leitud.</div>`;
+}
+
+function initials(name) {
+  return name.replace(/„[^”]+“/g, '').split(/\s+/).filter(Boolean).slice(0, 2).map(x => x[0]).join('').toUpperCase();
+}
+
+function renderCharacters() {
+  characterGrid.innerHTML = characters.map(c => `
+    <article class="character-card">
+      <div class="character-top">
+        <span class="character-initials">${initials(c.name)}</span>
+        <span class="character-role">${c.role}</span>
+      </div>
+      <h3>${c.name}</h3>
+      <p>${c.text}</p>
+      <div class="character-tags">${c.tags.map(t => `<span>${t}</span>`).join('')}</div>
+    </article>
+  `).join('');
+}
+
+chapterSearch.addEventListener('input', e => renderChapters(e.target.value));
+
+const storedTheme = localStorage.getItem('hpp-theme');
+if (storedTheme) document.documentElement.dataset.theme = storedTheme;
+themeToggle.addEventListener('click', () => {
+  const next = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+  document.documentElement.dataset.theme = next;
+  localStorage.setItem('hpp-theme', next);
+});
+
+// Quiz memory
+const MISSED_KEY = 'hpp-missed-question-ids-v1';
+let missed = new Set(JSON.parse(localStorage.getItem(MISSED_KEY) || '[]'));
+let activeQuestions = [];
+let currentIndex = 0;
+let score = 0;
+let answered = false;
+let currentWasWrong = false;
+let mode = 'all';
+
+const scoreValue = document.querySelector('#scoreValue');
+const missedValue = document.querySelector('#missedValue');
+const startQuiz = document.querySelector('#startQuiz');
+const repeatMissed = document.querySelector('#repeatMissed');
+const resetMemory = document.querySelector('#resetMemory');
+const quizCard = document.querySelector('#quizCard');
+const quizEmpty = document.querySelector('#quizEmpty');
+const quizCounter = document.querySelector('#quizCounter');
+const quizMode = document.querySelector('#quizMode');
+const progressBar = document.querySelector('#progressBar');
+const questionText = document.querySelector('#questionText');
+const answerList = document.querySelector('#answerList');
+const feedback = document.querySelector('#feedback');
+const nextQuestion = document.querySelector('#nextQuestion');
+const markLearned = document.querySelector('#markLearned');
+
+function saveMissed() {
+  localStorage.setItem(MISSED_KEY, JSON.stringify([...missed]));
+  missedValue.textContent = missed.size;
+  repeatMissed.textContent = missed.size ? `Korda valesti vastatuid (${missed.size})` : 'Korda valesti vastatuid';
+}
+
+function beginQuiz(which) {
+  mode = which;
+  score = 0;
+  currentIndex = 0;
+  activeQuestions = which === 'missed' ? quiz.filter(q => missed.has(q.id)) : [...quiz];
+  scoreValue.textContent = '0';
+  quizEmpty.hidden = true;
+
+  if (!activeQuestions.length) {
+    quizCard.hidden = true;
+    quizEmpty.hidden = false;
+    return;
+  }
+
+  quizCard.hidden = false;
+  renderQuestion();
+  quizCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
+function renderQuestion() {
+  answered = false;
+  currentWasWrong = false;
+  const item = activeQuestions[currentIndex];
+  quizCounter.textContent = `Küsimus ${currentIndex + 1} / ${activeQuestions.length}`;
+  quizMode.textContent = mode === 'missed' ? 'Kordamine' : 'Kogu test';
+  progressBar.style.width = `${((currentIndex) / activeQuestions.length) * 100}%`;
+  questionText.textContent = item.q;
+  feedback.innerHTML = '';
+  nextQuestion.disabled = true;
+  nextQuestion.textContent = currentIndex === activeQuestions.length - 1 ? 'Vaata tulemust' : 'Järgmine';
+  markLearned.hidden = true;
+
+  answerList.innerHTML = item.options.map((opt, idx) =>
+    `<button class="answer-button" type="button" data-index="${idx}"><span>${String.fromCharCode(65 + idx)}.</span> ${opt}</button>`
+  ).join('');
+
+  answerList.querySelectorAll('.answer-button').forEach(btn => {
+    btn.addEventListener('click', () => checkAnswer(Number(btn.dataset.index)));
+  });
+}
+
+function checkAnswer(selected) {
+  if (answered) return;
+  answered = true;
+  const item = activeQuestions[currentIndex];
+  const buttons = [...answerList.querySelectorAll('.answer-button')];
+  buttons.forEach((btn, idx) => {
+    btn.disabled = true;
+    if (idx === item.answer) btn.classList.add('correct');
+  });
+
+  if (selected === item.answer) {
+    score += 1;
+    scoreValue.textContent = score;
+    feedback.innerHTML = `<strong>Õige.</strong> ${item.explain}`;
+    if (missed.has(item.id)) markLearned.hidden = false;
+  } else {
+    currentWasWrong = true;
+    buttons[selected].classList.add('wrong');
+    missed.add(item.id);
+    saveMissed();
+    feedback.innerHTML = `<strong>Vale vastus.</strong> ${item.explain} See küsimus lisati kordamisnimekirja.`;
+  }
+  nextQuestion.disabled = false;
+}
+
+markLearned.addEventListener('click', () => {
+  const item = activeQuestions[currentIndex];
+  missed.delete(item.id);
+  saveMissed();
+  markLearned.hidden = true;
+  feedback.innerHTML += ' <strong>Märgitud õpituks.</strong>';
+});
+
+nextQuestion.addEventListener('click', () => {
+  if (!answered) return;
+  if (currentIndex < activeQuestions.length - 1) {
+    currentIndex += 1;
+    renderQuestion();
+  } else {
+    progressBar.style.width = '100%';
+    questionText.textContent = `Tulemus: ${score} / ${activeQuestions.length}`;
+    answerList.innerHTML = '';
+    const pct = Math.round((score / activeQuestions.length) * 100);
+    const msg = pct >= 90 ? 'Väga tugev tulemus.' : pct >= 70 ? 'Põhisisu on hästi meeles.' : pct >= 50 ? 'Korda veel tähtsamaid sündmusi ja tegelasi.' : 'Kasuta kordamisnimekirja ja proovi siis uuesti.';
+    feedback.innerHTML = `<strong>${msg}</strong> Kordamist vajavaid küsimusi: ${missed.size}.`;
+    nextQuestion.disabled = true;
+    nextQuestion.textContent = 'Test lõpetatud';
+    markLearned.hidden = true;
+  }
+});
+
+startQuiz.addEventListener('click', () => beginQuiz('all'));
+repeatMissed.addEventListener('click', () => beginQuiz('missed'));
+resetMemory.addEventListener('click', () => {
+  missed.clear();
+  saveMissed();
+  quizEmpty.hidden = true;
+  if (mode === 'missed') quizCard.hidden = true;
+});
+
+renderChapters();
+renderCharacters();
+saveMissed();
+
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Hüppa sisu juurde</a>
+
+  <header class="site-header">
+    <div class="shell header-inner">
+      <a class="brand" href="#top" aria-label="Tagasi lehe algusesse">
+        <span class="brand-mark">HPP</span>
+        <span>
+          <strong>Head pahad poisid</strong>
+          <small>õppematerjal</small>
+        </span>
+      </a>
+      <nav class="main-nav" aria-label="Peamenüü">
+        <a href="#kokkuvote">Kokkuvõte</a>
+        <a href="#peatukid">Peatükid</a>
+        <a href="#tegelased">Tegelased</a>
+        <a href="#test">Test</a>
+      </nav>
+      <button id="themeToggle" class="icon-button" type="button" aria-label="Vaheta värviteemat" title="Vaheta värviteemat">◐</button>
+    </div>
+  </header>
+
+  <main id="main">
+    <section id="top" class="hero">
+      <div class="shell hero-grid">
+        <div>
+          <p class="eyebrow">Ivar Soopan · noorteromaan · 2009</p>
+          <h1>„Head pahad poisid“</h1>
+          <p class="hero-lead">Õpi kiiremini: põhisündmused, tegelased ja test ühes kohas.</p>
+          <div class="hero-actions">
+            <a class="button primary" href="#kokkuvote">Alusta õppimist</a>
+            <a class="button secondary" href="#test">Tee test</a>
+          </div>
+          <div class="facts" aria-label="Raamatu põhiandmed">
+            <span><b>Peategelane:</b> Rain</span>
+            <span><b>Vanus:</b> 17</span>
+            <span><b>Teema:</b> valikud, vastutus, sõprus</span>
+          </div>
+        </div>
+        <aside class="hero-card" aria-label="Kiirmeelespea">
+          <span class="card-kicker">Kiirmeelespea</span>
+          <p class="big-quote">Üks vale otsus võib muuta väga palju.</p>
+          <p>Rain satub juhiloata autosõidu ja raske avarii järel noortevanglasse. Seal ei ole inimesed lihtsalt „head“ või „pahad“ – iga tegelase valikutel on põhjus ja tagajärg.</p>
+        </aside>
+      </div>
+    </section>
+
+    <section id="kokkuvote" class="section shell">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">01 · Kogu teos</p>
+          <h2>Lühikokkuvõte</h2>
+        </div>
+        <span class="pill">8 lauset</span>
+      </div>
+      <div class="summary-card">
+        <ol class="summary-list">
+          <li>17-aastane Rain istub juhiloata autorooli, põhjustab avarii ning satub noortevanglasse.</li>
+          <li>Vanglas peab ta kiiresti õppima, kuidas karmides võimusuhetes enda eest seista.</li>
+          <li>Rain satub konflikti teiste kinnipeetavatega ja lööb eksituse tõttu rivaalitseva kamba juhti Karmi, mille eest makstakse talle valusalt kätte.</li>
+          <li>Samal ajal ehitavad Jan ja Silver kodukandis metsaonni ning nende näiliselt rahulik seiklus hakkab Raini looga järjest rohkem põimuma.</li>
+          <li>Rain saab lähedasemaks Tarvi ehk Rokiga, karmi mainega poisiga, kelle jaoks on vanaema väga tähtis.</li>
+          <li>Kui Roki vanaema raskelt haigestub, aitab Rain tal Ivanovi kaudu haiglasse külla pääseda, kuid Rokk kasutab võimalust põgenemiseks.</li>
+          <li>Põgenenud Rokk peidab end Jani ja Silveri onnis, kuid poisid koos lähedal elava korrakaitsjaga aitavad ta lõpuks kinni võtta.</li>
+          <li>Teos näitab, et „hea“ ja „paha“ piir pole alati selge: tähtsad on inimese valikud, lojaalsus, hoolimine ja vastutus oma tegude eest.</li>
+        </ol>
+      </div>
+      <div class="theme-grid">
+        <article><strong>Vastutus</strong><span>Valikutel on tagajärjed.</span></article>
+        <article><strong>Sõprus</strong><span>Abi võib tulla ootamatust kohast.</span></article>
+        <article><strong>Õiglus</strong><span>Õige ja vale pole alati mustvalged.</span></article>
+        <article><strong>Enesekehtestamine</strong><span>Vägivald ei lahenda probleeme püsivalt.</span></article>
+      </div>
+    </section>
+
+    <section id="peatukid" class="section section-tint">
+      <div class="shell">
+        <div class="section-heading split-heading">
+          <div>
+            <p class="eyebrow">02 · Sündmuste kaupa</p>
+            <h2>Peatükkide õppejaotus</h2>
+            <p class="section-note">Märkus: avalikes allikates ei ole raamatu ametlikku peatükkide loendit. Allolev jaotus järgib loo sündmuste järjekorda ning on tehtud õppimiseks.</p>
+          </div>
+          <label class="search-box">
+            <span>Otsi</span>
+            <input id="chapterSearch" type="search" placeholder="nt Rokk, onn, vangla…" autocomplete="off" />
+          </label>
+        </div>
+        <div id="chapterGrid" class="chapter-grid" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <section id="tegelased" class="section shell">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">03 · Kes on kes?</p>
+          <h2>Olulisemad tegelased</h2>
+        </div>
+        <span class="pill">õpi märksõnadega</span>
+      </div>
+      <div id="characterGrid" class="character-grid"></div>
+    </section>
+
+    <section id="test" class="section quiz-section">
+      <div class="shell quiz-shell">
+        <div class="section-heading quiz-heading">
+          <div>
+            <p class="eyebrow">04 · Kontrolli teadmisi</p>
+            <h2>Valikvastustega test</h2>
+            <p class="section-note">Igal küsimusel on 5 vastusevarianti. Valesti vastatud küsimused salvestatakse sinu brauserisse, et saaksid neid hiljem korrata.</p>
+          </div>
+          <div class="quiz-stats" aria-label="Testi statistika">
+            <div><strong id="scoreValue">0</strong><span>punkti</span></div>
+            <div><strong id="missedValue">0</strong><span>kordamist</span></div>
+          </div>
+        </div>
+
+        <div class="quiz-toolbar">
+          <button id="startQuiz" class="button primary" type="button">Alusta kogu testi</button>
+          <button id="repeatMissed" class="button secondary" type="button">Korda valesti vastatuid</button>
+          <button id="resetMemory" class="text-button" type="button">Tühjenda kordamisnimekiri</button>
+        </div>
+
+        <div id="quizCard" class="quiz-card" hidden>
+          <div class="quiz-progress-row">
+            <span id="quizCounter">Küsimus 1 / 20</span>
+            <span id="quizMode">Kogu test</span>
+          </div>
+          <div class="progress-track" aria-hidden="true"><span id="progressBar"></span></div>
+          <h3 id="questionText"></h3>
+          <div id="answerList" class="answer-list" role="group" aria-label="Vastusevariandid"></div>
+          <div id="feedback" class="feedback" aria-live="polite"></div>
+          <div class="quiz-card-actions">
+            <button id="markLearned" class="text-button" type="button" hidden>Märgi õpituks</button>
+            <button id="nextQuestion" class="button primary" type="button" disabled>Järgmine</button>
+          </div>
+        </div>
+
+        <div id="quizEmpty" class="empty-state" hidden>
+          <strong>Kordamisnimekiri on tühi.</strong>
+          <span>Kui vastad mõnele küsimusele valesti, ilmub see siia automaatselt.</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="section shell source-section">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">05 · Kontrollimiseks</p>
+          <h2>Allikad ja kasutusmärkus</h2>
+        </div>
+      </div>
+      <div class="source-card">
+        <p>See leht on õppimise abivahend, mitte raamatu asendus. Kui õpetaja küsib konkreetse trüki ametlikke peatükke või väga täpseid detaile, võrdle õppematerjali oma raamatu tekstiga.</p>
+        <ul>
+          <li><a href="https://ivarsoopan.wordpress.com/2009/11/02/head-pahad-poisid-ilmus-trepikojast/" target="_blank" rel="noreferrer">Ivar Soopani autori-blogi: raamatu tutvustus ja tagakaanetekst</a></li>
+          <li><a href="https://loemind.keskraamatukogu.ee/2025/02/26/ivar-soopan-head-pahad-poisid/" target="_blank" rel="noreferrer">Tallinna Keskraamatukogu „Loe mind!“: teose käsitlus</a></li>
+          <li><a href="https://raamatukoi.ee/raamat/head-pahad-poisid" target="_blank" rel="noreferrer">Raamatukoi: bibliograafilised andmed ja sisututvustus</a></li>
+          <li><a href="https://annaabi.ee/head-pahad-poisid-kokkvote-m44521.html" target="_blank" rel="noreferrer">Annaabi: lugeja koostatud sündmustiku kokkuvõte (mitteametlik)</a></li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="shell footer-inner">
+      <span>Õppematerjal · „Head pahad poisid“</span>
+      <a href="#top">Tagasi üles ↑</a>
+    </div>
+  </footer>
+</body>
+</html>

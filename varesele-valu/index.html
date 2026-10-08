@@ -1,0 +1,1130 @@
+<!DOCTYPE html>
+<html lang="et">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Leelo Tungla „Varesele valu”: loo ülevaade, tegelased ja 20 küsimusega viktoriin koos salvestuva meelespeaga.">
+<meta name="theme-color" content="#f4f1e9">
+<link rel="icon" href="data:,">
+<title>Varesele valu · Leelo Tungal · Õppematerjal</title>
+<style>
+:root {
+  color-scheme: light;
+  --paper: #f4f1e9;
+  --card: #fffdf8;
+  --ink: #222d36;
+  --muted: #596a75;
+  --line: #d5dadb;
+  --green: #315b72;
+  --green-light: #e5edf0;
+  --yellow: #e1b88c;
+  --good: #245b37;
+  --good-bg: #eaf4e9;
+  --bad: #924532;
+  --bad-bg: #fbeee8;
+  --radius: 14px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-synthesis: none;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 95px; }
+body { margin: 0; background: var(--paper); color: var(--ink); font-size: 16px; line-height: 1.65; }
+[hidden] { display: none !important; }
+.js-only { display: none; }
+.js .js-only { display: inline-flex; }
+.js .quiz-welcome { display: block; }
+a { color: inherit; text-underline-offset: 4px; }
+a:hover { color: var(--green); }
+button, input { font: inherit; }
+button { cursor: pointer; }
+button:disabled { cursor: default; }
+:focus-visible { outline: 3px solid #a26c17; outline-offset: 5px; }
+h1, h2, h3, p { margin-top: 0; }
+h1, h2 { font-family: Georgia, "Times New Roman", serif; font-weight: 400; }
+h2 { font-size: clamp(2rem, 4vw, 2.8rem); letter-spacing: -.035em; line-height: 1.12; margin-bottom: 22px; }
+h3 { line-height: 1.35; }
+p { margin-bottom: 16px; }
+.wrap { width: min(1160px, calc(100% - 80px)); margin-inline: auto; }
+.eyebrow { font-size: .71rem; font-weight: 700; letter-spacing: .13em; text-transform: uppercase; margin-bottom: 20px; }
+.quiet, .source-caption, .source-link, .section-note { font-size: .85rem; color: var(--muted); }
+.skip-link { position: fixed; top: -100px; left: 20px; z-index: 50; padding: 12px; background: var(--card); }
+.skip-link:focus { top: 15px; }
+.masthead { min-height: 90px; display: flex; justify-content: space-between; gap: 24px; align-items: center; border-bottom: 1px solid var(--line); }
+.back-link { text-decoration: none; font-weight: 600; font-size: .84rem; }
+.back-link span { margin-right: 8px; }
+.masthead-label { display: flex; align-items: center; gap: 12px; color: var(--muted); font-size: .72rem; }
+.dot { width: 4px; height: 4px; border-radius: 50%; background: var(--muted); }
+
+
+.hero { display: grid; grid-template-columns: 1.15fr 1fr; gap: 65px; padding-block: 62px 70px; align-items: center; }
+.hero h1 { font-size: clamp(3.7rem, 6.5vw, 6rem); line-height: .99; letter-spacing: -.058em; margin: 0 0 28px; }
+.hero h1 em { font-weight: 400; color: var(--green); }
+.title-dot { color: #b88b30; }
+.hero-lead { font-size: 1.15rem; font-weight: 550; line-height: 1.6; margin-bottom: 14px; }
+.hero-description { max-width: 400px; font-size: .9rem; color: var(--muted); }
+.actions { display: flex; flex-wrap: wrap; align-items: center; gap: 22px; margin-top: 26px; }
+.button { display: inline-flex; justify-content: center; align-items: center; gap: 22px; min-height: 46px; padding: 11px 20px; border: 1px solid transparent; border-radius: 6px; text-decoration: none; font-size: .83rem; font-weight: 650; line-height: 1.4; transition: background .15s, border-color .15s; }
+.button.primary { color: white; background: var(--green); }
+.button.primary:hover:not(:disabled) { background: #234354; color: white; }
+.button.secondary { color: var(--ink); background: transparent; border-color: #b9c0b3; }
+.button.secondary:hover:not(:disabled) { background: var(--green-light); }
+.button:disabled { opacity: .45; }
+.button.small { font-size: .78rem; min-height: 42px; padding: 9px 14px; }
+.text-link { font-size: .83rem; font-weight: 600; text-decoration: none; }
+.text-link span { margin-left: 7px; }
+.hero-art { margin: 0; padding: 30px; background: var(--green-light); border-radius: 50% 50% 8px 8px; }
+.hero-art svg { display: block; width: 100%; height: auto; }
+.hero-art figcaption { text-align: center; font: italic 1.1rem Georgia, serif; color: var(--green); padding: 10px; }
+.section-nav { position: sticky; top: 0; z-index: 10; background: rgba(244, 241, 233, .97); border-block: 1px solid var(--line); }
+.nav-inner { display: flex; gap: 34px; overflow-x: auto; }
+.nav-inner a { display: flex; align-items: center; gap: 9px; padding-block: 18px; flex-shrink: 0; font-size: .81rem; font-weight: 600; text-decoration: none; }
+.nav-inner a > span:first-child { font-size: .65rem; color: var(--muted); font-weight: 400; }
+.nav-inner a:hover { text-decoration: underline; }
+.count-badge { display: inline-grid; place-items: center; min-width: 21px; height: 21px; background: var(--green-light); border-radius: 50%; font-size: .65rem; }
+.section { padding-block: 76px; border-bottom: 1px solid var(--line); }
+.section-heading { display: flex; align-items: center; justify-content: space-between; gap: 30px; margin-bottom: 28px; }
+.section-heading h2 { margin-bottom: 0; }
+.section-note { max-width: 255px; margin: 0; }
+.section-intro > p:not(.eyebrow) { color: var(--muted); font-size: .93rem; }
+.section-intro .eyebrow { color: var(--green); }
+.summary-section, .quiz-section { display: grid; grid-template-columns: 300px minmax(0, 1fr); gap: 72px; }
+.book-facts { margin: 32px 0 0; font-size: .8rem; }
+.book-facts > div { border-top: 1px solid var(--line); padding-block: 12px; }
+dt { font-size: .68rem; color: var(--muted); margin-bottom: 3px; }
+dd { margin: 0; }
+.summary-paper { padding: 32px 38px 22px; background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); }
+.summary-list { list-style: none; counter-reset: summary; padding: 0; margin: 0; }
+.summary-list li { counter-increment: summary; display: grid; grid-template-columns: 23px 1fr; gap: 14px; margin-bottom: 16px; font-size: .92rem; }
+.summary-list li::before { content: counter(summary, decimal-leading-zero); font-size: .68rem; color: #7b856c; padding-top: 4px; font-variant-numeric: tabular-nums; }
+.source-caption { font-size: .75rem; margin-top: 24px; margin-bottom: 0; }
+.source-notice { padding: 18px 22px; border-left: 3px solid #b28c32; background: #f0ecdf; border-radius: 0 6px 6px 0; font-size: .81rem; margin-bottom: 28px; }
+.source-notice p { margin: 5px 0 0; }
+.story { background: var(--card); border: 1px solid var(--line); border-radius: 9px; margin-bottom: 10px; overflow: hidden; }
+.story summary { display: flex; align-items: center; gap: 24px; cursor: pointer; padding: 20px 24px; list-style: none; font-weight: 650; }
+.story summary::-webkit-details-marker, .review-card summary::-webkit-details-marker { display: none; }
+.story-number { font-family: Georgia, serif; font-size: 1.6rem; font-weight: 400; color: #6d8492; }
+.story summary small { display: block; font-size: .74rem; font-weight: 400; color: var(--muted); margin-top: 2px; }
+.expand-icon { font-size: 1.4rem; font-weight: 400; margin-left: auto; color: var(--green); }
+.story[open] .expand-icon { transform: rotate(45deg); }
+.story[open] summary { border-bottom: 1px solid var(--line); }
+.story-body { padding: 22px 28px 26px 76px; font-size: .9rem; max-width: 950px; }
+.story-body ul { padding-left: 20px; margin: 0 0 18px; }
+.character-line { font-size: .8rem; color: var(--muted); }
+.think { background: var(--green-light); padding: 12px 16px; border-radius: 5px; font-size: .84rem; }
+.source-link { font-size: .72rem; }
+.character-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.character { padding: 25px; border: 1px solid var(--line); border-radius: 10px; background: var(--card); }
+.character.featured { background: var(--green-light); border-color: #cedce3; }
+.character .eyebrow { margin-bottom: 9px; font-size: .62rem; color: var(--muted); }
+.character h3 { margin: 0 0 14px; font-family: Georgia, serif; font-size: 1.6rem; font-weight: 400; }
+.character p:not(.eyebrow) { font-size: .85rem; }
+.tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 20px; }
+.tags span { font-size: .65rem; border: 1px solid #cad7dd; color: #455f70; padding: 3px 9px; border-radius: 3px; }
+
+
+.quiz-instructions { font-size: .83rem; padding-left: 18px; color: var(--muted); margin-block: 25px; }
+.quiz-instructions li { padding-left: 5px; margin-bottom: 9px; }
+.quiz-panel { padding: 34px; border: 1px solid #c3d1d8; border-radius: var(--radius); background: var(--card); align-self: start; min-width: 0; }
+.quiz-welcome { text-align: center; padding: 24px 0; }
+.quiz-symbol { width: 64px; height: 64px; display: grid; place-items: center; margin: 0 auto 24px; background: var(--yellow); font: 2.8rem Georgia, serif; border-radius: 50%; }
+.quiz-welcome h3, .quiz-results h3 { font-family: Georgia, serif; font-size: 2rem; font-weight: 400; margin-bottom: 12px; }
+.quiz-welcome p:not(.eyebrow) { font-size: .9rem; color: var(--muted); max-width: 380px; margin: 0 auto 24px; }
+.quiz-welcome .eyebrow { margin-bottom: 10px; }
+.quiz-meta { display: flex; justify-content: space-between; font-size: .74rem; color: var(--muted); }
+progress { display: block; appearance: none; width: 100%; height: 5px; border: none; background: var(--green-light); border-radius: 8px; overflow: hidden; margin: 15px 0 28px; }
+progress::-webkit-progress-bar { background: var(--green-light); }
+progress::-webkit-progress-value { background: var(--green); }
+progress::-moz-progress-bar { background: var(--green); }
+#question-topic { color: var(--muted); font-size: .65rem; margin-bottom: 10px; }
+#question-text { font-size: 1.2rem; margin-bottom: 22px; }
+.answers { display: grid; gap: 9px; }
+.answer { display: flex; align-items: center; gap: 12px; border: 1px solid var(--line); border-radius: 6px; padding: 12px; min-height: 50px; background: var(--card); color: var(--ink); text-align: left; font-size: .87rem; line-height: 1.5; }
+.answer:not(:disabled):hover { border-color: var(--green); background: #edf3f5; }
+.answer-letter { display: grid; place-items: center; flex: 0 0 26px; height: 26px; border: 1px solid var(--line); border-radius: 4px; color: var(--muted); font-size: .7rem; }
+.answer.correct { background: var(--good-bg); border-color: #73a179; color: var(--good); }
+.answer.wrong { background: var(--bad-bg); border-color: #bc8775; color: var(--bad); }
+.answer-marker { margin-left: auto; font-size: .7rem; font-weight: 650; }
+.feedback:empty { display: none; }
+.feedback { margin-top: 20px; padding: 15px 17px; border-radius: 6px; font-size: .86rem; background: var(--green-light); }
+.feedback strong { display: block; margin-bottom: 5px; }
+.feedback p { margin-bottom: 8px; }
+.feedback p:last-child { margin-bottom: 0; }
+.feedback a { display: inline-block; font-size: .76rem; }
+.quiz-actions { display: flex; align-items: center; gap: 15px; flex-wrap: wrap; margin-top: 20px; }
+.quiz-actions .quiet { margin-left: auto; font-size: .73rem; }
+.result-score { font-family: Georgia, serif; font-size: 3.2rem; color: var(--green); margin-bottom: 10px; }
+.quiz-results .actions { gap: 10px; }
+.memory-description { max-width: 730px; color: var(--muted); font-size: .9rem; }
+.heading-count { display: inline-grid; place-items: center; vertical-align: middle; min-width: 33px; height: 33px; padding-inline: 8px; background: var(--green-light); border-radius: 50%; font: .9rem -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; letter-spacing: 0; }
+.empty-state { margin: 26px 0 0; padding: 30px; text-align: center; border: 1px dashed #c5ccba; border-radius: 9px; font-size: .86rem; color: var(--muted); }
+.review-card { background: var(--card); padding: 19px 23px; margin-top: 12px; border: 1px solid var(--line); border-radius: 8px; }
+.review-card summary { cursor: pointer; list-style: none; font-weight: 600; font-size: .9rem; }
+.review-card summary::after { content: "Näita selgitust +"; display: block; margin-top: 8px; font-size: .72rem; font-weight: 400; color: var(--muted); }
+.review-card[open] summary::after { content: "Peida selgitus −"; }
+.review-reason { display: block; text-transform: uppercase; font-size: .59rem; font-weight: 650; letter-spacing: .08em; color: #936033; margin-bottom: 5px; }
+.review-explanation { padding-top: 15px; font-size: .83rem; }
+.review-explanation p { margin-bottom: 8px; }
+.review-explanation a { font-size: .75rem; }
+.storage-notice { border-left: 3px solid #b28c32; padding: 12px 16px; background: #f0ecdf; font-size: .8rem; }
+.sources-section { display: grid; grid-template-columns: 1fr 1fr; gap: 65px; }
+.sources-section h2 { font-size: 1.8rem; }
+.sources-section p:not(.eyebrow) { font-size: .81rem; color: var(--muted); }
+.source-list { margin: 0; padding-left: 20px; font-size: .77rem; }
+.source-list li { padding-left: 5px; margin-bottom: 17px; scroll-margin-top: 95px; }
+.source-list span { display: block; color: var(--muted); font-size: .72rem; margin-top: 4px; }
+.footer { display: flex; justify-content: space-between; gap: 20px; padding-block: 28px; color: var(--muted); font-size: .75rem; }
+.footer p { margin: 0; }
+
+@media (min-width: 1050px) {
+  .character.featured { grid-column: span 1; }
+}
+
+@media (max-width: 1000px) {
+  .hero { gap: 35px; }
+  .hero-art { padding: 26px; min-height: 390px; }
+  .summary-section, .quiz-section { grid-template-columns: 240px minmax(0, 1fr); gap: 36px; }
+  .nav-inner { gap: 24px; }
+  .character-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 760px) {
+  .wrap { width: calc(100% - 40px); }
+  .masthead { min-height: 70px; }
+  .masthead-label { font-size: .63rem; gap: 6px; }
+  .hero { padding-block: 38px 42px; gap: 32px; grid-template-columns: 1fr; }
+  .hero h1 { font-size: clamp(3.7rem, 12vw, 5.5rem); }
+  .hero-description { max-width: 480px; }
+  .hero-art { min-height: 0; padding: 24px; }
+  .nav-inner { width: calc(100% - 24px); gap: 24px; }
+  .nav-inner a { padding-block: 15px; }
+  .section { padding-block: 48px; }
+  .summary-section, .quiz-section, .sources-section { grid-template-columns: 1fr; gap: 28px; }
+  .section-intro h2 br { display: none; }
+  .book-facts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-top: 24px; }
+  .book-facts dd { font-size: .73rem; }
+  .section-heading { align-items: flex-start; flex-wrap: wrap; gap: 18px; }
+  .section-note { max-width: 100%; }
+  .summary-paper { padding: 25px 23px; }
+  .summary-list li { gap: 9px; }
+  .story summary { padding: 16px; gap: 16px; }
+  .story-body { padding: 22px; }
+  .quiz-panel { padding: 25px 20px; }
+  .quiz-instructions { margin-block: 18px; }
+  .quiz-welcome { padding-block: 12px; }
+  .memory-section .section-heading { flex-direction: column; }
+  .source-notice { padding: 16px; }
+}
+
+@media (max-width: 440px) {
+  .masthead-label { max-width: 105px; display: block; text-align: right; }
+  .masthead-label .dot { display: none; }
+  .hero .eyebrow { font-size: .63rem; }
+  .hero h1 { font-size: 3.6rem; }
+  .actions { gap: 18px; }
+  .hero .actions { align-items: flex-start; flex-direction: column; }
+  .character-grid { grid-template-columns: 1fr; }
+  .book-facts { grid-template-columns: 1fr; gap: 0; }
+  .book-facts > div { display: flex; justify-content: space-between; gap: 18px; }
+  .book-facts dd { text-align: right; }
+  .story summary { gap: 12px; }
+  .story summary > span:nth-child(2) { font-size: .88rem; }
+  .answer { padding: 10px; gap: 9px; }
+  .answer-marker { font-size: .6rem; }
+  .footer { flex-direction: column; gap: 8px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { transition: none !important; }
+}
+
+@media print {
+  body { background: white; font-size: 11pt; }
+  .wrap { width: 100%; }
+  .masthead, .section-nav, .hero-art, .hero .actions, .skip-link, .button, .quiz-section, .memory-section, .footer, .hero { display: block; padding: 0; }
+  .hero h1 { font-size: 36pt; }
+  .hero h1 br { display: none; }
+  .hero h1 em::before { content: " "; }
+  .hero-description { display: none; }
+  .section { padding-block: 24px; }
+  .summary-section, .sources-section { display: block; }
+  .summary-paper { padding: 20px; }
+  .book-facts { display: flex; gap: 30px; margin-bottom: 20px; }
+  .character-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .story, .character, .source-notice { break-inside: avoid; }
+  .story::details-content { content-visibility: visible; }
+  .story-body { display: block !important; padding-left: 24px; }
+  .expand-icon { display: none; }
+  .source-link, .source-caption { color: #444; }
+  h2, h3, summary { break-after: avoid; }
+}
+  
+@media (max-width: 760px) { .hero-art { display: block; width: min(100%, 440px); margin-inline: auto; border-radius: 50% 50% 8px 8px; } }
+@media print { .hero-art { display: none; } }
+</style>
+</head>
+<body id="algus">
+<a class="skip-link" href="#kokkuvote">Liigu õppematerjali juurde</a>
+<header class="wrap">
+<div class="masthead"><a class="back-link" href="../index.html">← Kõik teosed</a><span class="masthead-label">Kirjanduse õppematerjal · 12–15-aastastele</span>
+</div>
+<div class="hero">
+<div>
+<p class="eyebrow">Leelo Tungal / Noorsoojutustus</p>
+<h1>Varesele<br><em>valu.</em></h1>
+<p class="hero-lead">Kas iseseisev olemine tähendab<br>kõigega üksi hakkama saamist?</p>
+<p class="hero-description">Üks tüdruk, üks varesepoeg ja vajadus kellegi järele, kes päriselt kuulaks. Loe, mõtesta ja proovi, mis jäi meelde.</p>
+<div class="actions"><a class="button primary" href="#kokkuvote">Alusta lugemist →</a><a class="text-link" href="#kusimustik">Pane end proovile ↗</a>
+</div>
+</div>
+<figure class="hero-art"><svg viewBox="0 0 440 330" role="img" aria-labelledby="bird-title"><title id="bird-title">Vares oksal heleda taeva taustal</title><circle cx="268" cy="116" r="82" fill="#f8f1dc"/><path d="M20 272 Q210 250 418 280" fill="none" stroke="#70818a" stroke-width="3"/><path d="M310 263 Q355 213 380 211 M355 234 L345 216" fill="none" stroke="#70818a" stroke-width="2"/><path d="M139 260 L176 186 Q180 146 220 149 Q252 142 261 166 L298 177 L263 185 Q262 212 230 229 L207 240 L143 265 Z" fill="#253745"/><path d="M182 178 Q237 166 241 208 Q209 234 163 240 Z" fill="#405766"/><path d="M184 195 Q200 206 224 205 M177 211 Q200 222 214 217" fill="none" stroke="#718691" stroke-width="2"/><circle cx="249" cy="168" r="3.5" fill="#fffdf8"/><path d="M216 231 L214 260 L204 265 M231 226 L238 261 L250 267" fill="none" stroke="#253745" stroke-width="3"/><path d="M76 89 Q86 78 100 89 Q110 78 123 86 M322 64 Q330 56 341 65 Q351 56 363 62" fill="none" stroke="#82959d" stroke-width="2"/></svg><figcaption>Hoolimine annab jõudu kasvada.</figcaption></figure>
+</div></header>
+<nav class="section-nav" aria-label="Õppematerjali osad">
+<div class="wrap nav-inner"><a href="#kokkuvote"><span>01</span>Ülevaade</a><a href="#peatukid"><span>02</span>Peatükid ja sündmused</a><a href="#tegelased"><span>03</span>Tegelased</a><a href="#kusimustik"><span>04</span>Küsimustik</a><a href="#meelespea"><span>05</span>Meelespea <span class="count-badge" id="nav-review-count">0</span></a><a href="#allikad">Allikad</a>
+</div></nav>
+<main class="wrap">
+<section class="section summary-section" id="kokkuvote">
+<div class="section-intro">
+<p class="eyebrow">01 / Lugu lühidalt</p>
+<h2>Üksindusest<br>läheduse poole.</h2>
+<p>Kaheksa lauset loo põhijoonte meeldetuletamiseks.</p><dl class="book-facts">
+<div><dt>Autor</dt><dd>Leelo Tungal</dd>
+</div>
+<div><dt>Esmatrükk</dt><dd>Avita, 2002</dd>
+</div>
+<div><dt>Žanr</dt><dd>Noorsoojutustus</dd>
+</div></dl>
+</div>
+<div class="summary-paper">
+<ol class="summary-list">
+<li><span>15-aastane Isadora ehk Iisi peab pärast isa kaotust toime tulema üksinduse ja igapäevamuredega.</span></li>
+<li><span>Tema ema töötab välismaal ning tüdruk igatseb perekonna lähedust ja tuge.</span></li>
+<li><span>Iisi suhted isa uue naise Katriniga on pingelised.</span></li>
+<li><span>Oma mõtteid ja läbielamisi räägib ta helikassettidele.</span></li>
+<li><span>Surnuaialt leiab ta abitu varesepoja Pedro ja võtab linnu enda hoole alla.</span></li>
+<li><span>Klassivend Robert pakub Iisile tuge ning nende vahel areneb lähedasem suhe.</span></li>
+<li><span>Pedro saab iseseisvamaks ja naaseb loodusesse, samal ajal kui Iisi suhted Katriniga tasapisi leebuvad.</span></li>
+<li><span>Kaotus jääb tema ellu, kuid loo lõpp suunab mõtlema edasielamisele ja hoolimisele.</span></li>
+</ol>
+<p class="source-caption">Aluseks <a href="#tutvustus">raamatu tutvustus</a>, <a href="#markmed">lugeja märkmed</a> ja <a href="#esitlus">esitlus lõpusündmustest</a>. Lõpu üksikasjad on algtekstiga kontrollimata.</p>
+</div>
+</section>
+<section class="section" id="peatukid">
+<div class="section-heading">
+<div>
+<p class="eyebrow">02 / Jälgi loo kulgu</p>
+<h2>Peatükid ja sündmused</h2>
+</div><button class="button secondary small js-only" id="toggle-stories" type="button">Ava kõik plokid</button>
+</div>
+<div class="source-notice"><strong>Mida õnnestus allikatest kinnitada?</strong>
+<p>Täistekst ja täielik peatükijaotus ei olnud kättesaadavad. Arvustus eristab esimest ja teist peatükki; ülejäänud plokid on sündmusliinide ülevaated, mitte raamatu peatükid. Pealkirjad on koostatud õppimise hõlbustamiseks. Iga peatüki täpset kokkuvõtet nende põhjal teha ei saa.</p>
+</div>
+<details class="story">
+<summary><span class="story-number">01</span><span>1. peatükk · Isa matus<small>Arvustuses nimetatud alguspeatükk</small></span><span class="expand-icon" aria-hidden="true">+</span></summary>
+<div class="story-body">
+<p>Iisi matab isa; leinaga segunevad pahameel matuseliste jutu ja ema puudumise pärast.</p>
+<p class="character-line"><strong>Tegelased:</strong> Iisi, Andres, Katrin, Kalev-Kevin, Marge (mõtetes).</p>
+<p class="think"><strong>Mõtle:</strong> Miks võivad lohutuseks mõeldud sõnad leinajale võõralt kõlada?</p><a class="source-link" href="#arvustus">Vaata selle ploki allikat ↗</a>
+</div>
+</details>
+<details class="story">
+<summary><span class="story-number">02</span><span>2. peatükk · Ema vaatenurk<small>Arvustuses nimetatud teine peatükk</small></span><span class="expand-icon" aria-hidden="true">+</span></summary>
+<div class="story-body">
+<p>Marge meenutab abielu ja tütre nime valimist; päeviku lugemine on rikkunud Iisi usaldust.</p>
+<p class="character-line"><strong>Tegelased:</strong> Marge, Iisi, Andres.</p>
+<p class="think"><strong>Mõtle:</strong> Kuidas muudab teise tegelase vaatenurk sinu esialgset hinnangut?</p><a class="source-link" href="#arvustus">Vaata selle ploki allikat ↗</a>
+</div>
+</details>
+<details class="story">
+<summary><span class="story-number">03</span><span>Helipäevik ja isiklikud piirid<small>Järgnev sündmusliin · peatükinumber teadmata</small></span><span class="expand-icon" aria-hidden="true">+</span></summary>
+<div class="story-body">
+<p>Kassetid avavad Iisi elu; tagasivaates aitab isa tal kahtlasest seltskonnast vabaneda.</p>
+<p class="character-line"><strong>Tegelased:</strong> Iisi, Marge, Andres, Kalev-Kevin.</p>
+<p class="think"><strong>Mõtle:</strong> Mis vahe on usaldusel ja soovil kõigile meeldida?</p><a class="source-link" href="#arvustus">Vaata selle ploki allikat ↗</a>
+</div>
+</details>
+<details class="story">
+<summary><span class="story-number">04</span><span>Pedro leidmine ja hoidmine<small>Järgnev sündmusliin · peatükinumber teadmata</small></span><span class="expand-icon" aria-hidden="true">+</span></summary>
+<div class="story-body">
+<p>Iisi leiab kalmistult varesepoja, paneb talle nimeks Pedro ning hoolitseb tema eest.</p>
+<p class="character-line"><strong>Tegelased:</strong> Iisi, Pedro.</p>
+<p class="think"><strong>Mõtle:</strong> Mida võib teise eest hoolitsemine anda inimesele, kes tunneb end üksikuna?</p><a class="source-link" href="#tutvustus">Vaata selle ploki allikat ↗</a>
+</div>
+</details>
+<details class="story">
+<summary><span class="story-number">05</span><span>Robert ja tema kodu<small>Järgnev sündmusliin · peatükinumber teadmata</small></span><span class="expand-icon" aria-hidden="true">+</span></summary>
+<div class="story-body">
+<p>Roberti lähedased võtavad Iisi omaks; poiss aitab Pedrot kasvatada.</p>
+<p class="character-line"><strong>Tegelased:</strong> Iisi, Robert, Maria, Ossip, Pedro.</p>
+<p class="think"><strong>Mõtle:</strong> Millised teod annavad külalisele tunde, et ta on oodatud?</p><a class="source-link" href="#arvustus">Vaata selle ploki allikat ↗</a>
+</div>
+</details>
+<details class="story">
+<summary><span class="story-number">06</span><span>Kahtlustus koolis<small>Järgnev sündmusliin · peatükinumber teadmata</small></span><span class="expand-icon" aria-hidden="true">+</span></summary>
+<div class="story-body">
+<p>Venekeelse pommiähvarduse järel langeb kahtlus Robertile; olukorda selgitatakse koolis.</p>
+<p class="character-line"><strong>Tegelased:</strong> Robert, Iisi, koolipere.</p>
+<p class="think"><strong>Mõtle:</strong> Miks ei tõesta inimese keel ega päritolu tema süüd?</p><a class="source-link" href="#arvustus">Vaata selle ploki allikat ↗</a>
+</div>
+</details>
+<details class="story">
+<summary><span class="story-number">07</span><span>Koolilõpp ja tervisemure<small>Lõpuosa sündmusliin · peatükinumber teadmata</small></span><span class="expand-icon" aria-hidden="true">+</span></summary>
+<div class="story-body">
+<p>Iisi lõpetab üheksanda klassi; Katrini pitsale järgneb tervisemure ning selgineb isa viimaste kuude taust.</p>
+<p class="character-line"><strong>Tegelased:</strong> Iisi, Katrin, Andres (mälestustes).</p>
+<p class="think"><strong>Mõtle:</strong> Kuidas eristada tegelase esimest oletust hiljem selguvast tõest?</p><a class="source-link" href="#arvustus">Vaata selle ploki allikat ↗</a>
+</div>
+</details>
+<details class="story">
+<summary><span class="story-number">08</span><span>Edasi oma elu poole<small>Lõpuosa · lugeja esitluse põhjal</small></span><span class="expand-icon" aria-hidden="true">+</span></summary>
+<div class="story-body">
+<p>Pedro naaseb loodusesse; Iisi ja Katrini suhted paranevad ning elu läheb kaotusest hoolimata edasi.</p>
+<p class="character-line"><strong>Tegelased:</strong> Iisi, Pedro, Katrin, Robert.</p>
+<p class="think"><strong>Mõtle:</strong> Kas lootusrikas lõpp peab tähendama, et kõik probleemid on kadunud?</p><a class="source-link" href="#esitlus">Vaata selle ploki allikat ↗</a>
+</div>
+</details>
+</section>
+<section class="section" id="tegelased">
+<div class="section-heading">
+<div>
+<p class="eyebrow">03 / Kes on kes?</p>
+<h2>Iisi ja tema ümber olevad inimesed</h2>
+</div>
+<p class="section-note">Omadused on tegude põhjal tehtud tõlgendused. Nime kõrval jäta meelde ka seos Iisiga.</p>
+</div>
+<div class="character-grid">
+<article class="character featured">
+<p class="eyebrow">Peategelane</p>
+<h3>Isadora Pärn ehk Iisi</h3>
+<p>15-aastane, üksildane ja tuge vajav tüdruk. Pedro eest hoolitsemine näitab tema osavõtlikkust; iseseisev elu ei kaota vajadust lähedaste järele.</p>
+<div class="tags"><span>hooliv · haavatav</span>
+</div>
+<p class="source-caption"><a href="#tutvustus">Allikas ↗</a></p>
+</article>
+<article class="character featured">
+<p class="eyebrow">Klassivend ja lähedane</p>
+<h3>Robert Bernstein ehk Robi</h3>
+<p>Iisi toetav kaaslane. Nende tärkav suhe toob tüdruku ellu lähedust; tema abivalmidus tasakaalustab Iisi üksindust.</p>
+<div class="tags"><span>abivalmis · toetav</span>
+</div>
+<p class="source-caption"><a href="#tutvustus">Allikas ↗</a></p>
+</article>
+<article class="character featured">
+<p class="eyebrow">Varesepoeg</p>
+<h3>Pedro</h3>
+<p>Algul abitu lind, kelle Iisi enda hoolde võtab. Tema kasvamist võib tõlgendada iseseisvumise kujundina: hoolitsus aitab lõpuks oma teed minna.</p>
+<div class="tags"><span>hoolitsus · iseseisvumine</span>
+</div>
+<p class="source-caption"><a href="#esitlus">Allikas ↗</a></p>
+</article>
+<article class="character ">
+<p class="eyebrow">Iisi ema</p>
+<h3>Marge Pärn / Mannoff</h3>
+<p>Välismaal töötav ema, kelle eemalolek teeb Iisile haiget. Tema kaudu saab arutleda, miks vajab laps peale elamisvõimaluse ka vanema tähelepanu.</p>
+<div class="tags"><span>eemalolek · peresuhted</span>
+</div>
+<p class="source-caption"><a href="#tutvustus">Allikas ↗</a></p>
+</article>
+<article class="character ">
+<p class="eyebrow">Iisi isa</p>
+<h3>Andres Pärn</h3>
+<p>Isa surm enesetapu läbi jätab lähedaste ellu raske kaotuse. Ta on loos tähtis ka pärast surma; tema puudumine kujundab Iisi käekäiku.</p>
+<div class="tags"><span>kaotus · mälestused</span>
+</div>
+<p class="source-caption"><a href="#esitlus">Allikas ↗</a></p>
+</article>
+<article class="character ">
+<p class="eyebrow">Isa uus naine</p>
+<h3>Katrin Pärn</h3>
+<p>Iisi ja Katrini läbisaamine on keeruline, kuid muutub tasapisi paremaks. Teda tasub vaadelda muutuva tegelasena, mitte taandada üksnes „halvaks võõrasemaks”.</p>
+<div class="tags"><span>pinged · muutumine</span>
+</div>
+<p class="source-caption"><a href="#esitlus">Allikas ↗</a></p>
+</article>
+<article class="character ">
+<p class="eyebrow">Iisi väikevend</p>
+<h3>Kalev-Kevin</h3>
+<p>Andrese ja Katrini väike poeg, kellest Iisi väga hoolib.</p>
+<div class="tags"><span>perekondlik side</span>
+</div>
+<p class="source-caption"><a href="#arvustus">Allikas ↗</a></p>
+</article>
+<article class="character ">
+<p class="eyebrow">Roberti ema</p>
+<h3>Maria ehk Marusja</h3>
+<p>Roberti ema; tema kodus võetakse Iisi soojalt vastu.</p>
+<div class="tags"><span>külalislahkus</span>
+</div>
+<p class="source-caption"><a href="#arvustus">Allikas ↗</a></p>
+</article>
+<article class="character ">
+<p class="eyebrow">Roberti isa</p>
+<h3>Ossip</h3>
+<p>Kultuurihuviline isa, kes räägib Iisile Isadora Duncanist.</p>
+<div class="tags"><span>kultuurihuvi</span>
+</div>
+<p class="source-caption"><a href="#arvustus">Allikas ↗</a></p>
+</article>
+<article class="character ">
+<p class="eyebrow">Koolielu kõrvaltegelane</p>
+<h3>Õpetaja Hõbemägi</h3>
+<p>Arvustuses nimetatud õpetaja; iseloomu täpsem kirjeldus vajab algteksti.</p>
+<div class="tags"><span>kool</span>
+</div>
+<p class="source-caption"><a href="#arvustus">Allikas ↗</a></p>
+</article>
+</div>
+<details class="story">
+<summary><span>Veel allikates nimetatud kõrvaltegelasi</span><span class="expand-icon" aria-hidden="true">+</span></summary>
+<div class="story-body">
+<p>Lugeja lektüürilehel esinevad ka Toomas Tarm, Cathy, Merle, väike Kairi, Mariin, Marko Kalmer ja Aleksandr Bernstein. Nende rolle ja iseloomu ei õnnestunud avalikust tekstist usaldusväärselt kindlaks teha. Aleksandri nime ei saa automaatselt samastada arvustuses nimetatud Ossipiga.</p><a class="source-link" href="#markmed">Allikas: lugeja lektüürileht ↗</a>
+</div>
+</details>
+<p class="source-caption">See on veebiallikatest tuvastatud tegelaste ülevaade; täielikkust saab kontrollida raamatu järgi.</p>
+</section>
+<section class="section" id="teemad">
+<p class="eyebrow">Mõtesta / Põhjenda oma vastust</p>
+<h2>Kolm mõtet, mida kaasa võtta</h2>
+<div class="character-grid">
+<article class="character">
+<h3>Iseseisvus ja üksindus</h3>
+<p>Igapäevaeluga hakkama saamine ja tunne, et keegi sinust hoolib, on eri asjad. Arutle: millist tuge võiks noor vajada ka siis, kui ta oskab ise süüa teha ja kooliasju korraldada?</p>
+</article>
+<article class="character">
+<h3>Hoolitsemine ja kasvamine</h3>
+<p>Pedro lugu saab lugeda iseseisvumise kujundina. See on tõlgendus: abi eesmärk võib olla anda teisele võimalus hiljem oma jõul hakkama saada.</p>
+</article>
+<article class="character">
+<h3>Valu ja lohutus</h3>
+<p>Pealkiri meenutab rahvalikku valuvõtmisvormelit. Selle seostamine loo leina ja hoolimisega on üks tõlgendusvõimalus. Mõtle, mida saavad sõnad teha ning millal on vaja ka tegusid.</p><a class="source-link" href="#rahvaluule">Pealkirja rahvaluuleline taust ↗</a>
+</article>
+</div>
+<p class="source-caption">Arutluse mudel: väide → konkreetne näide teosest → selgitus. Lootusrikas lõpp ei pea tähendama, et kaotus on ununenud.</p>
+</section>      <section class="section quiz-section" id="kusimustik" aria-labelledby="quiz-title">
+        <div class="section-intro">
+          <p class="eyebrow">04 / Pane end proovile</p>
+          <h2 id="quiz-title">Mis jäi <br>meelde?</h2>
+          <p>20 küsimust loo, tegelaste ja tähenduse kohta. Igal küsimusel on viis valikut ja üks õige vastus.</p>
+          <ol class="quiz-instructions">
+<li>Vali vastus või vajuta „Ei tea veel“.</li>
+<li>Loe selgitus läbi.</li>
+<li>Korda hiljem meelespeasse jäänud küsimusi.</li>
+</ol>
+          <p class="quiet">Eksimine aitab leida, mida veel õppida.</p>
+        </div>
+        <div class="quiz-panel" id="quiz-panel">
+          <noscript>
+<p>Küsimustiku ja meelespea kasutamiseks luba brauseris JavaScript. Ülevaadet ja tegelaste tutvustusi saad lugeda ka ilma selleta.</p></noscript>
+          <div class="quiz-welcome js-only" id="quiz-welcome">
+            <span class="quiz-symbol" aria-hidden="true">?</span>
+            <p class="eyebrow">Võta rahulikult</p>
+            <h3>Valmis proovima?</h3>
+            <p>Ajalimiiti ei ole. Küsimused tulevad ükshaaval ning keerulised vastused jäävad meelespeasse.</p>
+            <button class="button primary" id="start-quiz" type="button">Alusta küsimustikku <span aria-hidden="true">→</span></button>
+          </div>
+          <div id="quiz-round" hidden>
+            <div class="quiz-meta"><span id="quiz-mode">Kõik küsimused</span><span id="question-counter"></span>
+</div>
+            <progress id="quiz-progress" value="0" max="20" aria-label="Vastatud küsimused"></progress>
+            <p class="eyebrow" id="question-topic"></p>
+            <h3 id="question-text" tabindex="-1"></h3>
+            <div class="answers" id="answer-list" role="group" aria-labelledby="question-text">
+</div>
+            <div class="feedback" id="quiz-feedback" role="status" aria-live="polite" aria-atomic="true">
+</div>
+            <div class="quiz-actions"><button class="button secondary" id="skip-question" type="button">Ei tea veel</button><button class="button primary" id="next-question" type="button" hidden>Järgmine küsimus →</button><span class="quiet" id="round-score"></span>
+</div>
+          </div>
+          <div class="quiz-results" id="quiz-results" hidden>
+            <p class="eyebrow">Harjutuskord tehtud</p>
+            <h3 id="result-title" tabindex="-1">Tubli töö!</h3>
+            <p class="result-score" id="result-score"></p>
+            <p id="result-description"></p>
+            <div class="actions"><button class="button primary" id="repeat-review" type="button">Korda keerulisi</button><button class="button secondary" id="restart-quiz" type="button">Kõik küsimused uuesti</button>
+</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section memory-section" id="meelespea" aria-labelledby="memory-title">
+        <div class="section-heading">
+<div>
+<p class="eyebrow">05 / Sinu järgmine samm</p>
+<h2 id="memory-title">Veel harjutamist <span class="heading-count" id="review-count">0</span></h2>
+</div><button class="button primary js-only" id="practice-review" type="button" disabled>Harjuta neid küsimusi →</button>
+</div>
+        <p class="memory-description">Siia jäävad valed vastused ja „Ei tea veel“ küsimused. Järgmisel katsel õigesti vastatud küsimus kaob nimekirjast. Selgituse avamine seda ei eemalda.</p>
+        <p class="storage-notice" id="storage-notice" role="status" hidden></p>
+        <div id="review-list">
+<p class="empty-state">Siin on praegu puhas leht. Küsimustik aitab leida, mida tasub korrata.</p>
+</div>
+        <p class="source-caption">Meelespea säilib selles brauseris. Brauseri andmete kustutamisel kaob ka salvestatud nimekiri.</p>
+      </section>
+
+<section class="section sources-section" id="allikad">
+<div>
+<p class="eyebrow">06 / Allikad ja täpsus</p>
+<h2>Kust see materjal pärineb?</h2>
+<p>Koostatud 8. oktoobril 2026 avalike veebiallikate põhjal. Raamatu tutvustus toetab põhifakte; arvustus ja õpilastööd annavad lisateavet, kuid ei asenda algteksti.</p>
+<p>Õpilastöödes esineb vastuolusid: Iisi vanuseks on märgitud ka 14, kuid raamatututvustuse järgi on ta 15. Peatükkide täpset arvu, kõigi kõrvaltegelaste rolle ning lõpu tervisemure üksikasju siin ei oletata.</p>
+<p>Küsimustik käsitleb sellel lehel esitatud fakte ja tõlgendusi. Teisesel allikal põhinevad lõpusündmuste küsimused on eraldi märgitud.</p>
+</div>
+<ol class="source-list">
+<li id="tutvustus"><a href="https://noortekirjandus.ee/noorteraamatud/2022noortekad/varesele-valu/">Eesti Noortekirjanduse Ühing: raamatu tutvustus</a><span>Žanr, Iisi vanus, perekondlik olukord, Robert ja varesepoeg.</span></li>
+<li><a href="https://www.vanaraamat.ee/Leelo_Tungal_Varesele_valu_Avita_2002_70357-62.htm">2002. aasta väljaande tutvustus</a><span>Iisi ja Roberti suhe ning ilmumisandmed.</span></li>
+<li><a href="https://ewod.ut.ee/t/tungal/">Tartu Ülikool: Leelo Tungla bibliograafia</a><span>Esmatrükk 2002, kordustrükk 2022.</span></li>
+<li id="arvustus"><a href="https://www.tiidekas.com/440585494/451873660">Tiideka raamatuarvustus: „Varesele valu”</a><span>Lehe lõpuosas olev arvustus: kaks esimest peatükki, sündmusliinid, kõrvaltegelased. Teisene allikas.</span></li>
+<li id="esitlus"><a href="https://www.slideshare.net/slideshow/leelo-tungal/1197046">Õppija esitlus: Leelo Tungal</a><span>Suhted Katriniga, isa kaotus ja Pedro saatus; algtekstiga kontrollimata.</span></li>
+<li id="markmed"><a href="https://annaabi.ee/varesele-valu-l-tungal-m42011.html">Lugeja lektüürilehe avalik eelvaade</a><span>Helipäevik ja täiendavad tegelasnimed. Sisaldab vanusevastuolu; täielikku tööd ei kasutatud.</span></li>
+<li id="rahvaluule"><a href="https://www.folklore.ee/~maris/work/paidelaulud.pdf">Eesti rahvalaulud: Paide valuvõtmisvormelid</a><span>Pealkirja rahvaluuleline taust, vormelid 980–983.</span></li>
+</ol>
+</section>
+</main>
+<footer class="wrap footer">
+<p>Leelo Tungal · „Varesele valu” · Õpi omas tempos.</p><a href="#algus">Tagasi üles ↑</a></footer><script>
+"use strict";
+(() => {
+const questions = [
+  {
+    "id": "autor",
+    "topic": "Raamat",
+    "question": "Kes on „Varesele valu” autor?",
+    "answers": [
+      "Leelo Tungal",
+      "Aidi Vallik",
+      "Silvia Rannamaa",
+      "Jaan Rannap",
+      "Ilmar Tomusk"
+    ],
+    "correct": 0,
+    "explanation": "Teose autor on Leelo Tungal.",
+    "section": "allikad"
+  },
+  {
+    "id": "zanr",
+    "topic": "Raamat",
+    "question": "Millisesse liiki see teos kuulub?",
+    "answers": [
+      "Muinasjutt",
+      "Reisikiri",
+      "Noorsoojutustus",
+      "Luulekogu",
+      "Näidend"
+    ],
+    "correct": 2,
+    "explanation": "Tegu on noorsoojutustusega, mille keskmes on noore inimese elulised mured.",
+    "section": "kokkuvote"
+  },
+  {
+    "id": "ilmumine",
+    "topic": "Raamat",
+    "question": "Millal ilmus teose esmatrükk?",
+    "answers": [
+      "1982",
+      "1992",
+      "2000",
+      "2002",
+      "2022"
+    ],
+    "correct": 3,
+    "explanation": "Esmatrüki avaldas Avita 2002. aastal; 2022. aastal ilmus Tänapäeva kordustrükk.",
+    "section": "allikad"
+  },
+  {
+    "id": "nimi",
+    "topic": "Tegelased",
+    "question": "Mis on Iisi pärisnimi?",
+    "answers": [
+      "Isabella",
+      "Iiris",
+      "Ilse",
+      "Ingrid",
+      "Isadora"
+    ],
+    "correct": 4,
+    "explanation": "Iisi on Isadora hüüdnimi.",
+    "section": "tegelased"
+  },
+  {
+    "id": "vanus",
+    "topic": "Tegelased",
+    "question": "Kui vana on Iisi raamatu tutvustuse järgi?",
+    "answers": [
+      "15-aastane",
+      "12-aastane",
+      "17-aastane",
+      "19-aastane",
+      "10-aastane"
+    ],
+    "correct": 0,
+    "explanation": "Usaldusväärses raamatututvustuses on Iisi vanuseks 15 aastat.",
+    "section": "tegelased"
+  },
+  {
+    "id": "ema",
+    "topic": "Peresuhted",
+    "question": "Miks on Iisi ema temast eemal?",
+    "answers": [
+      "Ta töötab samas koolis.",
+      "Ta töötab välismaal.",
+      "Ta on merereisil koos Iisiga.",
+      "Ta elab Roberti juures.",
+      "Ta otsib kadunud Pedrot."
+    ],
+    "correct": 1,
+    "explanation": "Ema töö välismaal on Iisi üksinduse oluline taust.",
+    "section": "kokkuvote"
+  },
+  {
+    "id": "isa",
+    "topic": "Peresuhted",
+    "question": "Milline kaotus mõjutab Iisi elu?",
+    "answers": [
+      "Ta kaotab koolikoti.",
+      "Tema kodu lammutatakse.",
+      "Tema isa sureb.",
+      "Ta jääb ilma võistlusauhinnast.",
+      "Tema klassivend kolib ära."
+    ],
+    "correct": 2,
+    "explanation": "Isa surm jätab Iisi ilma olulisest lähedasest.",
+    "section": "kokkuvote"
+  },
+  {
+    "id": "katrin",
+    "topic": "Tegelased",
+    "question": "Kes on Katrin?",
+    "answers": [
+      "Iisi klassiõde",
+      "Roberti ema",
+      "Iisi tädi",
+      "Iisi isa uus naine",
+      "Iisi muusikaõpetaja"
+    ],
+    "correct": 3,
+    "explanation": "Katrin on Iisi võõrasema; nende läbisaamine on üks loo pingekohti.",
+    "section": "tegelased"
+  },
+  {
+    "id": "robert",
+    "topic": "Tegelased",
+    "question": "Kes on Robert Iisi jaoks?",
+    "answers": [
+      "Tema õpetaja",
+      "Tema onupoeg",
+      "Ema töökaaslane",
+      "Loomaaia töötaja",
+      "Toetav klassivend"
+    ],
+    "correct": 4,
+    "explanation": "Robert on Iisi klassivend, kellega areneb lähedasem suhe.",
+    "section": "tegelased"
+  },
+  {
+    "id": "pedro",
+    "topic": "Tegelased",
+    "question": "Kes on Pedro?",
+    "answers": [
+      "Varesepoeg",
+      "Naabripoiss",
+      "Koer",
+      "Papagoi",
+      "Tantsuõpetaja"
+    ],
+    "correct": 0,
+    "explanation": "Pedro on Iisi hoolde võetud varesepoeg.",
+    "section": "tegelased"
+  },
+  {
+    "id": "leid",
+    "topic": "Sündmused",
+    "question": "Kust leiab Iisi varesepoja?",
+    "answers": [
+      "Kooli pööningult",
+      "Surnuaialt",
+      "Teatrist",
+      "Sadamakailt",
+      "Lemmikloomapoest"
+    ],
+    "correct": 1,
+    "explanation": "Raamatu tutvustus nimetab leiukohana surnuaeda.",
+    "section": "peatukid"
+  },
+  {
+    "id": "paevik",
+    "topic": "Jutustamine",
+    "question": "Kuidas talletab Iisi oma mõtteid?",
+    "answers": [
+      "Avalikus ajalehes",
+      "Fotoseeriana",
+      "Helikassettidele rääkides",
+      "Seinale maalides",
+      "Klassi ühises vihikus"
+    ],
+    "correct": 2,
+    "explanation": "Lindistused võimaldavad tal oma läbielamisi sõnadesse panna.",
+    "section": "peatukid"
+  },
+  {
+    "id": "pedro-lopp",
+    "topic": "Sündmused · teisene allikas",
+    "question": "Mis saab iseseisvamaks kasvanud Pedrost lugeja esitluse järgi?",
+    "answers": [
+      "Ta jääb loomaaeda.",
+      "Ta kolib Inglismaale.",
+      "Ta jääb klassi lemmikloomaks.",
+      "Ta naaseb loodusesse.",
+      "Ta kingitakse Katrinile."
+    ],
+    "correct": 3,
+    "explanation": "Esitlus kirjeldab Pedro loodusesse naasmist; see lõpu üksikasi on algtekstiga kontrollimata.",
+    "section": "peatukid"
+  },
+  {
+    "id": "katrin-muutus",
+    "topic": "Sündmused · teisene allikas",
+    "question": "Kuidas muutuvad Iisi ja Katrini suhted lugeja esitluse järgi?",
+    "answers": [
+      "Nad ei kohtu kordagi.",
+      "Kõik pinged kaovad kohe.",
+      "Nad jäävad teineteisele täiesti võõraks.",
+      "Nad muutuvad õdedeks.",
+      "Nende läbisaamine paraneb tasapisi."
+    ],
+    "correct": 4,
+    "explanation": "Esitluses kirjeldatakse järkjärgulist leebumist. See ei tähenda, et varasemad pinged oleksid olematuks muutunud.",
+    "section": "tegelased"
+  },
+  {
+    "id": "hoolimine",
+    "topic": "Tõlgendamine",
+    "question": "Milline tegu toetab hinnangut, et Iisi on hooliv?",
+    "answers": [
+      "Abitu linnu eest hoolitsemine",
+      "Üksinda elamine",
+      "Noor olemine",
+      "Hüüdnime kasutamine",
+      "Klassivenna tundmine"
+    ],
+    "correct": 0,
+    "explanation": "Iseloomustust põhjendab tegu, mis näitab tähelepanu teise vajadustele.",
+    "section": "tegelased"
+  },
+  {
+    "id": "iseseisvus",
+    "topic": "Tõlgendamine",
+    "question": "Milline mõte aitab Iisi olukorda kõige paremini mõista?",
+    "answers": [
+      "Oma kodu välistab üksinduse.",
+      "Iseseisvalt hakkama saades võib ikkagi vajada tuge.",
+      "Täiskasvanute puudumine lahendab kõik mured.",
+      "Üksindus ja vabadus tähendavad alati sama.",
+      "Abi vajamine näitab halba iseloomu."
+    ],
+    "correct": 1,
+    "explanation": "Praktiline toimetulek ja emotsionaalne lähedus on erinevad vajadused.",
+    "section": "teemad"
+  },
+  {
+    "id": "sumbol",
+    "topic": "Tõlgendamine",
+    "question": "Mida võiks Pedro iseseisvumine sümboliseerida?",
+    "answers": [
+      "Seda, et kool pole vajalik",
+      "Seda, et hoolimine on mõttetu",
+      "Kasvamist, mida toetab hoolitsus",
+      "Seda, et kõik mured ununevad kohe",
+      "Võitu spordivõistlusel"
+    ],
+    "correct": 2,
+    "explanation": "See on põhjendatav tõlgendus: abistamine võib anda teisele jõudu oma teed minna.",
+    "section": "teemad"
+  },
+  {
+    "id": "pealkiri",
+    "topic": "Tõlgendamine",
+    "question": "Millist seost aitab pealkiri märgata?",
+    "answers": [
+      "Lugu õpetab linde kartma.",
+      "Kõik tegelased on linnud.",
+      "Teos on veterinaariaõpik.",
+      "Valu, lohutuse ja varese motiivi seost",
+      "Lugu käsitleb ainult ilma."
+    ],
+    "correct": 3,
+    "explanation": "Pealkiri meenutab rahvalikku valuvõtmisvormelit. Loos saab seda seostada hoolimise ja lohutusega.",
+    "section": "teemad"
+  },
+  {
+    "id": "lopu-mote",
+    "topic": "Tõlgendamine",
+    "question": "Milline väide sobib lootusrikka lõpu tõlgenduseks?",
+    "answers": [
+      "Isa surma ei olnudki.",
+      "Lein kaob kindla arvu päevadega.",
+      "Üksi olemine lahendab alati mured.",
+      "Sõprus muudab mineviku olematuks.",
+      "Kaotuse kõrval saab tekkida uut lähedust."
+    ],
+    "correct": 4,
+    "explanation": "Lootus ei eelda mineviku kustutamist: ka pärast rasket kogemust võib leida tuge ja sidemeid.",
+    "section": "teemad"
+  },
+  {
+    "id": "pohjendamine",
+    "topic": "Arutlemine",
+    "question": "Kuidas kirjeldada tegelase iseloomu veenvalt?",
+    "answers": [
+      "Seo omadus konkreetse teo või olukorraga.",
+      "Otsusta üksnes nime järgi.",
+      "Eelda, et peategelane ei eksi kunagi.",
+      "Vali võimalikult karm hinnang.",
+      "Asenda näited üldiste loosungitega."
+    ],
+    "correct": 0,
+    "explanation": "Hea vastuse mudel: omadus → näide teosest → selgitus, kuidas näide omadust näitab.",
+    "section": "teemad"
+  }
+];
+  const storageKey = "varesele-valu:review:v1";
+  const questionById = new Map(questions.map((question) => [question.id, question]));
+  const byId = (id) => document.getElementById(id);
+  const ui = {
+    welcome: byId("quiz-welcome"), round: byId("quiz-round"), results: byId("quiz-results"),
+    question: byId("question-text"), topic: byId("question-topic"), answers: byId("answer-list"),
+    counter: byId("question-counter"), progress: byId("quiz-progress"), mode: byId("quiz-mode"),
+    feedback: byId("quiz-feedback"), skip: byId("skip-question"), next: byId("next-question"),
+    score: byId("round-score"), reviewList: byId("review-list"), practice: byId("practice-review"),
+    repeatReview: byId("repeat-review"), storageNotice: byId("storage-notice")
+  };
+  let review = readReview();
+  let round = [];
+  let currentIndex = 0;
+  let correctCount = 0;
+  let answered = false;
+
+  function storageWarning(message) {
+    ui.storageNotice.textContent = message;
+    ui.storageNotice.hidden = false;
+  }
+
+  function readReview() {
+    try {
+      const raw = localStorage.getItem(storageKey);
+      if (raw === null) return new Map();
+      const data = JSON.parse(raw);
+      if (data?.version !== 1 || !Array.isArray(data.items)) throw new Error("Invalid review data");
+      return new Map(data.items
+        .filter((item) => item && questionById.has(item.id) && ["wrong", "unknown"].includes(item.reason))
+        .map((item) => [item.id, item.reason]));
+    } catch {
+      storageWarning("Varasemat meelespead ei saanud lugeda. Saad harjutada ja uut nimekirja koguda; selle säilimine sõltub brauseri salvestusvõimalusest.");
+      return new Map();
+    }
+  }
+
+  function saveReview() {
+    try {
+      localStorage.setItem(storageKey, JSON.stringify({
+        version: 1,
+        items: Array.from(review, ([id, reason]) => ({ id, reason }))
+      }));
+      ui.storageNotice.hidden = true;
+    } catch {
+      storageWarning("Brauser ei luba meelespead salvestada. Nimekiri töötab praegu, kuid pärast lehe sulgemist või värskendamist ei pruugi muudatused säilida.");
+    }
+  }
+
+  function shuffle(items) {
+    const result = [...items];
+    for (let index = result.length - 1; index > 0; index -= 1) {
+      const other = Math.floor(Math.random() * (index + 1));
+      [result[index], result[other]] = [result[other], result[index]];
+    }
+    return result;
+  }
+
+  function element(tag, className, text) {
+    const node = document.createElement(tag);
+    if (className) node.className = className;
+    if (text !== undefined) node.textContent = text;
+    return node;
+  }
+
+  function readingLink(question) {
+    const link = element("a", "", "Loe vastav osa uuesti →");
+    link.href = `#${question.section}`;
+    return link;
+  }
+
+  function focusHeading(node) {
+    node.focus({ preventScroll: true });
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    byId("quiz-panel").scrollIntoView({ behavior: reducedMotion ? "instant" : "smooth", block: "start" });
+  }
+
+  function startRound(reviewOnly = false) {
+    const selected = reviewOnly ? questions.filter((question) => review.has(question.id)) : questions;
+    if (!selected.length) return;
+    round = shuffle(selected);
+    currentIndex = 0;
+    correctCount = 0;
+    ui.welcome.hidden = true;
+    ui.results.hidden = true;
+    ui.round.hidden = false;
+    ui.mode.textContent = reviewOnly ? "Meelespea kordamine" : "Kõik küsimused";
+    ui.progress.max = round.length;
+    showQuestion();
+  }
+
+  function showQuestion() {
+    answered = false;
+    const question = round[currentIndex];
+    ui.question.textContent = question.question;
+    ui.topic.textContent = question.topic;
+    ui.counter.textContent = `${currentIndex + 1} / ${round.length}`;
+    ui.progress.value = currentIndex;
+    ui.score.textContent = `${correctCount} õiget`;
+    ui.feedback.replaceChildren();
+    ui.answers.replaceChildren();
+    ui.next.hidden = true;
+    ui.skip.hidden = false;
+    ui.next.textContent = currentIndex === round.length - 1 ? "Vaata tulemust →" : "Järgmine küsimus →";
+
+    const options = shuffle(question.answers.map((text, index) => ({ text, index })));
+    options.forEach((option, position) => {
+      const button = element("button", "answer");
+      button.type = "button";
+      button.dataset.answerIndex = String(option.index);
+      const letter = element("span", "answer-letter", "ABCDE"[position]);
+      letter.setAttribute("aria-hidden", "true");
+      button.append(letter, element("span", "answer-text", option.text));
+      button.addEventListener("click", () => answerQuestion(option.index));
+      ui.answers.append(button);
+    });
+    focusHeading(ui.question);
+  }
+
+  function answerQuestion(selectedIndex) {
+    if (answered || !round.length) return;
+    answered = true;
+    const question = round[currentIndex];
+    const isCorrect = selectedIndex === question.correct;
+    const skipped = selectedIndex === null;
+    if (isCorrect) {
+      correctCount += 1;
+      review.delete(question.id);
+    } else {
+      review.set(question.id, skipped ? "unknown" : "wrong");
+    }
+
+    for (const button of ui.answers.children) {
+      const index = Number(button.dataset.answerIndex);
+      button.disabled = true;
+      if (index === question.correct) {
+        button.classList.add("correct");
+        button.append(element("span", "answer-marker", "✓ Õige"));
+      } else if (index === selectedIndex) {
+        button.classList.add("wrong");
+        button.append(element("span", "answer-marker", "× Sinu vastus"));
+      }
+    }
+
+    const title = isCorrect ? "Õige!" : skipped ? "Õpime selle koos selgeks." : "Seekord läks teisiti.";
+    const feedback = [element("strong", "", title)];
+    if (!isCorrect) feedback.push(element("p", "", `Õige vastus: ${question.answers[question.correct]}`));
+    feedback.push(element("p", "", question.explanation));
+    feedback.push(element("p", "", isCorrect ? "See küsimus ei vaja praegu kordamist." : "Küsimus lisati sinu meelespeasse."));
+    feedback.push(readingLink(question));
+    ui.feedback.replaceChildren(...feedback);
+    ui.progress.value = currentIndex + 1;
+    ui.score.textContent = `${correctCount} õiget`;
+    ui.skip.hidden = true;
+    ui.next.hidden = false;
+    saveReview();
+    renderReview();
+    ui.next.focus({ preventScroll: true });
+  }
+
+  function showResults() {
+    ui.round.hidden = true;
+    ui.results.hidden = false;
+    const missed = round.length - correctCount;
+    byId("result-title").textContent = missed === 0 ? "Kõik vastused õiged!" : "Üks samm selgemaks.";
+    byId("result-score").textContent = `${correctCount} / ${round.length} õiget`;
+    byId("result-description").textContent = missed === 0
+      ? "Selles harjutuskorras vastasid kõigile küsimustele õigesti."
+      : `Selles harjutuskorras jäi kordamiseks ${missed} küsimust. Loe selgitused läbi ja proovi neid uuesti.`;
+    ui.repeatReview.disabled = review.size === 0;
+    ui.repeatReview.textContent = `Korda meelespead (${review.size})`;
+    focusHeading(byId("result-title"));
+  }
+
+  function renderReview() {
+    byId("review-count").textContent = String(review.size);
+    byId("nav-review-count").textContent = String(review.size);
+    ui.practice.disabled = review.size === 0;
+    ui.repeatReview.disabled = review.size === 0;
+    ui.reviewList.replaceChildren();
+    if (review.size === 0) {
+      ui.reviewList.append(element("p", "empty-state", "Praegu ei ole kordamist vajavaid küsimusi. Proovi küsimustikku või jutusta lugu oma sõnadega."));
+      return;
+    }
+    for (const [id, reason] of review) {
+      const question = questionById.get(id);
+      const card = element("details", "review-card");
+      const summary = element("summary");
+      summary.append(element("span", "review-reason", reason === "unknown" ? "Märkisid: ei tea veel" : "Eelmisel katsel vale vastus"));
+      summary.append(element("span", "", question.question));
+      const explanation = element("div", "review-explanation");
+      explanation.append(element("p", "", `Õige vastus: ${question.answers[question.correct]}`));
+      explanation.append(element("p", "", question.explanation), readingLink(question));
+      card.append(summary, explanation);
+      ui.reviewList.append(card);
+    }
+  }
+
+  const stories = Array.from(document.querySelectorAll(".story"));
+  const toggleStories = byId("toggle-stories");
+  function updateStoryToggle() {
+    toggleStories.textContent = stories.every((story) => story.open) ? "Sulge kõik plokid" : "Ava kõik plokid";
+  }
+  toggleStories.addEventListener("click", () => {
+    const open = !stories.every((story) => story.open);
+    stories.forEach((story) => { story.open = open; });
+    updateStoryToggle();
+  });
+  stories.forEach((story) => story.addEventListener("toggle", updateStoryToggle));
+
+  let beforePrintState = null;
+  window.addEventListener("beforeprint", () => {
+    if (beforePrintState !== null) return;
+    beforePrintState = stories.map((story) => story.open);
+    stories.forEach((story) => { story.open = true; });
+  });
+  window.addEventListener("afterprint", () => {
+    if (beforePrintState === null) return;
+    stories.forEach((story, index) => { story.open = beforePrintState[index]; });
+    beforePrintState = null;
+    updateStoryToggle();
+  });
+
+  byId("start-quiz").addEventListener("click", () => startRound());
+  byId("restart-quiz").addEventListener("click", () => startRound());
+  ui.practice.addEventListener("click", () => startRound(true));
+  ui.repeatReview.addEventListener("click", () => startRound(true));
+  ui.skip.addEventListener("click", () => answerQuestion(null));
+  ui.next.addEventListener("click", () => {
+    if (!answered) return;
+    currentIndex += 1;
+    if (currentIndex < round.length) showQuestion();
+    else showResults();
+  });
+
+  renderReview();
+  document.documentElement.classList.add("js");
+})();
+</script>
+</body>
+</html>
